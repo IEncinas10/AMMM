@@ -12,9 +12,11 @@
 - Cmake
 - [fmt](https://github.com/fmtlib/fmt)
 
-Install boost libraries 
+### Install boost libraries 
 
 ```
 sudo apt install libboost-all-dev
 ```
+### Install fmt
+https://packages.debian.org/source/sid/fmtlib
 
