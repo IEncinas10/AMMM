@@ -53,6 +53,17 @@ struct Tournament {
 		}
 	    }
 	}
+
+
+	/*
+	 *   Players can't play vs themselves
+	 *   Every player has to play with every other player
+	 *   etc
+	 *
+	 *   For each day D sort players (increasingly) by the points
+	 *   they win by resting this day, and create matchups from this,
+	 *   taking into account impossible matchups and so on
+	 */
     }
 
     void print() {
