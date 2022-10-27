@@ -10,6 +10,7 @@
 - Boost libraries 
 - Sort of recent C++ impl
 - Cmake
+- [fmt](https://github.com/fmtlib/fmt)
 
 Install boost libraries 
 
