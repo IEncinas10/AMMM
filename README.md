@@ -4,3 +4,16 @@
 - [https://github.com/marcelcases/miri-ammm-labs](https://github.com/marcelcases/miri-ammm-labs)
 - [https://github.com/eloygil/AMMM-Project](https://github.com/eloygil/AMMM-Project)
 - [https://github.com/jeromepasvantis/AMMM](https://github.com/jeromepasvantis/AMMM)
+
+## Dependencies
+
+- Boost libraries 
+- Sort of recent C++ impl
+- Cmake
+
+Install boost libraries 
+
+```
+sudo apt install libboost-all-dev
+```
+
