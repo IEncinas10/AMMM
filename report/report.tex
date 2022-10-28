@@ -68,11 +68,11 @@ We've defined the following sets in order to model the problem:
 \begin{itemize}
     \item $P$ is the set of players participating in the tournament. $|P| = n$
     \item Rounds is the number of rounds. In this case it is equal to $|P|$.
+    \item $M(x, y)$  is the set of matches played among \textit{x} and \textit{y}.
+    \item $F(r)$ is the set of free players at round $r$.
     \item $W(p)$ is the set of matches played by player \textit{p} as white.
     \item $B(p)$ is the set of matches played by player \textit{p} as black.
     \item $R(r)$  is the set of matches played at round \textit{r}.
-    \item $M(x, y)$  is the set of matches played among \textit{x} and \textit{y}.
-    \item $F(r)$ is the set of free players at round $r$.
     \item $G(p,r)$ is the set of games played by player $p$ at round $r$.
 \end{itemize}
 
@@ -94,6 +94,8 @@ Our goal is to maximize this score.
 \subsection{Output}
 The output will be an optimal schedule $s$ that maximizes the score. It will contain the matches to be carried out in every round of the tournament.
 
+\clearpage
+
 \section{Integer Linear Programming Model}
 Every set will be built from a boolean multidimensional array. \textit{matches}$[w][b][r]$ will be 1 whenever player $w$ plays player $b$ in round $r$, and 0 otherwise.
 
@@ -105,9 +107,10 @@ For clarity's sake we'll explicitly state these constructions:
     F(r)      &= \{ p \ | \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0 \quad \forall r \in [1, Rounds], o \in [1, n]\}\\
     W(p)      &= \{ \{p, b, r\} \ | \ \text{matches}[p][b][r] = 1  \quad \forall r \in [1, Rounds], b \in [1, n]\}\\
     B(p)      &= \{ \{w, p, r\} \ | \ \text{matches}[w][p][r] = 1  \quad \forall r \in [1, Rounds], w \in [1, n]\}\\
-    R(r)      &= \{ \{x, y, r\} \ | \ \text{matches}[w][b][r] = 1  \quad \forall w, b \in [1, n]\}\\
-    G(p, r)   &= \{ \{p, o, r\} \ | \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] \quad \forall o \in [1, n]\}\\
+    R(r)      &= \{ \{w, b, r\} \ | \ \text{matches}[w][b][r] = 1  \quad \forall w, b \in [1, n]\}\\
+    G(p, r)   &= \{ r\footnotemark \ | \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1 \quad \forall o \in [1, n]\}\\
 \end{align*}
+\footnotetext{We don't care about the elements in this set really, just its size. As we can't know if \textit{p} plays as white or black we'll just care about the round, whatever.}
 
 \subsection{Constraints}
 
