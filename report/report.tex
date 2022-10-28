@@ -1,5 +1,6 @@
 \documentclass[a4paper, 10pt]{article}
 \usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{hyperref}
 \usepackage[utf8]{inputenc} % Change according your file encoding
 \usepackage{graphicx}
 %\usepackage[demo]{graphicx}
@@ -41,13 +42,110 @@
 
 \maketitle
 
+\listoftodos[Doubts]
+
+While discussing with some classmates that have already done AMMM they mentioned that time taken by the ILP model to reach a solution varied a lot from group to group. That surprised us,
+given that we expected a sort of uniform ILP model. We believe that this difference in speed may come from ``unnecessary'' constraints that might be helpful for the branch and bound algorithm, 
+but as we didn't discuss this extensively in class, we wanted to know if this is something relevant for the course or not.
+
+Our very preliminary tests with the samples suggest that adding these extra constraints might be doing what we expected, but we wanted to make sure and check if you had any indication on how we may
+optimize our model in order to get the solutions faster, and while we're at it, check that the problem statement and ILP explanation meets your expectations.
+
+\clearpage
 \section{Problem statement}
-\textit{The formal problem statement}
+In this section we'll state the inputs, outputs, modelling elements and objective function.
+
+
+\subsection{Input}
+\begin{itemize}
+    \item $n$ is the number of players that will participate in the tournament.
+    \item $p_{n \times n}$ is the matrix of points. $p_{ij}$ is the number of points assigned by player $i$ to round $j$.
+\end{itemize}
+
+\subsection{Definitions}
+We've defined the following sets in order to model the problem:
+
+\begin{itemize}
+    \item $P$ is the set of players participating in the tournament. $|P| = n$
+    \item Rounds is the number of rounds. In this case it is equal to $|P|$.
+    \item $W(p)$ is the set of matches played by player \textit{p} as white.
+    \item $B(p)$ is the set of matches played by player \textit{p} as black.
+    \item $R(r)$  is the set of matches played at round \textit{r}.
+    \item $M(x, y)$  is the set of matches played among \textit{x} and \textit{y}.
+    \item $F(r)$ is the set of free players at round $r$.
+    \item $G(p,r)$ is the set of games played by player $p$ at round $r$.
+\end{itemize}
+
+Thus, the score of a schedule can be computed as followed:
+
+$$
+\displaystyle
+    \text{Score} = \sum_{j = 1}^{\text{Rounds}} \sum_{i \in F(r)}  p_{ij}
+$$
+
+
+Our goal is to maximize this score.
+
+
+
+
+
+
+\subsection{Output}
+The output will be an optimal schedule $s$ that maximizes the score. It will contain the matches to be carried out in every round of the tournament.
 
 \section{Integer Linear Programming Model}
-\textit{The integer linear programming model, with a definition and a short description of the variables, the objective function and the constraints. Do not include OPL code in the document, but rather their mathematical formulation.}
+Every set will be built from a boolean multidimensional array. \textit{matches}$[w][b][r]$ will be 1 whenever player $w$ plays player $b$ in round $r$, and 0 otherwise.
 
-Mirar los enunciados de las prácticas, en concreto Lab3
+
+For clarity's sake we'll explicitly state these constructions:
+
+\begin{align*}
+    M(x, y)   &= \{ \{x, y, r\} \ | \ \text{matches}[x][y][r] = 1 \lor \text{matches}[x][y][r] = 1 \quad \forall r \in [1, Rounds]\}\\
+    F(r)      &= \{ p \ | \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0 \quad \forall r \in [1, Rounds], o \in [1, n]\}\\
+    W(p)      &= \{ \{p, b, r\} \ | \ \text{matches}[p][b][r] = 1  \quad \forall r \in [1, Rounds], b \in [1, n]\}\\
+    B(p)      &= \{ \{w, p, r\} \ | \ \text{matches}[w][p][r] = 1  \quad \forall r \in [1, Rounds], w \in [1, n]\}\\
+    R(r)      &= \{ \{x, y, r\} \ | \ \text{matches}[w][b][r] = 1  \quad \forall w, b \in [1, n]\}\\
+    G(p, r)   &= \{ \{p, o, r\} \ | \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] \quad \forall o \in [1, n]\}\\
+\end{align*}
+
+\subsection{Constraints}
+
+\begin{equation}
+    \label{playwitheachother}
+    |M(x,y)| = 1 \quad \forall x,y \in P \ | \  x \neq y
+\end{equation}
+
+Eq. \ref{playwitheachother} ensures ``each contestant will play exactly once against each other of the contestants''.
+
+\begin{equation}
+    \label{noselfplay}
+    |M(x,x)| = 0 \quad \forall x \in P 
+\end{equation}
+Eq. \ref{noselfplay} ensures that a player can't play with himself. \todo[fancyline]{Include?}
+
+\begin{equation}
+    \label{1gameperround}
+    |G(p,r)| \leq 1 \quad \forall p \in P, r \in [1, \ \text{Rounds}] 
+\end{equation}
+Eq. \ref{1gameperround} ensures that a player plays up to 1 game per round.
+
+\begin{equation}
+    \label{matchesperround}
+    |R(r)| = \frac{n-1}{2}  \quad \forall r \in [1,\ \text{Rounds}] 
+\end{equation}
+Eq. \ref{matchesperround} ensures that ``the number of games that are played simultaneously at each slot is always $\frac{n-1}{2}$''
+
+\begin{equation}
+    \label{fairness}
+    |W(p)| = \frac{n-1}{2} \quad \forall r \in [1, \ \text{Rounds}], \forall p \in P
+\end{equation}
+
+Eq. \ref{fairness} ensures that ``a contestant should play black as many whites as white'', 
+given that Eq. \ref{playwitheachother} ensures that $|\text{Games}(p)| = n - 1$ and $|\text{Games}(p)| = |W(p)| + |B(p)|$  
+
+
+\clearpage
 
 \section{Meta-heuristics}
 \textit{For the meta-heuristics, the pseudo-code of your constructive, local search and GRASP algorithms, including equations for describing the greedy cost function(s) and the RCL}
@@ -63,7 +161,7 @@ Mirar los enunciados de las prácticas, en concreto Lab3
 \section{Results}
 
 \section{Reproducing the results}
-\todo[inline]{maybe setup a script to reproduce results or something...}
+%\todo[inline]{maybe setup a script to reproduce results or something...}
 
 \begin{itemize}
     \item OPL source code
