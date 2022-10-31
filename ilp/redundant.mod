@@ -19,6 +19,7 @@ dvar boolean match[white in N][black in N][slot in N];
 
 
 // Debug
+//constraint no_self_match[N];
 //constraint input_check[N];
 //constraint number_of_matches[N];
 //constraint x_vs_y[N][N];
@@ -48,6 +49,14 @@ subject to {
 	    //x_vs_y[x][y]:
 	    (sum(k in N) match[x][y][k] + sum(k in N) match[y][x][k]) == 1;
 	}
+    }
+
+    // You cant play vs yourself!
+    forall(x in N) {
+        //no_self_match[x]:
+        forall(k in N) {
+            match[x][x][k] == 0;
+        }
     }
 
 /////////////////////////////////////////////////////
@@ -105,9 +114,16 @@ subject to {
             match[x][y][k]) == (n - 1)/2;
     }
 
+    forall(x in N) {
+        (sum(y in N, k in N)
+            match[y][x][k]) == (n - 1)/2;
+    }
+
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
+
+
 
     score <= sum(k in N) (
 	sum(x in N) (
