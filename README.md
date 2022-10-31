@@ -22,6 +22,33 @@ https://packages.debian.org/source/sid/fmtlib
 
 
 
+## Instance generation
+
+We have to compile **generator.cpp** linking with libfmt. Generally, -lfmt 
+```
+$ ./generator --help
+AMMM Course Project 2022
+Instance generator
+Usage:
+  ./generator [OPTION...]
+
+  -n, --numplayers arg  Number of players. has to be odd (default: 3)
+  -s, --seed arg        Seed for the random engine (default: 1)
+      --every_instance  Generate every instance up to [numplayers]
+      --output_dir arg  Output directory for generated instance(s) (default: 
+                        ../instances/)
+  -h, --help            Print help
+
+```
+
+The good thing about this is that the instances are reproducible, as we specify the seed. Creating them is as simple as:
+
+```
+./generator -n 31 -s 1 --every_instance
+```
+
+With that command, we create instances from 3 to 31 (3, 5, 7, ..., 31) at directory ../instances using seed 1.
+
 ## ILP
 
 ### Redundant vs non-redundant
