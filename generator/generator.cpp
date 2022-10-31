@@ -19,18 +19,18 @@ static std::string output_directory;
 
 void setup_generator(uint64_t seed) { generator.seed(seed); }
 
-std::vector<uint16_t> generate_points_per_player() {
-    std::vector<uint16_t> points(N);
+std::vector<uint16_t> generate_points_per_player(uint64_t players) {
+    std::vector<uint16_t> points(players);
 
     // Let's access the points array via a shuffled array of indices
     // if we don't do that points get clustered into the first
     // positions of the array for every player
-    std::vector<uint64_t> indices(N);
+    std::vector<uint64_t> indices(players);
     std::iota(indices.begin(), indices.end(), 0);
     std::shuffle(indices.begin(), indices.end(), generator);
 
     uint64_t total = 0;
-    for (uint64_t i = 0; i < N && total != TOTAL_POINTS; i++) {
+    for (uint64_t i = 0; i < players && total != TOTAL_POINTS; i++) {
 	uint64_t tmp = distribution(generator);
 
 	tmp = std::min(TOTAL_POINTS - total, tmp);
@@ -85,19 +85,19 @@ void parse(int argc, char **argv) {
 int main(int argc, char **argv) {
     parse(argc, argv);
     
-    uint64_t i = 3;
+    uint64_t num_players = 3;
     if(!generate_every_instance) 
-	i = N;
+	num_players = N;
     
-    for(; i <= N; i += 2) {
-	const std::string filepath_string = output_directory + fmt::format("project.{}.dat", i);
+    for(; num_players <= N; num_players += 2) {
+	const std::string filepath_string = output_directory + fmt::format("project.{}.dat", num_players);
 
 	fmt::print("Generating file {}... ", filepath_string);
 	const char *filepath = filepath_string.c_str();
 	FILE *file = fopen(filepath, "w+");
-	fmt::print(file, "n = {}\n\n\np =\n  [\n", N);
-	for(uint64_t j = 1; j <= N; j++) {
-	    const auto tmp = generate_points_per_player();
+	fmt::print(file, "n = {}\n\n\np =\n  [\n", num_players);
+	for(uint64_t j = 1; j <= num_players; j++) {
+	    const auto tmp = generate_points_per_player(num_players);
 	    fmt::print(file, "    [{:<3}]\n", fmt::join(tmp, " "));
 	}
 	fmt::print(file, "  ];\n");
