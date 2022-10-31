@@ -10,6 +10,7 @@
 #define MIN_POINTS 0
 #define MAX_POINTS 100
 #define TOTAL_POINTS 100
+#define MIN_PLAYERS 3
 
 static uint64_t N = 0;
 static std::mt19937 generator;
@@ -85,7 +86,7 @@ void parse(int argc, char **argv) {
 int main(int argc, char **argv) {
     parse(argc, argv);
     
-    uint64_t num_players = 3;
+    uint64_t num_players = MIN_PLAYERS;
     if(!generate_every_instance) 
 	num_players = N;
     
@@ -95,7 +96,7 @@ int main(int argc, char **argv) {
 	fmt::print("Generating file {}... ", filepath_string);
 	const char *filepath = filepath_string.c_str();
 	FILE *file = fopen(filepath, "w+");
-	fmt::print(file, "n = {}\n\n\np =\n  [\n", num_players);
+	fmt::print(file, "n = {};\n\n\np =\n  [\n", num_players);
 	for(uint64_t j = 1; j <= num_players; j++) {
 	    const auto tmp = generate_points_per_player(num_players);
 	    fmt::print(file, "    [{:<3}]\n", fmt::join(tmp, " "));
