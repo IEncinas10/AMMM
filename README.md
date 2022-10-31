@@ -20,3 +20,10 @@ sudo apt install libboost-all-dev
 ### Install fmt
 https://packages.debian.org/source/sid/fmtlib
 
+
+
+## ILP
+
+### Redundant vs non-redundant
+
+[time_per_instance.pdf](https://github.com/IEncinas10/AMMM/files/9900567/time_per_instance.pdf)
