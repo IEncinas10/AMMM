@@ -45,13 +45,55 @@ struct Tournament {
 
     void create_matchups() {
 	const uint64_t days = num_players; 
+
+
 	for(uint64_t day = 0; day < days; day++) {
+        fmt::print("DAY {}\n", day);
+        
+        //some way we need to sort by ascending points the players each day
+        std::sort(players.begin(), players.end(), [day] (Player &x, Player &y) { return x.points_per_day[day] < y.points_per_day[day]; });
+
 	    for(uint64_t white = 0; white < num_players; white++) {
-		for(uint64_t black = 0; black < num_players; black++) {
-		    const Match m { day, white, black }; 
-		    matches.insert(m);
-		}
+            uint64_t matchCounter = 0;
+            for(uint64_t black = 0; black < num_players; black++) {
+                fmt::print("{} blanco - {} negro\n", white, black);
+                if(white != black){//you cannot play vs yourself
+                    const Match m { day, white, black }; 
+                    bool repeated = false;
+                    //we look if that match have been done previously
+                    for(uint64_t prev = 0; prev <= day; prev++){
+                        fmt::print("Looking for {} - {} in day {}\n", white, black, prev);
+                        const Match prevMatch {prev, white, black};
+                        const Match prevMatchRev {prev, black, white};
+                        auto pos = matches.find(prevMatch);
+                        auto posRev = matches.find(prevMatchRev);
+                        if(pos != matches.end()){
+                            fmt::print("Match repetido saltamos\n");
+                            repeated = true;
+                            break;
+                        }else if(posRev != matches.end()){
+                            fmt::print("Match Repetido a la inversa saltamos\n");
+                            repeated = true;
+                            break;
+                        }
+                    }
+                    if(!repeated){
+                        fmt::print("Insert\n");
+                        matches.insert(m);
+                        matchCounter++;
+                        break;
+                    }
+                    
+                    
+                }else fmt::print("NO POSSIBLE VS YOURSELF\n");
+            }
+            if(matchCounter == (num_players - 1)/2){
+                fmt::print("{} matched plays\n\n", matchCounter);
+                break;
+            }
 	    }
+
+
 	}
 
 
