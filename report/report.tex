@@ -68,10 +68,10 @@ We've defined the following sets in order to model the problem:
 
 Thus, the score of a schedule can be computed as followed:
 
-$$
-\displaystyle
+\begin{equation}
     \text{Score} = \sum_{j = 1}^{\text{Rounds}} \sum_{i \in F(r)}  p_{ij}
-$$
+    \label{objfunc}
+\end{equation}
 
 
 Our goal is to maximize this score.
@@ -101,6 +101,8 @@ For clarity's sake we'll explicitly state these constructions:
     G(p, r)   &= \{ r\footnotemark \ | \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1 \quad \forall o \in [1, n]\}\\
 \end{align*}
 \footnotetext{We don't care about the elements in this set really, just its size. As we can't know if \textit{p} plays as white or black we'll just care about the round, whatever.}
+
+The objective function was already described by Eq. \ref{objfunc}
 
 \subsection{Constraints}
 
