@@ -11,6 +11,7 @@
 using player_id = uint64_t;
 
 struct Player {
+    player_id playerID;
     std::vector<uint64_t> points_per_day;
 
     std::size_t &operator[](std::size_t index) { return points_per_day[index]; }
@@ -43,8 +44,13 @@ struct Tournament {
 	players.resize(num_players);
     }
 
+    
+
     void create_matchups() {
 	const uint64_t days = num_players; 
+    for(uint64_t player = 0; player < num_players; player++){
+        players[player].playerID = player;
+    }
 
 
 	for(uint64_t day = 0; day < days; day++) {
@@ -56,15 +62,15 @@ struct Tournament {
 	    for(uint64_t white = 0; white < num_players; white++) {
             uint64_t matchCounter = 0;
             for(uint64_t black = 0; black < num_players; black++) {
-                fmt::print("{} blanco - {} negro\n", white, black);
+                fmt::print("{} blanco - {} negro\n", players[white].playerID, players[black].playerID);
                 if(white != black){//you cannot play vs yourself
                     const Match m { day, white, black }; 
                     bool repeated = false;
                     //we look if that match have been done previously
                     for(uint64_t prev = 0; prev <= day; prev++){
-                        fmt::print("Looking for {} - {} in day {}\n", white, black, prev);
-                        const Match prevMatch {prev, white, black};
-                        const Match prevMatchRev {prev, black, white};
+                        fmt::print("Looking for {} - {} in day {}\n", players[white].playerID, players[black].playerID, prev);
+                        const Match prevMatch {prev, players[white].playerID, players[black].playerID};
+                        const Match prevMatchRev {prev, players[black].playerID, players[white].playerID};
                         auto pos = matches.find(prevMatch);
                         auto posRev = matches.find(prevMatchRev);
                         if(pos != matches.end()){
