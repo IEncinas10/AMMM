@@ -54,3 +54,9 @@ With that command, we create instances from 3 to 31 (3, 5, 7, ..., 31) at direct
 ### Redundant vs non-redundant
 
 [time_per_instance.pdf](https://github.com/IEncinas10/AMMM/files/9900567/time_per_instance.pdf)
+
+## Slides
+
+```
+xelatex -shell-escape main.tex
+```
