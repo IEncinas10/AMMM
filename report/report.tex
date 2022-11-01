@@ -1,5 +1,5 @@
 \documentclass[a4paper, 10pt]{article}
-\usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[a4paper,left=3cm,right=2cm,top=2.0cm,bottom=1.5cm]{geometry}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc} % Change according your file encoding
 \usepackage{graphicx}
@@ -42,16 +42,6 @@
 
 \maketitle
 
-\listoftodos[Doubts]
-
-While discussing with some classmates that have already done AMMM they mentioned that time taken by the ILP model to reach a solution varied a lot from group to group. That surprised us,
-given that we expected a sort of uniform ILP model. We believe that this difference in speed may come from ``unnecessary'' constraints that might be helpful for the branch and bound algorithm, 
-but as we didn't discuss this extensively in class, we wanted to know if this is something relevant for the course or not.
-
-Our very preliminary tests with the samples suggest that adding these extra constraints might be doing what we expected, but we wanted to make sure and check if you had any indication on how we may
-optimize our model in order to get the solutions faster, and while we're at it, check that the problem statement and ILP explanation meets your expectations.
-
-\clearpage
 \section{Problem statement}
 In this section we'll state the inputs, outputs, modelling elements and objective function.
 
@@ -121,11 +111,6 @@ For clarity's sake we'll explicitly state these constructions:
 
 Eq. \ref{playwitheachother} ensures ``each contestant will play exactly once against each other of the contestants''.
 
-\begin{equation}
-    \label{noselfplay}
-    |M(x,x)| = 0 \quad \forall x \in P 
-\end{equation}
-Eq. \ref{noselfplay} ensures that a player can't play with himself. \todo[fancyline]{Include?}
 
 \begin{equation}
     \label{1gameperround}
@@ -146,6 +131,31 @@ Eq. \ref{matchesperround} ensures that ``the number of games that are played sim
 
 Eq. \ref{fairness} ensures that ``a contestant should play black as many whites as white'', 
 given that Eq. \ref{playwitheachother} ensures that $|\text{Games}(p)| = n - 1$ and $|\text{Games}(p)| = |W(p)| + |B(p)|$  
+
+\subsection{Redundant constraints}
+
+
+\begin{minipage}{0.45\linewidth}
+\begin{equation}
+    \label{noselfplay}
+    |M(x,x)| = 0 \quad \forall x \in P 
+\end{equation}
+Eq. \ref{noselfplay} ensures that a player can't play with himself. 
+
+\begin{equation}
+    \label{blackfairness}
+    |B(p)| = \frac{n-1}{2} \quad \forall r \in [1, \ \text{Rounds}], \forall p \in P
+\end{equation}
+
+    While developing the model, we removed some redundant constraints such as the one described by Eq. \ref{noselfplay}. Initial testing suggested that the redundant ILP model could be faster in some cases, but further testing indicated otherwise. Results shown in Figure \ref{figilp}
+\end{minipage}
+\begin{minipage}{0.49\linewidth}
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{plots/time_per_instance.pdf}
+    \caption{ILP runtime w.r.t the number of players}
+    \label{figilp}
+\end{figure}
+\end{minipage}
 
 
 \clearpage
