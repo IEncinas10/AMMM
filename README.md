@@ -41,7 +41,7 @@ Usage:
 
 ```
 
-The good thing about this is that the instances are reproducible, as we specify the seed. Creating them is as simple as:
+The good thing about this is that the instances are reproducible(under the same libc++ implementation), as we specify the seed. Creating them is as simple as:
 
 ```
 ./generator -n 31 -s 1 --every_instance
