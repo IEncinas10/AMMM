@@ -27,6 +27,10 @@ struct Match {
 	return day < other.day;
     }
 
+    bool operator==(const Match &other) const {
+        return day == other.day && white == other.white && black == other.black;
+    }
+
 };
 
 
@@ -48,6 +52,7 @@ struct Tournament {
 
     void create_matchups() {
 	const uint64_t days = num_players; 
+    //we assign the ID to the players
     for(uint64_t player = 0; player < num_players; player++){
         players[player].playerID = player;
     }
@@ -56,44 +61,51 @@ struct Tournament {
 	for(uint64_t day = 0; day < days; day++) {
         fmt::print("DAY {}\n", day);
         
-        //some way we need to sort by ascending points the players each day
+        //sort by ascending points the players each day
         std::sort(players.begin(), players.end(), [day] (Player &x, Player &y) { return x.points_per_day[day] < y.points_per_day[day]; });
 
 	    for(uint64_t white = 0; white < num_players; white++) {
             uint64_t matchCounter = 0;
-            for(uint64_t black = 0; black < num_players; black++) {
+            for(uint64_t black = 0; black < num_players; black++) {//TODO ver que si blanco o negro ha jugado hoy no puede volver a jugar
                 fmt::print("{} blanco - {} negro\n", players[white].playerID, players[black].playerID);
                 if(white != black){//you cannot play vs yourself
-                    const Match m { day, white, black }; 
+                    const Match m { day, players[white].playerID, players[black].playerID}; 
                     bool repeated = false;
                     //we look if that match have been done previously
-                    for(uint64_t prev = 0; prev <= day; prev++){
+                    for(uint64_t prev = 0; prev <= day; prev++){//miro que la partida entre blanco y negro no haya ocurrido antes, ni este dia ni otro anterior
                         fmt::print("Looking for {} - {} in day {}\n", players[white].playerID, players[black].playerID, prev);
                         const Match prevMatch {prev, players[white].playerID, players[black].playerID};
                         const Match prevMatchRev {prev, players[black].playerID, players[white].playerID};
-                        auto pos = matches.find(prevMatch);
-                        auto posRev = matches.find(prevMatchRev);
-                        if(pos != matches.end()){
+                        
+
+                        const auto matches_in_day = matches.equal_range(prevMatch);
+
+                        //comparo con los partidos blanco-negro y partidos del reves (blanco era negro y viceversa)
+                        auto pos = std::find(matches_in_day.first, matches_in_day.second, prevMatch);
+                        auto posRev = std::find(matches_in_day.first, matches_in_day.second, prevMatchRev);
+
+
+                        if(pos != matches.end()){//miro que no se repita con el normal
                             fmt::print("Match repetido saltamos\n");
                             repeated = true;
                             break;
-                        }else if(posRev != matches.end()){
+                        }else if(posRev != matches.end()){//miro que no se repita con el inverso
                             fmt::print("Match Repetido a la inversa saltamos\n");
                             repeated = true;
                             break;
                         }
                     }
-                    if(!repeated){
+                    if(!repeated){//si el match no es repetido lo inserta
                         fmt::print("Insert\n");
                         matches.insert(m);
-                        matchCounter++;
+                        matchCounter++;//counter para parar las partidas del dia X en caso de que sobre ya haya los partidos
                         break;
                     }
                     
                     
                 }else fmt::print("NO POSSIBLE VS YOURSELF\n");
             }
-            if(matchCounter == (num_players - 1)/2){
+            if(matchCounter == (num_players - 1)/2){//comprueba partidas del dia
                 fmt::print("{} matched plays\n\n", matchCounter);
                 break;
             }
