@@ -45,6 +45,14 @@
 \section{Problem statement}
 In this section we'll state the inputs, outputs, modelling elements and objective function.
 
+The problem can be summarized into the following requirements:
+
+\begin{enumerate}
+    \item Each contestant will play exactly once against each of the other contestants.
+    \item Each round will consist of $\frac{n-1}{2}$ matches.
+    \item Players will play 50\% of their games as white, 50\% will be played as black.
+\end{enumerate}
+
 
 \subsection{Input}
 \begin{itemize}
@@ -93,13 +101,14 @@ Every set will be built from a boolean multidimensional array. \textit{matches}$
 For clarity's sake we'll explicitly state these constructions:
 
 \begin{align*}
-    M(x, y)   &= \{ \{x, y, r\} \ | \ \text{matches}[x][y][r] = 1 \lor \text{matches}[x][y][r] = 1 \quad \forall r \in [1, Rounds]\}\\
-    F(r)      &= \{ p \ | \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0 \quad \forall r \in [1, Rounds], o \in [1, n]\}\\
-    W(p)      &= \{ \{p, b, r\} \ | \ \text{matches}[p][b][r] = 1  \quad \forall r \in [1, Rounds], b \in [1, n]\}\\
-    B(p)      &= \{ \{w, p, r\} \ | \ \text{matches}[w][p][r] = 1  \quad \forall r \in [1, Rounds], w \in [1, n]\}\\
-    R(r)      &= \{ \{w, b, r\} \ | \ \text{matches}[w][b][r] = 1  \quad \forall w, b \in [1, n]\}\\
-    G(p, r)   &= \{ r\footnotemark \ | \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1 \quad \forall o \in [1, n]\}\\
+    M(x, y)   &= \{ \{x, y, r\}              &|& \ \text{matches}[x][y][r] = 1 \lor \text{matches}[x][y][r] = 1   &\forall &r \in [1, Rounds]\}\\
+    F(r)      &= \{ p                        &|& \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0  &\forall &r \in [1, Rounds], o \in [1, n]\}\\
+    W(p)      &= \{ \{p, b, r\}              &|& \ \text{matches}[p][b][r] = 1                                    &\forall &r \in [1, Rounds], b \in [1, n]\}\\
+    B(p)      &= \{ \{w, p, r\}              &|& \ \text{matches}[w][p][r] = 1                                    &\forall &r \in [1, Rounds], w \in [1, n]\}\\
+    R(r)      &= \{ \{w, b, r\}              &|& \ \text{matches}[w][b][r] = 1                                    &\forall &w, b \in [1, n]\}\\
+    G(p, r)   &= \{ r\footnotemark           &|& \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1  &\forall &o \in [1, n]\}\\
 \end{align*}
+
 \footnotetext{We don't care about the elements in this set really, just its size. As we can't know if \textit{p} plays as white or black we'll just care about the round, whatever.}
 
 The objective function was already described by Eq. \ref{objfunc}
