@@ -13,16 +13,25 @@ using player_id = uint64_t;
 enum class Color { WHITE, BLACK };
 
 struct Player {
+
     player_id playerID;
     std::vector<uint64_t> points_per_day;
-    Color next_color; // WHITE or BLACK
+    uint64_t games_black = 0;
+    uint64_t games_white = 0;
     bool hasRested = false;
 
     std::size_t &operator[](std::size_t index) { return points_per_day[index]; }
     std::size_t operator[](std::size_t index) const { return points_per_day[index]; }
 
-    static bool plays_white(const Player &p) { return p.next_color == Color::WHITE; }
-    static bool plays_black(const Player &p) { return p.next_color == Color::BLACK; }
+    static bool can_play_white(const Player &p) { return  p.games_white < p.total_games()/2; }
+    static bool can_play_black(const Player &p) { return  p.games_black < p.total_games()/2; }
+
+    bool operator==(const Player &other) const {
+	return playerID == other.playerID;
+    }
+
+    bool has_missing_games() const { return points_per_day.size() - 1 != games_black + games_white; }
+    uint64_t total_games() const { return points_per_day.size() - 1; }
 };
 
 struct Match {
@@ -68,7 +77,6 @@ struct Tournament {
 	// we assign the ID to the players
 	for (uint64_t player = 0; player < num_players; player++) {
 	    players[player].playerID = player;
-	    players[player].next_color = player % 2 == 0 ? Color::WHITE : Color::BLACK;
 	}
 
 	for (uint64_t day = 0; day < days; day++) {
@@ -97,11 +105,11 @@ struct Tournament {
 
 	    std::vector<Player> players_white;
 	    std::copy_if(players_day.begin(), players_day.end(), std::back_inserter(players_white),
-			 Player::plays_white);
+			 Player::can_play_white);
 
 	    std::vector<Player> players_black;
 	    std::copy_if(players_day.begin(), players_day.end(), std::back_inserter(players_black),
-			 Player::plays_black);
+			 Player::can_play_black);
 
 	    create_matches_round(players_white, players_black, day);
 	}
@@ -130,13 +138,35 @@ struct Tournament {
 		games.push_back(g);
 
 		// Update next color for both players
-		players[w.playerID].next_color = Color::BLACK;
-		players[b.playerID].next_color = Color::WHITE;
+		players[w.playerID].games_white++;
+		players[b.playerID].games_black++;
 		matches.insert({day, w.playerID, b.playerID});
 
 		// Remove players from today's list, as they already have a match
-		players_white.erase(players_white.begin() + i);
-		players_black.erase(players_black.begin() + j);
+		for (const auto &p : players_white) {
+		    fmt::print("{}, ", p.playerID);
+		}
+		fmt::print("\n");
+		for (const auto &p : players_black) {
+		    fmt::print("{}, ", p.playerID);
+		}
+		fmt::print("\n");
+
+		players_white.erase(find(players_white.begin(), players_white.end(), players[w.playerID]));
+		players_black.erase(find(players_black.begin(), players_black.end(), players[w.playerID]));
+
+		players_white.erase(find(players_white.begin(), players_white.end(), players[b.playerID]));
+		players_black.erase(find(players_black.begin(), players_black.end(), players[b.playerID]));
+
+		for (const auto &p : players_white) {
+		    fmt::print("{}, ", p.playerID);
+		}
+		fmt::print("\n");
+
+		for (const auto &p : players_black) {
+		    fmt::print("{}, ", p.playerID);
+		}
+		fmt::print("\n");
 
 		return true;
 	    }
@@ -150,7 +180,7 @@ struct Tournament {
     bool is_new_game(const Game &game) const { return std::find(games.begin(), games.end(), game) == games.end(); }
 
     void create_matches_round(std::vector<Player> &players_white, std::vector<Player> &players_black, uint64_t day) {
-	static const uint32_t MAX_TRIES = 100;
+	static const uint32_t MAX_TRIES = 10;
 	assert(players_white.size() < MAX_TRIES);
 	assert(players_black.size() < MAX_TRIES);
 
@@ -167,14 +197,16 @@ struct Tournament {
 		player_id restID;
 		if (players_white.size()) {
 		    restID = players_white.front().playerID;
+		    fmt::print("Black rests {}!\n", restID);
 		}
 
 		if (players_black.size()) {
 		    restID = players_black.front().playerID;
+		    fmt::print("White rests {}!\n", restID);
 		}
 		players[restID].hasRested = true;
 
-		fmt::print("Round done. Player {} rests!\n", restID);
+		fmt::print("Round done!\n", restID);
 		break;
 	    }
 	}
@@ -322,6 +354,11 @@ struct Tournament {
 
 	create_matchups();
 	fmt::print("[\n\t{}\n]\n", fmt::join(matches, "\n\t"));
+
+	for (const auto &p : players) {
+	    if(p.has_missing_games())
+		fmt::print("Player {} has played {} white games and {} black games\n", p.playerID, p.games_white, p.games_black);
+	}
     }
 };
 
