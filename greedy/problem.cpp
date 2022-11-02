@@ -16,6 +16,7 @@ struct Player {
     player_id playerID;
     std::vector<uint64_t> points_per_day;
     Color next_color; // WHITE or BLACK
+    bool hasRested = false;
 
     std::size_t &operator[](std::size_t index) { return points_per_day[index]; }
     std::size_t operator[](std::size_t index) const { return points_per_day[index]; }
@@ -80,6 +81,12 @@ struct Tournament {
 	    // we could also create another vector that separately tracks this and index it by playerID
 	    std::vector<Player> players_day(players);
 	    std::sort(players_day.begin(), players_day.end(), [day](const Player &x, const Player &y) {
+		if (x.hasRested && !y.hasRested)
+		    return true;
+
+		if (!x.hasRested && y.hasRested)
+		    return false;
+
 		return x.points_per_day[day] < y.points_per_day[day];
 	    });
 
@@ -118,6 +125,7 @@ struct Tournament {
 		    continue;
 		}
 
+		fmt::print("New game {} - {}\n", w.playerID, b.playerID);
 		// w.playerID vs b.playerID can't be created again
 		games.push_back(g);
 
@@ -129,12 +137,13 @@ struct Tournament {
 		// Remove players from today's list, as they already have a match
 		players_white.erase(players_white.begin() + i);
 		players_black.erase(players_black.begin() + j);
+
 		return true;
 	    }
 	}
 
 	// Aqui te puedes printear los jugadores disponibles de blancas y de negras...
-	//fmt::print("Failed to make pairing\n");
+	// fmt::print("Failed to make pairing\n");
 	return false;
     }
 
@@ -154,8 +163,20 @@ struct Tournament {
 	    }
 
 	    // Every matchup created
-	    if (matchCounter == num_players - 1)
+	    if (matchCounter == (num_players - 1) / 2) {
+		player_id restID;
+		if (players_white.size()) {
+		    restID = players_white.front().playerID;
+		}
+
+		if (players_black.size()) {
+		    restID = players_black.front().playerID;
+		}
+		players[restID].hasRested = true;
+
+		fmt::print("Round done. Player {} rests!\n", restID);
 		break;
+	    }
 	}
     }
 
