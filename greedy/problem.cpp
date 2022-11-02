@@ -202,7 +202,7 @@ struct Tournament {
 
 	    // Every matchup created
 	    if (matchCounter == (num_players - 1) / 2) {
-		player_id restID;
+		player_id restID = -1;
 		if (players_white.size()) {
 		    restID = players_white.front().playerID;
 		    fmt::print("Black rests {}!\n", restID);
@@ -212,9 +212,10 @@ struct Tournament {
 		    restID = players_black.front().playerID;
 		    fmt::print("White rests {}!\n", restID);
 		}
-		players[restID].hasRested = true;
+        if(restID != -1)//hacia segfault porque en los vectores de negro/blanco no queda ninguno entonces lo hacia con el valor sin restID sin inicializar
+		    players[restID].hasRested = true;
 
-		fmt::print("Round done!\n", restID);
+		fmt::print("Round done!\n");
 		break;
 	    }
 	}
