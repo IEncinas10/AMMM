@@ -152,11 +152,19 @@ struct Tournament {
 		}
 		fmt::print("\n");
 
-		players_white.erase(find(players_white.begin(), players_white.end(), players[w.playerID]));
-		players_black.erase(find(players_black.begin(), players_black.end(), players[w.playerID]));
+		player_id whiteID = w.playerID;
+		player_id blackID = b.playerID;
+		players_white.erase(find(players_white.begin(), players_white.end(), players[whiteID]));
+		players_black.erase(find(players_black.begin(), players_black.end(), players[blackID]));
+		
+		auto pos = find(players_white.begin(), players_white.end(), players[blackID]);
+		if(pos != players_white.end())
+		    players_white.erase(pos);
 
-		players_white.erase(find(players_white.begin(), players_white.end(), players[b.playerID]));
-		players_black.erase(find(players_black.begin(), players_black.end(), players[b.playerID]));
+		pos = find(players_black.begin(), players_black.end(), players[whiteID]);
+		if(pos != players_black.end())
+		    players_black.erase(pos);
+
 
 		for (const auto &p : players_white) {
 		    fmt::print("{}, ", p.playerID);
