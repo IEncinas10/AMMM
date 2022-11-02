@@ -13,6 +13,8 @@ using player_id = uint64_t;
 struct Player {
     player_id playerID;
     std::vector<uint64_t> points_per_day;
+    std::vector<bool> white;
+    std::vector<bool> black;
 
     std::size_t &operator[](std::size_t index) { return points_per_day[index]; }
     std::size_t operator[](std::size_t index) const { return points_per_day[index]; }
@@ -33,6 +35,19 @@ struct Match {
 
 };
 
+struct Game {
+    player_id white;
+    player_id black;
+
+    bool operator==(const Game &other) const {
+        return white == other.white && black == other.black;
+    }
+
+    bool operator!=(const Game &other) const {
+        return white != other.white || black != other.black;
+    }
+};
+
 
 struct Tournament {
     std::size_t num_players;
@@ -42,6 +57,7 @@ struct Tournament {
 
     std::vector<Player> players;
     std::multiset<Match> matches;
+    std::vector<Game> games;
 
     void set_num_players(std::size_t num_players_) {
 	num_players = num_players_;
@@ -55,6 +71,8 @@ struct Tournament {
     //we assign the ID to the players
     for(uint64_t player = 0; player < num_players; player++){
         players[player].playerID = player;
+        players[player].black.resize(num_players);
+        players[player].white.resize(num_players);
     }
 
 
@@ -62,34 +80,62 @@ struct Tournament {
         fmt::print("DAY {}\n", day);
         
         //sort by ascending points the players each day
+        fmt::print("Ordered vector: ");
         std::sort(players.begin(), players.end(), [day] (Player &x, Player &y) { return x.points_per_day[day] < y.points_per_day[day]; });
+        for(int i = 0; i < num_players; i++){
+            fmt::print("{} ", players[i].playerID);
+        }
+        fmt::print("\n");
 
 	    for(uint64_t white = 0; white < num_players; white++) {
             uint64_t matchCounter = 0;
             for(uint64_t black = 0; black < num_players; black++) {//TODO ver que si blanco o negro ha jugado hoy no puede volver a jugar
                 fmt::print("{} blanco - {} negro\n", players[white].playerID, players[black].playerID);
+                fmt::print("\nLISTA DE BLANCOS DEL BLANCO: ");
+                
+                fmt::print("{} ", players[white].white[day]);
+                
+                fmt::print("\n BLANCO DE NEGRO: {}", players[white].black[day]);
+                fmt::print("\nLISTA DE LOS NEGROS de negro: ");
+                
+                fmt::print("{} ", players[black].black[day]);
+
+                fmt::print("\n NEGRO DE BLANCO: {}", players[black].white[day]);
+                
+
                 if(white != black){//you cannot play vs yourself
-                    const Match m { day, players[white].playerID, players[black].playerID}; 
-                    bool repeated = false;
+                bool repeated = false;
+                    if(players[white].white[day] || players[white].black[day]){
+                        fmt::print("\n\nBLANCO {} ha jugado ya hoy\n\n", players[white].playerID);
+                        repeated = true;
+                    }else if(players[black].black[day] || players[black].white[day]){
+                        fmt::print("\n\nNEGRO {} ha jugado ya hoy\n\n", players[black].playerID);
+                        repeated = true;
+                    }
+                    const Match m {day, players[white].playerID, players[black].playerID};
+                    
                     //we look if that match have been done previously
                     for(uint64_t prev = 0; prev <= day; prev++){//miro que la partida entre blanco y negro no haya ocurrido antes, ni este dia ni otro anterior
+                        if(repeated){
+                            break;
+                        }
                         fmt::print("Looking for {} - {} in day {}\n", players[white].playerID, players[black].playerID, prev);
-                        const Match prevMatch {prev, players[white].playerID, players[black].playerID};
-                        const Match prevMatchRev {prev, players[black].playerID, players[white].playerID};
+                        const Game prevMatch {players[white].playerID, players[black].playerID};
+                        const Game prevMatchRev {players[black].playerID, players[white].playerID};
                         
 
-                        const auto matches_in_day = matches.equal_range(prevMatch);
+                        //const auto matches_in_day = matches.equal_range(prevMatch);
 
                         //comparo con los partidos blanco-negro y partidos del reves (blanco era negro y viceversa)
-                        auto pos = std::find(matches_in_day.first, matches_in_day.second, prevMatch);
-                        auto posRev = std::find(matches_in_day.first, matches_in_day.second, prevMatchRev);
+                        auto pos = std::find(games.begin(), games.end(), prevMatch);
+                        auto posRev = std::find(games.begin(), games.end(), prevMatchRev);
 
 
-                        if(pos != matches.end()){//miro que no se repita con el normal
+                        if(pos != games.end()){//miro que no se repita con el normal
                             fmt::print("Match repetido saltamos\n");
                             repeated = true;
                             break;
-                        }else if(posRev != matches.end()){//miro que no se repita con el inverso
+                        }else if(posRev != games.end()){//miro que no se repita con el inverso
                             fmt::print("Match Repetido a la inversa saltamos\n");
                             repeated = true;
                             break;
@@ -97,7 +143,12 @@ struct Tournament {
                     }
                     if(!repeated){//si el match no es repetido lo inserta
                         fmt::print("Insert\n");
+                        games.push_back(Game {players[white].playerID, players[black].playerID});
                         matches.insert(m);
+                        players[white].white[day] = true;
+                        players[white].black[day] = false;
+                        players[black].black[day] = true;
+                        players[black].white[day] = false;
                         matchCounter++;//counter para parar las partidas del dia X en caso de que sobre ya haya los partidos
                         break;
                     }
