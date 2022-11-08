@@ -112,6 +112,8 @@ struct Tournament {
 	// we assign the ID to the players
 	static const uint32_t MAX_TRIES = 10;
 	const uint64_t days = num_players;
+	std::vector<uint64_t> hasToPlay;
+
 	assign_player_ids();
 	fmt::print("Creating all combination matches....\n"); // we just create the possible matches we have, we will
 							      // need to evaluate the points in each day.
@@ -139,7 +141,7 @@ struct Tournament {
 	    fmt::print("\n");
 
 	    while (todayMatches < (num_players - 1) / 2) { // restriccion de partidos por dia (?)
-		if (find_best_match(games, todayPlayer, day)) {
+		if (find_best_match(games, todayPlayer, day, hasToPlay)) {
 		    todayMatches++;
 		} else {
 		    fmt::print("no encontrado {}\n", tries);
@@ -150,12 +152,13 @@ struct Tournament {
 		}
 	    }
 
-	    mark_has_rested(todayPlayer);
+	    mark_has_rested(todayPlayer, hasToPlay);
 
 	    if (tries > MAX_TRIES) {
 		fmt::print("FFFFFFFFFFFF\n");
 	    } else
 		fmt::print("DAY {} COMPLETED\n", day);
+
 	}
     }
 
@@ -163,22 +166,42 @@ struct Tournament {
 	return std::find(playedToday.begin(), playedToday.end(), p) == playedToday.end();
     }
 
-    void mark_has_rested(const std::vector<player_id> &playedToday) {
+    void mark_has_rested(const std::vector<player_id> &playedToday, std::vector<player_id> &hasToPlay) {
 	for (player_id i = 0; i < num_players; i++) {
 	    // If a played hasn't play today it is going to rest
 	    if (player_can_play(i, playedToday)) {
 		players[i].hasRested = true;
+		hasToPlay.push_back(i);
 	    }
 	}
     }
 
-    bool find_best_match(std::vector<Game> &games, std::vector<uint64_t> &todayPlayer, uint64_t day) {
+	std::vector<player_id> remainingAdvs(player_id id){
+		std::vector<player_id> remainingGames;
+		//buscar si existen los partidos con id
+		
+		for(const Game &g : games) {
+			if(g.white == id )
+				remainingGames.push_back(g.black);
+			else if(g.black == id)
+				remainingGames.push_back(g.white);
+		}
+		return remainingGames;
+	}
+
+	bool contains(const std::vector<player_id> &adv, player_id player) {
+		return std::find(adv.begin(), adv.end(), player) != adv.end();
+	}
+
+
+    bool find_best_match(std::vector<Game> &games, std::vector<uint64_t> &todayPlayer, uint64_t day, std::vector<player_id> &hasToPlay) {
 	// we search in array games (C) the feasibles matchups and the best suitable
 	
 	for(uint64_t i = 0; i < games.size(); i++) {
 	    Game &g = games[i];
 	    uint64_t white = g.white;
 	    uint64_t black = g.black;
+		bool infeasible = false;
 	    // fmt::print("LOOKING FOR MATCH\n");
 
 	    // we check that both players didnt play today
@@ -192,9 +215,44 @@ struct Tournament {
 	    // https://github.com/IEncinas10/AMMM/issues/1
 	    // "Asegurar solucion"
 	    //
+		
+		
+		for(uint64_t i = 0; i < hasToPlay.size() && day != num_players - 1; i++){
+			uint64_t possibleGames = 0;
+			//comprobar que solo se haga para los que tienen que jugar y no han jugado hoy todavia
+
+			player_id id = hasToPlay[i];
 
 
 
+			if(std::find(todayPlayer.begin(), todayPlayer.end(), id) != todayPlayer.end() || (id == black || id == white))
+				continue;
+
+			std::vector<player_id> remaining_adv_for_player = remainingAdvs(id);
+
+
+			fmt::print("Lista de los que queda por jugar contra {}: ", id);
+			for(player_id &player : remaining_adv_for_player){
+				fmt::print("{} ", player);
+			}
+			fmt::print("\n");
+			
+			//find white y black en games
+			for(player_id &adv : remaining_adv_for_player){
+				if(std::find(todayPlayer.begin(), todayPlayer.end(), adv) != todayPlayer.end())
+					continue;
+				if(adv != white && adv != black)
+					possibleGames++;
+					fmt::print("Aun hay partidas disponibles\n");
+			}
+			
+			if(possibleGames == 0)
+				infeasible = true;
+		}
+		
+
+		if(infeasible)
+			continue;
 	    //
 	    //
 	    //
