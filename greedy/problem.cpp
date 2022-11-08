@@ -74,17 +74,13 @@ struct Tournament {
 	players.resize(num_players);
     }
 
-    void create_matchups() {
-	// we assign the ID to the players
-	static const uint32_t MAX_TRIES = 100;
-	const uint64_t days = num_players;
+    void assign_player_ids() {
 	for (uint64_t player = 0; player < num_players; player++) {
 	    players[player].playerID = player;
 	}
+    }
 
-	fmt::print("Creating all combination matches....\n"); // we just create the possible matches we have, we will
-							      // need to evaluate the points in each day.
-
+    void create_games() {
 	for (uint64_t white = 0; white < num_players; white++) {
 	    for (uint64_t black = 0; black < num_players; black++) {
 		if (white == black) // we dont add matches vs yourself
@@ -93,12 +89,22 @@ struct Tournament {
 		games.push_back(g); // GAMES IS NOW THE CANDIDATE VECTOR
 	    }
 	}
+    }
+
+    void create_matchups() {
+	// we assign the ID to the players
+	static const uint32_t MAX_TRIES = 100;
+	const uint64_t days = num_players;
+	assign_player_ids();
+	fmt::print("Creating all combination matches....\n"); // we just create the possible matches we have, we will
+							      // need to evaluate the points in each day.
+	// TODO: assign colors from this point forward
+	create_games();
 
 	fmt::print("All matches possible matches created in C.\n");
 
-	for (u_int64_t day = 0; day < days; day++) {
+	for (uint64_t day = 0; day < days; day++) {
 	    uint64_t todayMatches = 0;
-	    static const uint32_t MAX_TRIES = 10;
 	    uint32_t tries = 0;
 	    std::vector<uint64_t> todayPlayer;
 	    fmt::print("DAY {}\nOrdering C by points\n", day);
@@ -128,7 +134,7 @@ struct Tournament {
 	    fmt::print("\n");
 
 	    while (todayMatches < (num_players - 1) / 2) { // restriccion de partidos por dia (?)
-		if (find_best_match(games, gamesPlayed, todayPlayer, day)) {
+		if (find_best_match(games, todayPlayer, day)) {
 		    todayMatches++;
 		} else {
 		    fmt::print("no encontrado {}\n", tries);
@@ -145,27 +151,22 @@ struct Tournament {
 	}
     }
 
-    bool find_best_match(std::vector<Game> &games, std::vector<Game> &gamesPlayed, std::vector<uint64_t> &todayPlayer,
+    bool player_can_play(player_id p, const std::vector<player_id> &playedToday) {
+	return std::find(playedToday.begin(), playedToday.end(), p) == playedToday.end();	
+    }
+    bool find_best_match(std::vector<Game> &games, std::vector<uint64_t> &todayPlayer,
 			 uint64_t day) {
 	// we search in array games (C) the feasibles matchups and the best suitable
 	for (Game &g : games) {
-	    if (games.size() == 0) {
-		break;
-	    }
 	    uint64_t white = g.white;
 	    uint64_t black = g.black;
 	    // fmt::print("LOOKING FOR MATCH\n");
 
 	    // we check that both players didnt play today
-	    auto pos = std::find(todayPlayer.begin(), todayPlayer.end(), white);
-	    if (pos != todayPlayer.end()) {
+	    if(!player_can_play(white, todayPlayer) || !player_can_play(black, todayPlayer))
 		continue;
-	    }
-	    pos = std::find(todayPlayer.begin(), todayPlayer.end(), black);
-	    if (pos != todayPlayer.end()) {
-		continue;
-	    }
 
+	    // This can be removed when we fix the colors and only consider 1 option (W-B) instead of (W-B) and (B-W)
 	    // we check that they can play as black/white
 	    if (!players[white].can_play_white()) {
 		continue;
@@ -173,7 +174,19 @@ struct Tournament {
 	    if (!players[black].can_play_black()) {
 		continue;
 	    }
+	    //
+
 	    const Match m{day, white, black};
+
+	    // TODO:
+	    //
+	    // https://github.com/IEncinas10/AMMM/issues/1
+	    // "Asegurar solucion"
+	    //
+	    // 
+
+
+
 	    fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
 	    matches.insert(m);
 	    players[white].games_white++;
@@ -181,8 +194,12 @@ struct Tournament {
 	    todayPlayer.push_back(white);
 	    todayPlayer.push_back(black);
 	    games.erase(std::find(games.begin(), games.end(), g));
+
+	    // Remove this. only W-B is an option, B-W is not
 	    Game gInverted{black, white};
 	    games.erase(std::find(games.begin(), games.end(), gInverted));
+	    //
+
 	    fmt::print("Deleted from C.\n");
 	    return true;
 	}
@@ -220,7 +237,7 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
     if (!input.is_open())
 	return false;
 
-    uint64_t lines_read = 0, players_read = 0, number_of_players = 0, remaining_players = UINT64_MAX, player_index = 0;
+    uint64_t lines_read = 0, number_of_players = 0, remaining_players = UINT64_MAX, player_index = 0;
     bool encountered_p = false;
     std::string current_line;
     do {
