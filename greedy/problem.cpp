@@ -174,7 +174,9 @@ struct Tournament {
 
     bool find_best_match(std::vector<Game> &games, std::vector<uint64_t> &todayPlayer, uint64_t day) {
 	// we search in array games (C) the feasibles matchups and the best suitable
-	for (Game &g : games) {
+	
+	for(uint64_t i = 0; i < games.size(); i++) {
+	    Game &g = games[i];
 	    uint64_t white = g.white;
 	    uint64_t black = g.black;
 	    // fmt::print("LOOKING FOR MATCH\n");
@@ -182,16 +184,6 @@ struct Tournament {
 	    // we check that both players didnt play today
 	    if (!player_can_play(white, todayPlayer) || !player_can_play(black, todayPlayer))
 		continue;
-
-	    // This can be removed when we fix the colors and only consider 1 option (W-B) instead of (W-B) and (B-W)
-	    // we check that they can play as black/white
-	    //if (!players[white].can_play_white()) {
-		//continue;
-	    //}
-	    //if (!players[black].can_play_black()) {
-		//continue;
-	    //}
-	    //
 
 	    const Match m{day, white, black};
 
@@ -210,7 +202,7 @@ struct Tournament {
 	    fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
 	    matches.insert(m);
 
-	    //Remove, dont care
+	    //Remove, dont care. We should check this when we create matches before doing the algorithm
 	    players[white].games_white++;
 	    players[black].games_black++;
 	    //
@@ -218,16 +210,11 @@ struct Tournament {
 
 	    todayPlayer.push_back(white);
 	    todayPlayer.push_back(black);
-	    games.erase(std::find(games.begin(), games.end(), g));
+	    games.erase(games.begin() + i);
 
-	    // Remove this. only W-B is an option, B-W is not
-	    //Game gInverted{black, white};
-	    //games.erase(std::find(games.begin(), games.end(), gInverted));
-	    //
-
-	    fmt::print("Deleted from C.\n");
 	    return true;
 	}
+
 	return false;
     }
 
