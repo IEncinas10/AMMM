@@ -144,6 +144,9 @@ struct Tournament {
 		    break;
 		}
 	    }
+	    
+	    mark_has_rested(todayPlayer);
+
 	    if (tries > MAX_TRIES) {
 		fmt::print("FFFFFFFFFFFF\n");
 	    } else
@@ -154,6 +157,16 @@ struct Tournament {
     bool player_can_play(player_id p, const std::vector<player_id> &playedToday) {
 	return std::find(playedToday.begin(), playedToday.end(), p) == playedToday.end();	
     }
+
+    void mark_has_rested(const std::vector<player_id> &playedToday) {
+	for(player_id i = 0; i < num_players; i++) {
+	    // If a played hasn't play today it is going to rest
+	    if(player_can_play(i, playedToday)) {
+		players[i].hasRested = true;
+	    }
+	}
+    }
+
     bool find_best_match(std::vector<Game> &games, std::vector<uint64_t> &todayPlayer,
 			 uint64_t day) {
 	// we search in array games (C) the feasibles matchups and the best suitable
