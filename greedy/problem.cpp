@@ -81,14 +81,31 @@ struct Tournament {
     }
 
     void create_games() {
-	for (uint64_t white = 0; white < num_players; white++) {
-	    for (uint64_t black = 0; black < num_players; black++) {
-		if (white == black) // we dont add matches vs yourself
+	for (uint64_t x = 0; x < num_players; x++) {
+	    for (uint64_t y = x + 1; y < num_players; y++) {
+		if (x == y) // we dont add matches vs yourself
 		    continue;
-		Game g{players[white].playerID, players[black].playerID};
+
+		uint64_t white, black;
+		if ((x + y) % 2 == 0) {
+		    white = x;
+		    black = y;
+		} else {
+		    white = y;
+		    black = x;
+		}
+
+		Game g{white, black};
 		games.push_back(g); // GAMES IS NOW THE CANDIDATE VECTOR
 	    }
 	}
+
+	// create a function to check that every player has the same games as black thn as white
+	fmt::print("\n[{}] ", games.size());
+	for (Game &g : games) {
+	    fmt::print("{} - {}, ", g.white, g.black);
+	}
+	fmt::print("\n");
     }
 
     void create_matchups() {
@@ -104,8 +121,8 @@ struct Tournament {
 	fmt::print("All matches possible matches created in C.\n");
 
 	for (uint64_t day = 0; day < days; day++) {
-	    uint64_t todayMatches = 0;
-	    uint32_t tries = 0;
+	    uint64_t todayMatches = 0, tries = 0;
+
 	    std::vector<uint64_t> todayPlayer;
 	    fmt::print("DAY {}\nOrdering C by points\n", day);
 
@@ -168,12 +185,12 @@ struct Tournament {
 
 	    // This can be removed when we fix the colors and only consider 1 option (W-B) instead of (W-B) and (B-W)
 	    // we check that they can play as black/white
-	    if (!players[white].can_play_white()) {
-		continue;
-	    }
-	    if (!players[black].can_play_black()) {
-		continue;
-	    }
+	    //if (!players[white].can_play_white()) {
+		//continue;
+	    //}
+	    //if (!players[black].can_play_black()) {
+		//continue;
+	    //}
 	    //
 
 	    const Match m{day, white, black};
@@ -183,19 +200,29 @@ struct Tournament {
 	    // https://github.com/IEncinas10/AMMM/issues/1
 	    // "Asegurar solucion"
 	    //
+
+
+
+	    //
+	    //
 	    //
 
 	    fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
 	    matches.insert(m);
+
+	    //Remove, dont care
 	    players[white].games_white++;
 	    players[black].games_black++;
+	    //
+
+
 	    todayPlayer.push_back(white);
 	    todayPlayer.push_back(black);
 	    games.erase(std::find(games.begin(), games.end(), g));
 
 	    // Remove this. only W-B is an option, B-W is not
-	    Game gInverted{black, white};
-	    games.erase(std::find(games.begin(), games.end(), gInverted));
+	    //Game gInverted{black, white};
+	    //games.erase(std::find(games.begin(), games.end(), gInverted));
 	    //
 
 	    fmt::print("Deleted from C.\n");
