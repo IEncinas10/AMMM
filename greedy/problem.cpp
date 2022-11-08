@@ -93,7 +93,7 @@ struct Tournament {
 
     void create_matchups() {
 	// we assign the ID to the players
-	static const uint32_t MAX_TRIES = 100;
+	static const uint32_t MAX_TRIES = 10;
 	const uint64_t days = num_players;
 	assign_player_ids();
 	fmt::print("Creating all combination matches....\n"); // we just create the possible matches we have, we will
@@ -109,25 +109,13 @@ struct Tournament {
 	    std::vector<uint64_t> todayPlayer;
 	    fmt::print("DAY {}\nOrdering C by points\n", day);
 
-	    const std::vector<Player> players_day(players);
-
 	    std::sort(games.begin(), games.end(),
-		      [day, players_day](const Game &x, const Game &y) { // sorting by less points per match
-			  if ((players_day[x.white].hasRested || players_day[x.black].hasRested) &&
-			      (!players_day[y.white].hasRested || !players_day[y.black].hasRested)) {
-			      return true;
-			  }
-			  if ((players_day[y.white].hasRested || players_day[y.black].hasRested) &&
-			      (!players_day[x.white].hasRested || !players_day[x.black].hasRested)) {
-			      return false;
-			  }
-			  return players_day[(uint64_t)x.white].points_per_day[day] +
-				     players_day[(uint64_t)x.black].points_per_day[day] <
-				 players_day[(uint64_t)y.white].points_per_day[day] +
-				     players_day[(uint64_t)y.black].points_per_day[day];
+		      [&](const Game &x, const Game &y) { // sorting by less points per match
+			  return players.at(x.white).points_per_day[day] + players.at(x.black).points_per_day[day] <
+				 players.at(y.white).points_per_day[day] + players.at(y.black).points_per_day[day];
 		      });
 
-	    fmt::print("\n");
+	    fmt::print("\n[{}] ", games.size());
 	    for (Game &g : games) {
 		fmt::print("{} - {}, ", g.white, g.black);
 	    }
@@ -139,12 +127,12 @@ struct Tournament {
 		} else {
 		    fmt::print("no encontrado {}\n", tries);
 		    tries++;
-		}
-		if (tries > MAX_TRIES) {
-		    break;
+		    if (tries > MAX_TRIES) {
+			break;
+		    }
 		}
 	    }
-	    
+
 	    mark_has_rested(todayPlayer);
 
 	    if (tries > MAX_TRIES) {
@@ -155,20 +143,19 @@ struct Tournament {
     }
 
     bool player_can_play(player_id p, const std::vector<player_id> &playedToday) {
-	return std::find(playedToday.begin(), playedToday.end(), p) == playedToday.end();	
+	return std::find(playedToday.begin(), playedToday.end(), p) == playedToday.end();
     }
 
     void mark_has_rested(const std::vector<player_id> &playedToday) {
-	for(player_id i = 0; i < num_players; i++) {
+	for (player_id i = 0; i < num_players; i++) {
 	    // If a played hasn't play today it is going to rest
-	    if(player_can_play(i, playedToday)) {
+	    if (player_can_play(i, playedToday)) {
 		players[i].hasRested = true;
 	    }
 	}
     }
 
-    bool find_best_match(std::vector<Game> &games, std::vector<uint64_t> &todayPlayer,
-			 uint64_t day) {
+    bool find_best_match(std::vector<Game> &games, std::vector<uint64_t> &todayPlayer, uint64_t day) {
 	// we search in array games (C) the feasibles matchups and the best suitable
 	for (Game &g : games) {
 	    uint64_t white = g.white;
@@ -176,7 +163,7 @@ struct Tournament {
 	    // fmt::print("LOOKING FOR MATCH\n");
 
 	    // we check that both players didnt play today
-	    if(!player_can_play(white, todayPlayer) || !player_can_play(black, todayPlayer))
+	    if (!player_can_play(white, todayPlayer) || !player_can_play(black, todayPlayer))
 		continue;
 
 	    // This can be removed when we fix the colors and only consider 1 option (W-B) instead of (W-B) and (B-W)
@@ -196,9 +183,7 @@ struct Tournament {
 	    // https://github.com/IEncinas10/AMMM/issues/1
 	    // "Asegurar solucion"
 	    //
-	    // 
-
-
+	    //
 
 	    fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
 	    matches.insert(m);
