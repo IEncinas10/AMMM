@@ -10,6 +10,8 @@
 \usepackage{amsmath}
 \usepackage{xcolor}
 \usepackage{todonotes}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 \usepackage{listings}
 
@@ -176,9 +178,54 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 
 \subsection{Constructive}
 
+\begin{algorithm}
+	\caption{Greedy algorithm} 
+	\begin{algorithmic}[1]
+		\For {$day\ in\ days$}
+      \State playersToRest $\leftarrow$ filter sortedPlayers(p) | p.hasNotRested
+      \State sortedPlayers $\leftarrow$ sort PlayersToRest by points per day (DESC) 
+      \State select p $\in$ sortedPlayers(0)
+      \State rests[day]\ $\leftarrow$\ p
+		\EndFor
+	\end{algorithmic} 
+\end{algorithm}
+
+
 \subsection{Local search}
 
+\begin{algorithm}
+	\caption{Local Search} 
+	\begin{algorithmic}[1]
+		\For {$i\ =\ 1,2,...,Nplayers$}
+      \For {$j\ =\ 1,2,...,Nplayers$}
+        \State change = EvaluateSwapRest(i,j)
+        \If{$change > best\_swap\_points$}
+          \State best\_swap\_points $\leftarrow$ change
+          \State best\_swap $\leftarrow$ j
+        \EndIf
+      \EndFor
+      \State rests[i] $\leftrightarrow$ rests[best\_swap]
+		\EndFor
+	\end{algorithmic} 
+\end{algorithm}
+
+
 \subsection{GRASP}
+
+\begin{algorithm}
+	\caption{GRASP} 
+	\begin{algorithmic}[1]
+		\For {$day\ in\ days$}
+      \State playersToRest $\leftarrow$ filter sortedPlayers(p) | p.hasNotRested
+      \State sortedPlayers $\leftarrow$ sort PlayersToRest by points per day (DESC) 
+      \State last\_index $\leftarrow$ (playersToRest.size - 1) * $\alpha$
+      \State RCL $\leftarrow$ sortedPlayers(p) | p $\in$ [0, last\_index] 
+      \State select p $\in$ RCL at random
+      \State rests[day]\ $\leftarrow$\ p
+		\EndFor
+	\end{algorithmic} 
+\end{algorithm}
+
 
 \section{Parameter tuning}
 
