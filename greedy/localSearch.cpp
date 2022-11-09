@@ -114,7 +114,7 @@ struct Tournament {
 	// we assign the ID to the players
 	static const uint32_t MAX_TRIES = 10;
 	const uint64_t days = num_players;
-	std::vector<uint64_t> rests; //vector with ID of player that rests every day
+	std::vector<uint64_t> rests; // vector with ID of player that rests every day
 	uint64_t score = 0;
 
 	assign_player_ids();
@@ -126,105 +126,90 @@ struct Tournament {
 	fmt::print("All matches possible matches created in C.\n");
 
 	for (uint64_t day = 0; day < days; day++) {
+	    std::vector<Player> players_round(players);
 
 	    fmt::print("DAY {}\n Ordering C by points\n", day);
 
-	    std::sort(players.begin(), players.end(),
+	    std::sort(players_round.begin(), players_round.end(),
 		      [&](const Player &x, Player &y) { // sorting by less points per match
 			  return x.points_per_day[day] > y.points_per_day[day];
 		      });
 
-		
-		for(Player &player : players){
-			fmt::print("[{}, {}] \n", player.playerID, player.points_per_day[day]);			
-		}
+	    for (Player &player : players_round) {
+		fmt::print("[{}, {}] \n", player.playerID, player.points_per_day[day]);
+	    }
 
-		assign_rest(players, day, rests, score);
-
+	    assign_rest(players_round, day, rests, score);
 	}
 
-
-    fmt::print("SOLUTION GREEDY:\n[");
-    for(uint64_t &rest : rests){
-        fmt::print("{} ", rest);
-    }
-
-	fmt::print("]\nFinal Score: {}\n", score);
-
-    local_search(rests, players, score);
-
-    }
-
-    void local_search(std::vector<player_id> rests, std::vector<Player> players, uint64_t &score){
-        uint64_t iter = 0;
-        uint64_t nextScore = -1;
-        uint64_t maxIter = num_players;
-        std::sort(players.begin(), players.end(),
-		      [&](const Player &x, Player &y) { // sorting by less points per match
-			  return x.points_per_day[x.day_rest] < y.points_per_day[y.day_rest];
-		      });
-
-        while(nextScore > score && iter < maxIter){
-            int i;
-            int better = -1;
-            auto pos = find(rests.begin(), rests.end(), players[0].playerID);
-            uint64_t indexRestDay = pos - rests.begin();
-
-            //buscamos si hay algun dia del que peor puntuacion tenga que le de mas puntos para hacer swap con el que haya ese dia
-            for(i = 0; i < num_players; i++){
-                if(players[0].points_per_day[i] > players[0].points_per_day[indexRestDay]){
-                    better = i;
-                }
-            }
-
-            int swapRestId = rests[better];
-
-            rests[better] = players[0].playerID;
-            rests[indexRestDay] = swapRestId;
-            nextScore = 0;
-            for(i = 0; i < num_players; i++){
-                for(int j = 0; j < num_players; j++){
-                    if(players[j].playerID == rests[i])
-                        nextScore += players[j].points_per_day[i];
-                }
-            }
-
-            fmt::print("LOCAL SEARCH: \n[");
-            for(i = 0; i < num_players; i++){
-                fmt::print("{} ", rests[i]);
-            }
-            fmt::print("]\nScore of Neighbor: {}\n", nextScore);
-
-
-            
-        }
-    }
-
-	void assign_rest(std::vector<Player> &players, uint64_t day, std::vector<player_id> &rests, uint64_t &score){
-		for(Player &player : players){
-			if(player.hasRested)
-				continue;
-			score += player.points_per_day[day];
-			rests.push_back(player.playerID);
-			player.hasRested = true;
-            player.day_rest = day;
-			fmt::print("Player {} rests in day {} with {} points\n", player.playerID, day, player.points_per_day[day]);
-			break;
-		}
+	auto points = 0;
+	fmt::print("SOLUTION GREEDY:\n[");
+	for (uint32_t i = 0; i < rests.size(); i++) {
+	    fmt::print("{} ", rests[i]);
+	    points += players[rests[i]].points_per_day[i];
 	}
+
+	fmt::print("]\nFinal Score: {}\n", points);
+
+	local_search(rests, score);
+    }
+
+    void local_search(std::vector<player_id> &rests, uint64_t score) {
+	uint64_t iter = 0;
+	uint64_t nextScore = -1;
+	uint64_t maxIter = num_players;
+
+	uint64_t num_days = num_players;
+
+	for (uint32_t i = 0; i < num_days; i++) {
+	    int best_swap = i;
+	    int best_swap_points = 0;
+	    for (uint32_t j = i + 1; j < num_days; j++) {
+		auto curr_points = players[rests[i]].points_per_day[i] + players[rests[j]].points_per_day[j];
+		auto swap_points = players[rests[j]].points_per_day[i] + players[rests[i]].points_per_day[j];
+
+		int change = swap_points - curr_points;
+		if (change > best_swap_points) {
+		    fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", i, j, change, best_swap_points);
+		    best_swap = j;
+		    best_swap_points = change;
+		}
+	    }
+
+	    std::swap(rests[i], rests[best_swap]);
+	}
+	auto points = 0;
+	fmt::print("LOCAL SEARCH: [");
+	for (auto i = 0; i < num_players; i++) {
+	    fmt::print("{} ", rests[i]);
+	    points += players[rests[i]].points_per_day[i];
+	}
+
+	fmt::print("] Points: {}\n", points);
+
+	return;
+    }
+
+    void assign_rest(std::vector<Player> &players_day, uint64_t day, std::vector<player_id> &rests, uint64_t &score) {
+	for (Player &player : players_day) {
+	    if (player.hasRested)
+		continue;
+	    score += player.points_per_day[day];
+	    rests.push_back(player.playerID);
+	    players[player.playerID].hasRested = true;
+	    players[player.playerID].day_rest = day;
+	    fmt::print("Player {} rests in day {} with {} points\n", player.playerID, day, player.points_per_day[day]);
+	    return;
+	}
+    }
 
     bool player_can_play(player_id p, const std::vector<player_id> &playedToday) {
 	return std::find(playedToday.begin(), playedToday.end(), p) == playedToday.end();
     }
 
-
-
-	bool contains(const std::vector<player_id> &adv, player_id player) {
-		return std::find(adv.begin(), adv.end(), player) != adv.end();
-	}
-
-
-    
+    bool contains(const std::vector<player_id> &adv, player_id player) {
+	return std::find(adv.begin(), adv.end(), player) != adv.end();
+    }
 
     void print() {
 	fmt::print("{} players\n", num_players);
