@@ -183,6 +183,10 @@ struct Tournament {
     }
 
     void assign_rest(std::vector<Player> &players_day, uint64_t day, std::vector<player_id> &rests, uint64_t &score) {
+
+	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day", si no
+	// no va a ir
+
 	for (Player &player : players_day) {
 	    if (player.hasRested)
 		continue;
