@@ -20,8 +20,6 @@ struct Player {
     uint64_t games_white = 0;
     bool hasRested = false;
 
-    uint64_t day_rest;
-
     std::size_t &operator[](std::size_t index) { return points_per_day[index]; }
     std::size_t operator[](std::size_t index) const { return points_per_day[index]; }
 
@@ -197,7 +195,6 @@ struct Tournament {
 	    score += player.points_per_day[day];
 	    rests.push_back(player.playerID);
 	    players[player.playerID].hasRested = true;
-	    players[player.playerID].day_rest = day;
 	    fmt::print("Player {} rests in day {} with {} points\n", player.playerID, day, player.points_per_day[day]);
 	    return;
 	}
