@@ -1,0 +1,126 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 117 rows and 81 columns.
+Reduced MIP has 145 rows, 649 columns, and 4263 nonzeros.
+Reduced MIP has 648 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.67 ticks)
+Found incumbent of value 98.000000 after 0.01 sec. (7.13 ticks)
+Probing time = 0.00 sec. (2.07 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 145 rows, 649 columns, and 4263 nonzeros.
+Reduced MIP has 648 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.61 ticks)
+Probing time = 0.00 sec. (2.07 ticks)
+Clique table members: 117.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.01 sec. (16.35 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           98.0000      900.0000           818.37%
+      0     0      359.0000    96       98.0000      359.0000      616  266.33%
+*     0+    0                          359.0000      359.0000             0.00%
+      0     0        cutoff            359.0000      359.0000      616    0.00%
+Elapsed time = 0.11 sec. (68.44 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.11 sec. (68.48 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.11 sec. (68.48 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 359
+1 is free in round 7
+1 plays 4 white matches, and 4 black matches
+2 is free in round 2
+2 plays 4 white matches, and 4 black matches
+3 is free in round 3
+3 plays 4 white matches, and 4 black matches
+4 is free in round 6
+4 plays 4 white matches, and 4 black matches
+5 is free in round 4
+5 plays 4 white matches, and 4 black matches
+6 is free in round 5
+6 plays 4 white matches, and 4 black matches
+7 is free in round 8
+7 plays 4 white matches, and 4 black matches
+8 is free in round 1
+8 plays 4 white matches, and 4 black matches
+9 is free in round 9
+9 plays 4 white matches, and 4 black matches
+Slot 1
+1 white, 9 black
+2 white, 6 black
+3 white, 5 black
+7 white, 4 black
+
+Slot 2
+5 white, 1 black
+6 white, 4 black
+8 white, 7 black
+9 white, 3 black
+
+Slot 3
+1 white, 2 black
+4 white, 8 black
+5 white, 9 black
+7 white, 6 black
+
+Slot 4
+1 white, 4 black
+2 white, 8 black
+6 white, 3 black
+9 white, 7 black
+
+Slot 5
+2 white, 3 black
+4 white, 5 black
+7 white, 1 black
+9 white, 8 black
+
+Slot 6
+3 white, 7 black
+6 white, 5 black
+8 white, 1 black
+9 white, 2 black
+
+Slot 7
+4 white, 3 black
+6 white, 9 black
+7 white, 2 black
+8 white, 5 black
+
+Slot 8
+1 white, 6 black
+3 white, 8 black
+4 white, 9 black
+5 white, 2 black
+
+Slot 9
+2 white, 4 black
+3 white, 1 black
+5 white, 7 black
+8 white, 6 black
+
+
+<<< post process
+
+
+<<< done
+

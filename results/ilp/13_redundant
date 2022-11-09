@@ -1,0 +1,182 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 247 rows and 169 columns.
+Reduced MIP has 287 rows, 2029 columns, and 12991 nonzeros.
+Reduced MIP has 2028 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (7.72 ticks)
+Probing time = 0.01 sec. (2.53 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 287 rows, 2029 columns, and 12991 nonzeros.
+Reduced MIP has 2028 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (7.73 ticks)
+Probing time = 0.00 sec. (2.52 ticks)
+Clique table members: 247.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.11 sec. (70.92 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0      646.0000   217                    646.0000     1055         
+*     0+    0                          646.0000      646.0000             0.00%
+      0     0        cutoff            646.0000      646.0000     1055    0.00%
+Elapsed time = 0.54 sec. (386.19 ticks, tree = 0.01 MB, solutions = 1)
+
+Root node processing (before b&c):
+  Real time             =    0.54 sec. (386.31 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.54 sec. (386.31 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 646
+1 is free in round 7
+1 plays 6 white matches, and 6 black matches
+2 is free in round 3
+2 plays 6 white matches, and 6 black matches
+3 is free in round 4
+3 plays 6 white matches, and 6 black matches
+4 is free in round 13
+4 plays 6 white matches, and 6 black matches
+5 is free in round 10
+5 plays 6 white matches, and 6 black matches
+6 is free in round 2
+6 plays 6 white matches, and 6 black matches
+7 is free in round 9
+7 plays 6 white matches, and 6 black matches
+8 is free in round 6
+8 plays 6 white matches, and 6 black matches
+9 is free in round 8
+9 plays 6 white matches, and 6 black matches
+10 is free in round 12
+10 plays 6 white matches, and 6 black matches
+11 is free in round 5
+11 plays 6 white matches, and 6 black matches
+12 is free in round 1
+12 plays 6 white matches, and 6 black matches
+13 is free in round 11
+13 plays 6 white matches, and 6 black matches
+Slot 1
+2 white, 5 black
+3 white, 1 black
+6 white, 4 black
+9 white, 7 black
+10 white, 13 black
+11 white, 8 black
+
+Slot 2
+3 white, 2 black
+4 white, 11 black
+5 white, 1 black
+10 white, 8 black
+12 white, 7 black
+13 white, 9 black
+
+Slot 3
+4 white, 3 black
+5 white, 10 black
+6 white, 12 black
+7 white, 1 black
+9 white, 11 black
+13 white, 8 black
+
+Slot 4
+1 white, 2 black
+4 white, 9 black
+7 white, 6 black
+8 white, 5 black
+10 white, 11 black
+12 white, 13 black
+
+Slot 5
+1 white, 12 black
+2 white, 7 black
+3 white, 5 black
+8 white, 9 black
+10 white, 6 black
+13 white, 4 black
+
+Slot 6
+1 white, 13 black
+2 white, 9 black
+5 white, 4 black
+6 white, 3 black
+7 white, 10 black
+12 white, 11 black
+
+Slot 7
+4 white, 7 black
+5 white, 11 black
+8 white, 12 black
+9 white, 6 black
+10 white, 2 black
+13 white, 3 black
+
+Slot 8
+3 white, 7 black
+6 white, 5 black
+8 white, 4 black
+10 white, 12 black
+11 white, 1 black
+13 white, 2 black
+
+Slot 9
+1 white, 4 black
+2 white, 8 black
+5 white, 13 black
+6 white, 11 black
+9 white, 10 black
+12 white, 3 black
+
+Slot 10
+1 white, 10 black
+2 white, 6 black
+3 white, 9 black
+4 white, 12 black
+7 white, 8 black
+11 white, 13 black
+
+Slot 11
+1 white, 6 black
+4 white, 10 black
+7 white, 5 black
+8 white, 3 black
+9 white, 12 black
+11 white, 2 black
+
+Slot 12
+2 white, 4 black
+6 white, 8 black
+7 white, 13 black
+9 white, 1 black
+11 white, 3 black
+12 white, 5 black
+
+Slot 13
+3 white, 10 black
+5 white, 9 black
+8 white, 1 black
+11 white, 7 black
+12 white, 2 black
+13 white, 6 black
+
+
+<<< post process
+
+
+<<< done
+

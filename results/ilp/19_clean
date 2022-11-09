@@ -1,0 +1,315 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 171 rows and 361 columns.
+Reduced MIP has 571 rows, 6499 columns, and 34213 nonzeros.
+Reduced MIP has 6498 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (20.44 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 571 rows, 6499 columns, and 34213 nonzeros.
+Reduced MIP has 6498 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (19.56 ticks)
+Probing time = 0.01 sec. (3.51 ticks)
+Clique table members: 532.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.36 sec. (302.16 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0      872.0000   489                    872.0000        9         
+*     0+    0                            0.0000      872.0000              --- 
+      0     2      872.0000   171        0.0000      872.0000        9     --- 
+Elapsed time = 7.06 sec. (6949.25 ticks, tree = 0.02 MB, solutions = 1)
+      1     3      872.0000   236        0.0000      872.0000     1814     --- 
+*     3+    1                          864.0000      872.0000             0.93%
+      4     6      872.0000   352      864.0000      872.0000     3420    0.93%
+      6     4      872.0000   292      864.0000      872.0000     2429    0.93%
+      8     9      872.0000   349      864.0000      872.0000     5331    0.93%
+     10    11      872.0000   358      864.0000      872.0000     6424    0.93%
+     13    12      872.0000   282      864.0000      872.0000     7808    0.93%
+     19    21      872.0000   381      864.0000      872.0000    14983    0.93%
+     27    22      872.0000   285      864.0000      872.0000    15982    0.93%
+     35    24      872.0000   332      864.0000      872.0000    18477    0.93%
+     67    60      872.0000   316      864.0000      872.0000    41755    0.93%
+Elapsed time = 11.48 sec. (10754.94 ticks, tree = 0.25 MB, solutions = 2)
+    101    95      872.0000   411      864.0000      872.0000    57057    0.93%
+    144   130      872.0000   404      864.0000      872.0000    69100    0.93%
+    181   155      872.0000   367      864.0000      872.0000    78931    0.93%
+*   198+  115                          872.0000      872.0000             0.00%
+    211   165      872.0000   397      872.0000      872.0000    82796    0.00%
+
+Root node processing (before b&c):
+  Real time             =    7.03 sec. (6932.49 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    9.39 sec. (8294.96 ticks)
+  Sync time (average)   =    0.70 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =   16.42 sec. (15227.45 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 872
+1 is free in round 17
+1 plays 9 white matches, and 9 black matches
+2 is free in round 16
+2 plays 9 white matches, and 9 black matches
+3 is free in round 1
+3 plays 9 white matches, and 9 black matches
+4 is free in round 9
+4 plays 9 white matches, and 9 black matches
+5 is free in round 8
+5 plays 9 white matches, and 9 black matches
+6 is free in round 14
+6 plays 9 white matches, and 9 black matches
+7 is free in round 5
+7 plays 9 white matches, and 9 black matches
+8 is free in round 6
+8 plays 9 white matches, and 9 black matches
+9 is free in round 2
+9 plays 9 white matches, and 9 black matches
+10 is free in round 13
+10 plays 9 white matches, and 9 black matches
+11 is free in round 3
+11 plays 9 white matches, and 9 black matches
+12 is free in round 12
+12 plays 9 white matches, and 9 black matches
+13 is free in round 11
+13 plays 9 white matches, and 9 black matches
+14 is free in round 19
+14 plays 9 white matches, and 9 black matches
+15 is free in round 18
+15 plays 9 white matches, and 9 black matches
+16 is free in round 4
+16 plays 9 white matches, and 9 black matches
+17 is free in round 10
+17 plays 9 white matches, and 9 black matches
+18 is free in round 7
+18 plays 9 white matches, and 9 black matches
+19 is free in round 15
+19 plays 9 white matches, and 9 black matches
+Slot 1
+1 white, 14 black
+2 white, 19 black
+6 white, 9 black
+7 white, 12 black
+8 white, 15 black
+11 white, 10 black
+13 white, 17 black
+16 white, 4 black
+18 white, 5 black
+
+Slot 2
+1 white, 3 black
+2 white, 18 black
+4 white, 13 black
+6 white, 19 black
+7 white, 8 black
+10 white, 17 black
+12 white, 11 black
+14 white, 5 black
+15 white, 16 black
+
+Slot 3
+1 white, 15 black
+3 white, 4 black
+5 white, 6 black
+8 white, 14 black
+9 white, 12 black
+10 white, 2 black
+16 white, 13 black
+17 white, 7 black
+18 white, 19 black
+
+Slot 4
+1 white, 9 black
+2 white, 3 black
+5 white, 12 black
+10 white, 4 black
+11 white, 6 black
+14 white, 7 black
+15 white, 13 black
+18 white, 8 black
+19 white, 17 black
+
+Slot 5
+1 white, 6 black
+4 white, 8 black
+5 white, 11 black
+9 white, 3 black
+13 white, 2 black
+14 white, 17 black
+15 white, 12 black
+18 white, 10 black
+19 white, 16 black
+
+Slot 6
+3 white, 14 black
+4 white, 19 black
+5 white, 16 black
+9 white, 7 black
+10 white, 15 black
+11 white, 2 black
+13 white, 6 black
+17 white, 1 black
+18 white, 12 black
+
+Slot 7
+3 white, 5 black
+6 white, 15 black
+7 white, 1 black
+10 white, 19 black
+12 white, 8 black
+13 white, 11 black
+14 white, 4 black
+16 white, 9 black
+17 white, 2 black
+
+Slot 8
+1 white, 16 black
+2 white, 7 black
+3 white, 17 black
+4 white, 15 black
+6 white, 10 black
+8 white, 11 black
+9 white, 13 black
+18 white, 14 black
+19 white, 12 black
+
+Slot 9
+2 white, 16 black
+5 white, 9 black
+6 white, 3 black
+8 white, 10 black
+11 white, 7 black
+12 white, 1 black
+17 white, 15 black
+18 white, 13 black
+19 white, 14 black
+
+Slot 10
+1 white, 8 black
+3 white, 18 black
+4 white, 11 black
+5 white, 13 black
+7 white, 10 black
+12 white, 2 black
+14 white, 9 black
+15 white, 19 black
+16 white, 6 black
+
+Slot 11
+3 white, 11 black
+4 white, 9 black
+5 white, 2 black
+6 white, 17 black
+12 white, 10 black
+15 white, 14 black
+16 white, 7 black
+18 white, 1 black
+19 white, 8 black
+
+Slot 12
+3 white, 15 black
+4 white, 1 black
+6 white, 18 black
+7 white, 5 black
+8 white, 2 black
+9 white, 19 black
+10 white, 13 black
+14 white, 11 black
+17 white, 16 black
+
+Slot 13
+2 white, 9 black
+4 white, 6 black
+7 white, 3 black
+8 white, 17 black
+11 white, 1 black
+12 white, 14 black
+15 white, 5 black
+16 white, 18 black
+19 white, 13 black
+
+Slot 14
+1 white, 5 black
+2 white, 15 black
+3 white, 8 black
+9 white, 10 black
+11 white, 19 black
+12 white, 4 black
+13 white, 7 black
+14 white, 16 black
+17 white, 18 black
+
+Slot 15
+2 white, 14 black
+6 white, 7 black
+8 white, 5 black
+10 white, 1 black
+11 white, 9 black
+13 white, 12 black
+15 white, 18 black
+16 white, 3 black
+17 white, 4 black
+
+Slot 16
+5 white, 10 black
+7 white, 4 black
+8 white, 16 black
+9 white, 18 black
+13 white, 1 black
+14 white, 6 black
+15 white, 11 black
+17 white, 12 black
+19 white, 3 black
+
+Slot 17
+4 white, 2 black
+6 white, 8 black
+7 white, 18 black
+9 white, 15 black
+10 white, 3 black
+11 white, 17 black
+12 white, 16 black
+14 white, 13 black
+19 white, 5 black
+
+Slot 18
+1 white, 2 black
+7 white, 19 black
+8 white, 9 black
+10 white, 14 black
+12 white, 6 black
+13 white, 3 black
+16 white, 11 black
+17 white, 5 black
+18 white, 4 black
+
+Slot 19
+2 white, 6 black
+3 white, 12 black
+5 white, 4 black
+9 white, 17 black
+11 white, 18 black
+13 white, 8 black
+15 white, 7 black
+16 white, 10 black
+19 white, 1 black
+
+
+<<< post process
+
+
+<<< done
+

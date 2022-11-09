@@ -1,0 +1,103 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 21 rows and 49 columns.
+Reduced MIP has 85 rows, 295 columns, and 1665 nonzeros.
+Reduced MIP has 294 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (1.26 ticks)
+Found incumbent of value 5.000000 after 0.01 sec. (3.13 ticks)
+Probing time = 0.00 sec. (1.15 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 85 rows, 295 columns, and 1665 nonzeros.
+Reduced MIP has 294 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (1.07 ticks)
+Probing time = 0.00 sec. (1.15 ticks)
+Clique table members: 70.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (4.93 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            5.0000      700.0000              --- 
+      0     0      387.0000    46        5.0000      387.0000      340     --- 
+*     0+    0                          387.0000      387.0000             0.00%
+      0     0        cutoff            387.0000      387.0000      340    0.00%
+Elapsed time = 0.04 sec. (21.59 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.04 sec. (21.61 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.04 sec. (21.61 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 387
+1 is free in round 2
+1 plays 3 white matches, and 3 black matches
+2 is free in round 4
+2 plays 3 white matches, and 3 black matches
+3 is free in round 7
+3 plays 3 white matches, and 3 black matches
+4 is free in round 1
+4 plays 3 white matches, and 3 black matches
+5 is free in round 6
+5 plays 3 white matches, and 3 black matches
+6 is free in round 3
+6 plays 3 white matches, and 3 black matches
+7 is free in round 5
+7 plays 3 white matches, and 3 black matches
+Slot 1
+2 white, 5 black
+3 white, 7 black
+6 white, 1 black
+
+Slot 2
+2 white, 3 black
+4 white, 7 black
+6 white, 5 black
+
+Slot 3
+4 white, 3 black
+5 white, 1 black
+7 white, 2 black
+
+Slot 4
+1 white, 4 black
+3 white, 5 black
+7 white, 6 black
+
+Slot 5
+1 white, 3 black
+5 white, 4 black
+6 white, 2 black
+
+Slot 6
+2 white, 4 black
+3 white, 6 black
+7 white, 1 black
+
+Slot 7
+1 white, 2 black
+4 white, 6 black
+5 white, 7 black
+
+
+<<< post process
+
+
+<<< done
+

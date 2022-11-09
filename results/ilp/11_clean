@@ -1,0 +1,151 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 55 rows and 121 columns.
+Reduced MIP has 199 rows, 1211 columns, and 6595 nonzeros.
+Reduced MIP has 1210 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (4.26 ticks)
+Probing time = 0.00 sec. (2.16 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 199 rows, 1211 columns, and 6595 nonzeros.
+Reduced MIP has 1210 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (3.83 ticks)
+Probing time = 0.00 sec. (2.16 ticks)
+Clique table members: 176.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.03 sec. (23.93 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0      567.0000   153                    567.0000      642         
+*     0+    0                          567.0000      567.0000             0.00%
+      0     0        cutoff            567.0000      567.0000      642    0.00%
+Elapsed time = 0.20 sec. (156.94 ticks, tree = 0.01 MB, solutions = 1)
+
+Root node processing (before b&c):
+  Real time             =    0.20 sec. (157.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.20 sec. (157.01 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 567
+1 is free in round 11
+1 plays 5 white matches, and 5 black matches
+2 is free in round 9
+2 plays 5 white matches, and 5 black matches
+3 is free in round 10
+3 plays 5 white matches, and 5 black matches
+4 is free in round 7
+4 plays 5 white matches, and 5 black matches
+5 is free in round 5
+5 plays 5 white matches, and 5 black matches
+6 is free in round 8
+6 plays 5 white matches, and 5 black matches
+7 is free in round 4
+7 plays 5 white matches, and 5 black matches
+8 is free in round 1
+8 plays 5 white matches, and 5 black matches
+9 is free in round 6
+9 plays 5 white matches, and 5 black matches
+10 is free in round 2
+10 plays 5 white matches, and 5 black matches
+11 is free in round 3
+11 plays 5 white matches, and 5 black matches
+Slot 1
+2 white, 6 black
+3 white, 9 black
+4 white, 1 black
+5 white, 10 black
+11 white, 7 black
+
+Slot 2
+1 white, 11 black
+5 white, 2 black
+6 white, 3 black
+8 white, 4 black
+9 white, 7 black
+
+Slot 3
+1 white, 6 black
+3 white, 8 black
+4 white, 9 black
+7 white, 5 black
+10 white, 2 black
+
+Slot 4
+4 white, 3 black
+5 white, 1 black
+9 white, 8 black
+10 white, 6 black
+11 white, 2 black
+
+Slot 5
+2 white, 9 black
+7 white, 3 black
+8 white, 1 black
+10 white, 4 black
+11 white, 6 black
+
+Slot 6
+1 white, 3 black
+2 white, 8 black
+6 white, 5 black
+7 white, 4 black
+11 white, 10 black
+
+Slot 7
+2 white, 7 black
+3 white, 10 black
+5 white, 11 black
+6 white, 8 black
+9 white, 1 black
+
+Slot 8
+3 white, 11 black
+4 white, 2 black
+7 white, 8 black
+9 white, 5 black
+10 white, 1 black
+
+Slot 9
+1 white, 7 black
+3 white, 5 black
+4 white, 6 black
+8 white, 11 black
+10 white, 9 black
+
+Slot 10
+1 white, 2 black
+5 white, 4 black
+6 white, 7 black
+8 white, 10 black
+9 white, 11 black
+
+Slot 11
+2 white, 3 black
+6 white, 9 black
+7 white, 10 black
+8 white, 5 black
+11 white, 4 black
+
+
+<<< post process
+
+
+<<< done
+

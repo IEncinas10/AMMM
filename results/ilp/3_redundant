@@ -1,0 +1,68 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 21 rows and 9 columns.
+Reduced MIP has 13 rows, 19 columns, and 83 nonzeros.
+Reduced MIP has 18 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.09 ticks)
+Found incumbent of value 6.000000 after 0.00 sec. (0.17 ticks)
+Probing time = 0.00 sec. (0.03 ticks)
+Cover probing fixed 0 vars, tightened 2 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 13 rows, 19 columns, and 83 nonzeros.
+Reduced MIP has 18 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.07 ticks)
+Probing time = 0.00 sec. (0.03 ticks)
+Clique table members: 14.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.03 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            6.0000      194.0000              --- 
+*     0     0      integral     0      194.0000      194.0000        5    0.00%
+Elapsed time = 0.01 sec. (0.41 ticks, tree = 0.00 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.01 sec. (0.41 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.01 sec. (0.41 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 194
+1 is free in round 3
+1 plays 1 white matches, and 1 black matches
+2 is free in round 1
+2 plays 1 white matches, and 1 black matches
+3 is free in round 2
+3 plays 1 white matches, and 1 black matches
+Slot 1
+3 white, 1 black
+
+Slot 2
+1 white, 2 black
+
+Slot 3
+2 white, 3 black
+
+
+<<< post process
+
+
+<<< done
+

@@ -1,0 +1,86 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 35 rows and 25 columns.
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 51 rows, 101 columns, and 679 nonzeros.
+Reduced MIP has 100 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.70 ticks)
+Found incumbent of value 123.000000 after 0.00 sec. (1.56 ticks)
+Probing time = 0.00 sec. (0.31 ticks)
+Cover probing fixed 0 vars, tightened 2 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 51 rows, 101 columns, and 679 nonzeros.
+Reduced MIP has 100 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.51 ticks)
+Probing time = 0.00 sec. (0.30 ticks)
+Clique table members: 35.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.45 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          123.0000      455.0000           269.92%
+      0     0      220.0000    23      123.0000      220.0000       59   78.86%
+*     0+    0                          220.0000      220.0000             0.00%
+      0     0        cutoff            220.0000      220.0000       59    0.00%
+Elapsed time = 0.01 sec. (3.65 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.01 sec. (3.66 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.01 sec. (3.66 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 220
+1 is free in round 4
+1 plays 2 white matches, and 2 black matches
+2 is free in round 1
+2 plays 2 white matches, and 2 black matches
+3 is free in round 3
+3 plays 2 white matches, and 2 black matches
+4 is free in round 2
+4 plays 2 white matches, and 2 black matches
+5 is free in round 5
+5 plays 2 white matches, and 2 black matches
+Slot 1
+3 white, 1 black
+4 white, 5 black
+
+Slot 2
+1 white, 5 black
+2 white, 3 black
+
+Slot 3
+1 white, 4 black
+5 white, 2 black
+
+Slot 4
+4 white, 2 black
+5 white, 3 black
+
+Slot 5
+2 white, 1 black
+3 white, 4 black
+
+
+<<< post process
+
+
+<<< done
+
