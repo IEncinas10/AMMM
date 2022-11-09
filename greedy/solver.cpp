@@ -32,6 +32,8 @@ struct Player {
 
     bool operator==(const Player &other) const { return playerID == other.playerID; }
 
+	bool get_hasRested(){return hasRested;}
+
     bool has_missing_games() const { return points_per_day.size() - 1 != games_black + games_white; }
     uint64_t total_games() const { return points_per_day.size() - 1; }
 };
@@ -110,6 +112,7 @@ struct Tournament {
     }
 
     void create_matchups() {
+
 	// we assign the ID to the players
 	const uint64_t days = num_players;
 	std::vector<uint64_t> rests; // vector with ID of player that rests every day
@@ -184,10 +187,22 @@ struct Tournament {
 
     void assign_rest(std::vector<Player> &players_day, uint64_t day, std::vector<player_id> &rests, uint64_t &score) {
 
+	std::srand(std::time(nullptr)); // use current time as seed for random generator
 	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day", si no
 	// no va a ir
+	std::vector<Player> clean_players;
+	uint64_t chosen_index;
 
-	for (Player &player : players_day) {
+	std::copy_if(players_day.begin(), players_day.end(), back_inserter(clean_players), [] (Player &x) {return !x.hasRested;});
+
+	uint64_t last_index = (clean_players.size() - 1) * alpha;
+	if(last_index  != 0)
+		chosen_index = std::rand() % last_index;
+	else 
+		chosen_index = 0;
+
+	for ( ; chosen_index < num_players; chosen_index++) {
+		Player player = clean_players[chosen_index];
 	    if (player.hasRested)
 		continue;
 	    score += player.points_per_day[day];
@@ -271,7 +286,7 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
     return true;
 }
 
-void print_usage(const char *program_name) { fmt::print("Usage: {} instance_filepath\n", program_name); }
+void print_usage(const char *program_name) { fmt::print("Usage: {} instance_filepath alpha\n", program_name); }
 
 void get_alpha(int argc, char **argv) {
     if(argc >= 3) {
