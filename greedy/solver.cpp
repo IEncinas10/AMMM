@@ -32,8 +32,6 @@ struct Player {
 
     bool operator==(const Player &other) const { return playerID == other.playerID; }
 
-	bool get_hasRested(){return hasRested;}
-
     bool has_missing_games() const { return points_per_day.size() - 1 != games_black + games_white; }
     uint64_t total_games() const { return points_per_day.size() - 1; }
 };
