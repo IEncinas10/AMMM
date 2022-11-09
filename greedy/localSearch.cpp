@@ -10,7 +10,8 @@
 
 using player_id = uint64_t;
 
-enum class Color { WHITE, BLACK };
+float alpha = 0;
+
 
 struct Player {
 
@@ -110,7 +111,6 @@ struct Tournament {
 
     void create_matchups() {
 	// we assign the ID to the players
-	static const uint32_t MAX_TRIES = 10;
 	const uint64_t days = num_players;
 	std::vector<uint64_t> rests; // vector with ID of player that rests every day
 	uint64_t score = 0;
@@ -124,6 +124,7 @@ struct Tournament {
 	fmt::print("All matches possible matches created in C.\n");
 
 	for (uint64_t day = 0; day < days; day++) {
+	    // Make a copy to sort it by points this round
 	    std::vector<Player> players_round(players);
 
 	    fmt::print("DAY {}\n Ordering C by points\n", day);
@@ -132,10 +133,6 @@ struct Tournament {
 		      [&](const Player &x, Player &y) { // sorting by less points per match
 			  return x.points_per_day[day] > y.points_per_day[day];
 		      });
-
-	    for (Player &player : players_round) {
-		fmt::print("[{}, {}] \n", player.playerID, player.points_per_day[day]);
-	    }
 
 	    assign_rest(players_round, day, rests, score);
 	}
@@ -149,14 +146,10 @@ struct Tournament {
 
 	fmt::print("]\nFinal Score: {}\n", points);
 
-	local_search(rests, score);
+	local_search(rests);
     }
 
-    void local_search(std::vector<player_id> &rests, uint64_t score) {
-	uint64_t iter = 0;
-	uint64_t nextScore = -1;
-	uint64_t maxIter = num_players;
-
+    void local_search(std::vector<player_id> &rests) {
 	uint64_t num_days = num_players;
 
 	for (uint32_t i = 0; i < num_days; i++) {
@@ -176,9 +169,10 @@ struct Tournament {
 
 	    std::swap(rests[i], rests[best_swap]);
 	}
-	auto points = 0;
+
+	uint32_t points = 0;
 	fmt::print("LOCAL SEARCH: [");
-	for (auto i = 0; i < num_players; i++) {
+	for (uint32_t i = 0; i < num_players; i++) {
 	    fmt::print("{} ", rests[i]);
 	    points += players[rests[i]].points_per_day[i];
 	}
@@ -275,10 +269,17 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
 
 void print_usage(const char *program_name) { fmt::print("Usage: {} instance_filepath\n", program_name); }
 
+void get_alpha(int argc, char **argv) {
+    if(argc >= 3) {
+	alpha = std::stof(argv[2]);
+    }
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
 	print_usage(argv[0]);
     }
+    get_alpha(argc, argv);
 
     const char *instance_filename = argv[1];
 
