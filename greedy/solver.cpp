@@ -155,7 +155,7 @@ struct Tournament {
 	for (uint32_t i = 0; i < num_days; i++) {
 	    int best_swap = i;
 	    int best_swap_points = 0;
-	    for (uint32_t j = i + 1; j < num_days; j++) {
+	    for (uint32_t j = 0; j < num_days; j++) {
 		auto curr_points = players[rests[i]].points_per_day[i] + players[rests[j]].points_per_day[j];
 		auto swap_points = players[rests[j]].points_per_day[i] + players[rests[i]].points_per_day[j];
 
