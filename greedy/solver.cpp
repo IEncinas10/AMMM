@@ -162,7 +162,7 @@ struct Tournament {
 
 		int change = swap_points - curr_points;
 		if (change > best_swap_points) {
-		    fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", i, j, change, best_swap_points);
+		    fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[i], rests[j], change, best_swap_points);
 		    best_swap = j;
 		    best_swap_points = change;
 		}
