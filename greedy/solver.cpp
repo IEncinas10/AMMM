@@ -176,22 +176,24 @@ struct Tournament {
 
 	std::set<player_id> played_today;
 
-	fmt::print("\n\nDay {}\n", day);
+	fmt::print("\n\nDay {}. Rests {}\n", day, rests_today);
 	std::vector<Player> players_sort_by_nummatches(players);
 	std::sort(players_sort_by_nummatches.begin(), players_sort_by_nummatches.end(),
 		  [](const Player &x, const Player &y) { return x.games_played > y.games_played; });
 
 	for (uint64_t p = 0; p < players_sort_by_nummatches.size(); p++) {
-	    if (players_sort_by_nummatches[p].playerID == rests_today)
+	    if (players_sort_by_nummatches[p].playerID == rests_today ||
+		played_today.count(players_sort_by_nummatches[p].playerID))
 		continue;
 
-	    fmt::print("Trying to find match for {}\n", players_sort_by_nummatches[p].playerID);
+	    fmt::print("\nTrying to find match for {}\n==========\n", players_sort_by_nummatches[p].playerID);
 
 	    for (uint64_t i = 0; i < games.size(); i++) {
 		Game &g = games[i];
 		uint64_t white = g.white;
 		uint64_t black = g.black;
-		if (white != players_sort_by_nummatches[p].playerID && black != players_sort_by_nummatches[p].playerID) {
+		if (white != players_sort_by_nummatches[p].playerID &&
+		    black != players_sort_by_nummatches[p].playerID) {
 		    continue;
 		}
 
@@ -202,9 +204,7 @@ struct Tournament {
 		if (white == rests_today || black == rests_today) {
 		    fmt::print("Cant. Some player is resting\n");
 		    continue;
-
 		}
-
 
 		// Check player hasn't played today
 		if (played_today.count(white) || played_today.count(black)) {
@@ -214,7 +214,6 @@ struct Tournament {
 
 		played_today.insert(white);
 		played_today.insert(black);
-
 
 		fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
 		matches.insert(m);
@@ -227,14 +226,24 @@ struct Tournament {
 		games.erase(games.begin() + i);
 		// we have erased one game
 		i--;
+
 		break;
+		if (played_today.size() == num_players - 1)
+		    goto xd;
 	    }
 
-	    //if (played_today.count(players_sort_by_nummatches[p].playerID)) {
-		//fmt::print("Couldn't find match for {}\n", players_sort_by_nummatches[p].playerID);
-	    //}
+	    if (!played_today.count(players_sort_by_nummatches[p].playerID)) {
+		fmt::print("Couldn't find match for {}\n", players_sort_by_nummatches[p].playerID);
+	    }
 	}
 
+xd:
+	fmt::print("\nPlayers: [");
+	for(player_id i = 0; i < num_players; i++) {
+	    if(played_today.count(i))
+		fmt::print("{} ", i);
+	}
+	fmt::print("]\n");
 	return played_today.size() == num_players - 1;
     }
 
