@@ -181,7 +181,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 \begin{algorithm}
 	\caption{Greedy algorithm} 
 	\begin{algorithmic}[1]
-		\For {$day\ in\ days$}
+		\For {day in 0..days}
       \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
       \State sortedPlayers $\leftarrow$ sort playersToRest by points per day (DESC) 
       \State select p $\in$ sortedPlayers[0]
@@ -196,10 +196,10 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 \begin{algorithm}
 	\caption{Local Search} 
 	\begin{algorithmic}[1]
-    \For {$i\ =\ 1,2,...,Days$}
+    \For {i in 0..days}
     \State best\_swap\_points $\leftarrow$ 0
     \State best\_swap $\leftarrow$ i
-      \For {$j\ =\ 1,2,...,Days$}
+      \For {j in 0..days}
         \State change = EvaluateRestSwap(i,j)
         \If{change $>$ best\_swap\_points}
           \State best\_swap\_points $\leftarrow$ change
@@ -217,7 +217,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 \begin{algorithm}
 	\caption{GRASP} 
 	\begin{algorithmic}[1]
-		\For {$day\ in\ days$}
+		\For {day in 0..days}
       \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
       \State sortedPlayers $\leftarrow$ sort PlayersToRest by points per day (DESC) 
       \State last\_index $\leftarrow$ (playersToRest.size - 1) * $\alpha$
