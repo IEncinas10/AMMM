@@ -12,7 +12,6 @@ using player_id = uint64_t;
 
 float alpha = 0;
 
-
 struct Player {
 
     player_id playerID;
@@ -238,7 +237,8 @@ struct Tournament {
 
 		int change = swap_points - curr_points;
 		if (change > best_swap_points) {
-		    fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[i], rests[j], change, best_swap_points);
+		    fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[i], rests[j], change,
+			       best_swap_points);
 		    best_swap = j;
 		    best_swap_points = change;
 		}
@@ -265,26 +265,20 @@ struct Tournament {
 	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day", si no
 	// no va a ir
 	std::vector<Player> clean_players;
-	uint64_t chosen_index;
+	uint64_t chosen_index = 0;
 
-	std::copy_if(players_day.begin(), players_day.end(), back_inserter(clean_players), [] (Player &x) {return !x.hasRested;});
+	std::copy_if(players_day.begin(), players_day.end(), back_inserter(clean_players),
+		     [](Player &x) { return !x.hasRested; });
 
 	uint64_t last_index = (clean_players.size() - 1) * alpha;
-	if(last_index  != 0)
-		chosen_index = std::rand() % last_index;
-	else 
-		chosen_index = 0;
+	if (last_index != 0)
+	    chosen_index = std::rand() % last_index;
 
-	for ( ; chosen_index < num_players; chosen_index++) {
-		Player player = clean_players[chosen_index];
-	    if (player.hasRested)
-		continue;
-	    score += player.points_per_day[day];
-	    rests.push_back(player.playerID);
-	    players[player.playerID].hasRested = true;
-	    fmt::print("Player {} rests in day {} with {} points\n", player.playerID, day, player.points_per_day[day]);
-	    return;
-	}
+	Player player = clean_players[chosen_index];
+	score += player.points_per_day[day];
+	rests.push_back(player.playerID);
+	players[player.playerID].hasRested = true;
+	fmt::print("Player {} rests in day {} with {} points\n", player.playerID, day, player.points_per_day[day]);
     }
 
     bool player_can_play(player_id p, const std::vector<player_id> &playedToday) {
@@ -363,7 +357,7 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
 void print_usage(const char *program_name) { fmt::print("Usage: {} instance_filepath alpha\n", program_name); }
 
 void get_alpha(int argc, char **argv) {
-    if(argc >= 3) {
+    if (argc >= 3) {
 	alpha = std::stof(argv[2]);
     }
 }
