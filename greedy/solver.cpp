@@ -16,22 +16,15 @@ struct Player {
 
     player_id playerID;
     std::vector<uint64_t> points_per_day;
-    uint64_t games_black = 0;
-    uint64_t games_white = 0;
+    uint64_t games_played = 0;
     bool hasRested = false;
 
     std::size_t &operator[](std::size_t index) { return points_per_day[index]; }
     std::size_t operator[](std::size_t index) const { return points_per_day[index]; }
 
-    static bool can_play_white(const Player &p) { return p.games_white < (p.total_games() + 1) / 2; }
-    static bool can_play_black(const Player &p) { return p.games_black < (p.total_games() + 1) / 2; }
-
-    bool can_play_white() const { return games_white < (total_games() + 1) / 2; }
-    bool can_play_black() const { return games_black < (total_games() + 1) / 2; }
-
     bool operator==(const Player &other) const { return playerID == other.playerID; }
 
-    bool has_missing_games() const { return points_per_day.size() - 1 != games_black + games_white; }
+    bool has_missing_games() const { return points_per_day.size() - 1 != games_played; }
     uint64_t total_games() const { return points_per_day.size() - 1; }
 };
 
@@ -148,81 +141,101 @@ struct Tournament {
 
 	local_search(rests);
 
-
 	make_calendar(days, rests);
     }
 
-	void make_calendar(const uint64_t days, std::vector<player_id> &rests){
-		
-		uint64_t MAX_TRIES = 100;
-		for(uint64_t day = 0; day < days; day++){
+    void make_calendar(const uint64_t days, std::vector<player_id> &rests) {
 
-			uint64_t todayMatches = 0;
-			uint64_t tries = 0;
-			while (todayMatches < (num_players - 1) / 2) { // restriccion de partidos por dia (?)
-				if (find_best_match(games, day, rests)) {
-					todayMatches++;
-				} else {
-					fmt::print("no encontrado {}\n", tries);
-					tries++;
-					if (tries > MAX_TRIES) {
-					break;
-					}
-				}
-			}
-		}
+	uint64_t MAX_TRIES = 100;
+	for (uint64_t day = 0; day < days; day++) {
+
+	    uint64_t todayMatches = 0;
+	    uint64_t tries = 0;
+	    bool succeed = create_matches_day(games, day, rests[day]);
+	    if (!succeed) {
+		fmt::print("Couldn't create every match for day {}\n", day);
+	    }
 	}
+    }
 
-	std::vector<player_id> remainingAdvs(player_id id){
-		std::vector<player_id> remainingGames;
-		//buscar si existen los partidos con id
+    std::vector<player_id> remainingAdvs(player_id id) {
+	std::vector<player_id> remainingGames;
+	// buscar si existen los partidos con id
 
-		for(const Game &g : games) {
-			if(g.white == id )
-				remainingGames.push_back(g.black);
-			else if(g.black == id)
-				remainingGames.push_back(g.white);
-		}
-		return remainingGames;
+	for (const Game &g : games) {
+	    if (g.white == id)
+		remainingGames.push_back(g.black);
+	    else if (g.black == id)
+		remainingGames.push_back(g.white);
 	}
+	return remainingGames;
+    }
 
-
-	bool find_best_match(std::vector<Game> &games, uint64_t day, const std::vector<player_id> &rests) {
+    bool create_matches_day(std::vector<Game> &games, uint64_t day, player_id rests_today) {
 	// we search in array games (C) the feasibles matchups and the best suitable
 
 	std::set<player_id> played_today;
 
-	for(uint64_t i = 0; i < games.size(); i++) {
-	    Game &g = games[i];
-	    uint64_t white = g.white;
-	    uint64_t black = g.black;
+	fmt::print("\n\nDay {}\n", day);
+	std::vector<Player> players_sort_by_nummatches(players);
+	std::sort(players_sort_by_nummatches.begin(), players_sort_by_nummatches.end(),
+		  [](const Player &x, const Player &y) { return x.games_played > y.games_played; });
+
+	for (uint64_t p = 0; p < players_sort_by_nummatches.size(); p++) {
+	    if (players_sort_by_nummatches[p].playerID == rests_today)
+		continue;
+
+	    fmt::print("Trying to find match for {}\n", players_sort_by_nummatches[p].playerID);
+
+	    for (uint64_t i = 0; i < games.size(); i++) {
+		Game &g = games[i];
+		uint64_t white = g.white;
+		uint64_t black = g.black;
+		if (white != players_sort_by_nummatches[p].playerID && black != players_sort_by_nummatches[p].playerID) {
+		    continue;
+		}
+
+		const Match m{day, white, black};
+		fmt::print("Trying match {} - {} day {}.\n", white, black, day);
+
+		// Check match is valid, no player is resting
+		if (white == rests_today || black == rests_today) {
+		    fmt::print("Cant. Some player is resting\n");
+		    continue;
+
+		}
 
 
-		if(white == rests[day] || black == rests[day])
-			continue;
+		// Check player hasn't played today
+		if (played_today.count(white) || played_today.count(black)) {
+		    fmt::print("Some player has played\n");
+		    continue;
+		}
 
-			
-
-	    const Match m{day, white, black};
-		
-
-	    fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
-	    matches.insert(m);
-
-	    //Remove, dont care. We should check this when we create matches before doing the algorithm
-	    players[white].games_white++;
-	    players[black].games_black++;
-	    //
+		played_today.insert(white);
+		played_today.insert(black);
 
 
-	    todayPlayer.push_back(white);
-	    todayPlayer.push_back(black);
-	    games.erase(games.begin() + i);
+		fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
+		matches.insert(m);
 
-	    return true;
+		// Remove, dont care. We should check this when we create matches before doing the algorithm
+		players[white].games_played++;
+		players[black].games_played++;
+		//
+
+		games.erase(games.begin() + i);
+		// we have erased one game
+		i--;
+		break;
+	    }
+
+	    //if (played_today.count(players_sort_by_nummatches[p].playerID)) {
+		//fmt::print("Couldn't find match for {}\n", players_sort_by_nummatches[p].playerID);
+	    //}
 	}
 
-	return false;
+	return played_today.size() == num_players - 1;
     }
 
     void local_search(std::vector<player_id> &rests) {
@@ -300,8 +313,7 @@ struct Tournament {
 
 	for (const auto &p : players) {
 	    if (p.has_missing_games())
-		fmt::print("Player {} has played {} white games and {} black games\n", p.playerID, p.games_white,
-			   p.games_black);
+		fmt::print("Player {} has played {} games\n", p.playerID, p.games_played);
 	}
     }
 };
