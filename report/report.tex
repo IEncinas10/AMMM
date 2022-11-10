@@ -176,7 +176,11 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 \section{Meta-heuristics}
 \textit{For the meta-heuristics, the pseudo-code of your constructive, local search and GRASP algorithms, including equations for describing the greedy cost function(s) and the RCL}
 
+As a solution must exist no matter which player rests in a given day, we will focus on assigning a rest day for every player $p$. This information is enough for calculating our objective function, performing local search and GRASP. After all this, we will construct the pairings for the whole tournament.
+
 \subsection{Constructive}
+
+The greedy cost function is the points that a player $p$ assigns to resting on day $d$. As we want to maximize this, we will sort the available players in descending order and pick the one with highest value.
 
 \begin{algorithm}
 	\caption{Greedy algorithm} 
