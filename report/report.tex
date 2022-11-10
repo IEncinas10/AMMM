@@ -185,7 +185,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 	  \State rests $\leftarrow$ \{\}
 	    \For {day in 0..days}
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
-	      \State sortedPlayers $\leftarrow$ sort playersToRest by points per day (DESC) 
+	      \State sortedPlayers $\leftarrow$ sort playersToRest(p) by p.points[day] (DESC) 
 	      \State select p $\in$ sortedPlayers[0]
 	      \State rests[day]\ $\leftarrow$\ p
 	    \EndFor
@@ -223,7 +223,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 	  \State rests $\leftarrow$ \{\}
 	    \For {day in 0..days}
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
-	      \State sortedPlayers $\leftarrow$ sort PlayersToRest by points per day (DESC) 
+	      \State sortedPlayers $\leftarrow$ sort PlayersToRest(p) by p.points[day] (DESC) 
 	      \State last\_index $\leftarrow$ (playersToRest.size - 1) * $\alpha$
 	      \State RCL $\leftarrow$ sortedPlayers(p) | p $\in$ [0, last\_index] 
 	      \State select p $\in$ RCL at random
