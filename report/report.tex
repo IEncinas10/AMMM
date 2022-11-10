@@ -182,9 +182,9 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 	\caption{Greedy algorithm} 
 	\begin{algorithmic}[1]
 		\For {$day\ in\ days$}
-      \State playersToRest $\leftarrow$ filter sortedPlayers(p) | p.hasNotRested
-      \State sortedPlayers $\leftarrow$ sort PlayersToRest by points per day (DESC) 
-      \State select p $\in$ sortedPlayers(0)
+      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
+      \State sortedPlayers $\leftarrow$ sort playersToRest by points per day (DESC) 
+      \State select p $\in$ sortedPlayers[0]
       \State rests[day]\ $\leftarrow$\ p
 		\EndFor
 	\end{algorithmic} 
@@ -196,10 +196,12 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 \begin{algorithm}
 	\caption{Local Search} 
 	\begin{algorithmic}[1]
-		\For {$i\ =\ 1,2,...,Nplayers$}
-      \For {$j\ =\ 1,2,...,Nplayers$}
-        \State change = EvaluateSwapRest(i,j)
-        \If{$change > best\_swap\_points$}
+    \For {$i\ =\ 1,2,...,Days$}
+    \State best\_swap\_points $\leftarrow$ 0
+    \State best\_swap $\leftarrow$ i
+      \For {$j\ =\ 1,2,...,Days$}
+        \State change = EvaluateRestSwap(i,j)
+        \If{change $>$ best\_swap\_points}
           \State best\_swap\_points $\leftarrow$ change
           \State best\_swap $\leftarrow$ j
         \EndIf
@@ -216,7 +218,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 	\caption{GRASP} 
 	\begin{algorithmic}[1]
 		\For {$day\ in\ days$}
-      \State playersToRest $\leftarrow$ filter sortedPlayers(p) | p.hasNotRested
+      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
       \State sortedPlayers $\leftarrow$ sort PlayersToRest by points per day (DESC) 
       \State last\_index $\leftarrow$ (playersToRest.size - 1) * $\alpha$
       \State RCL $\leftarrow$ sortedPlayers(p) | p $\in$ [0, last\_index] 
