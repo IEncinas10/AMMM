@@ -195,6 +195,8 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 
 \subsection{Local search}
 
+In the local search phase we evaluate if swapping the players that rest in two given days increases our objective function\footnote{For simplicity, we initialize the best\_swap so that the local search doesn't change the solution if we found no improvement}.
+
 \begin{algorithm}
 	\caption{Local Search} 
 	\begin{algorithmic}[1]
@@ -221,11 +223,11 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 	\begin{algorithmic}[1]
 	  \State Players $\leftarrow$ Set of Players
 	  \State rests $\leftarrow$ \{\}
-	    \For {day in 0..days}
+	    \For {day in 0..days}]b
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
 	      \State sortedPlayers $\leftarrow$ sort PlayersToRest(p) by p.points[day] (DESC) 
 	      \State last\_index $\leftarrow$ (playersToRest.size - 1) * $\alpha$
-	      \State RCL $\leftarrow$ sortedPlayers(p) | p $\in$ [0, last\_index] 
+	      \State RCL $\leftarrow$ sortedPlayers(p) $|$ p $\in$ [0, last\_index] 
 	      \State select p $\in$ RCL at random
 	      \State rests[day]\ $\leftarrow$\ p
 	    \EndFor
