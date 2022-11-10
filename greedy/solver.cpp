@@ -148,6 +148,82 @@ struct Tournament {
 	fmt::print("]\nFinal Score: {}\n", points);
 
 	local_search(rests);
+
+
+	make_calendar(days, rests);
+    }
+
+	void make_calendar(const uint64_t days, std::vector<player_id> &rests){
+		
+		uint64_t MAX_TRIES = 100;
+		for(uint64_t day = 0; day < days; day++){
+
+			uint64_t todayMatches = 0;
+			uint64_t tries = 0;
+			while (todayMatches < (num_players - 1) / 2) { // restriccion de partidos por dia (?)
+				if (find_best_match(games, day, rests)) {
+					todayMatches++;
+				} else {
+					fmt::print("no encontrado {}\n", tries);
+					tries++;
+					if (tries > MAX_TRIES) {
+					break;
+					}
+				}
+			}
+		}
+	}
+
+	std::vector<player_id> remainingAdvs(player_id id){
+		std::vector<player_id> remainingGames;
+		//buscar si existen los partidos con id
+
+		for(const Game &g : games) {
+			if(g.white == id )
+				remainingGames.push_back(g.black);
+			else if(g.black == id)
+				remainingGames.push_back(g.white);
+		}
+		return remainingGames;
+	}
+
+
+	bool find_best_match(std::vector<Game> &games, uint64_t day, const std::vector<player_id> &rests) {
+	// we search in array games (C) the feasibles matchups and the best suitable
+
+	std::set<player_id> played_today;
+
+	for(uint64_t i = 0; i < games.size(); i++) {
+	    Game &g = games[i];
+	    uint64_t white = g.white;
+	    uint64_t black = g.black;
+
+
+		if(white == rests[day] || black == rests[day])
+			continue;
+
+			
+
+	    const Match m{day, white, black};
+		
+
+	    fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
+	    matches.insert(m);
+
+	    //Remove, dont care. We should check this when we create matches before doing the algorithm
+	    players[white].games_white++;
+	    players[black].games_black++;
+	    //
+
+
+	    todayPlayer.push_back(white);
+	    todayPlayer.push_back(black);
+	    games.erase(games.begin() + i);
+
+	    return true;
+	}
+
+	return false;
     }
 
     void local_search(std::vector<player_id> &rests) {
