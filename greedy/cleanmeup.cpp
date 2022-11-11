@@ -151,12 +151,12 @@ struct Tournament {
 	//
 	std::vector<player_id> fakerest;
 	for (uint32_t day = 0; day < num_players; day++) {
-	    fmt::print("\n\nDay {}\n", day);
+	    //fmt::print("\n\nDay {}\n", day);
 	    for (player_id p = 0; p <= num_players / 2; p++) {
 		// actually choose color correctly with parity blabla
 		player_id w = (p + day) % num_players;
 		player_id b = (day + num_players - 1 - p) % num_players;
-		fmt::print("{} - {}\n", w, b);
+		//fmt::print("{} - {}\n", w, b);
 		if (w == b)
 		    fakerest.push_back(w);
 	    }
@@ -166,25 +166,27 @@ struct Tournament {
 	fmt::print("Rest:      [{}]\n", fmt::join(rests, " "));
 
 	for (uint32_t day = 0; day < num_players; day++) {
-	    fmt::print("\n\nDay {}\n", day);
 	    for (player_id p = 0; p <= num_players / 2; p++) {
 		// actually choose color correctly with parity blabla
 		player_id w = (p + day) % num_players;
 		player_id b = (day + num_players - 1 - p) % num_players;
 
-		if ((w + b) % 2 == 0) {
-		    std::swap(w, b);
-		}
 
 		uint32_t rename_index_w = std::find(fakerest.begin(), fakerest.end(), w) - fakerest.begin();
 		uint32_t rename_index_b = std::find(fakerest.begin(), fakerest.end(), b) - fakerest.begin();
+		if (b > w && (w + b) % 2 != 0) {
+		    std::swap(w, b);
+		}
 
 		w = rests[rename_index_w];
 		b = rests[rename_index_b];
 
 
-		if (w == rests[day])
+		if (w == rests[day]) {
+		    assert(w == b);
 		    continue;
+		}
+
 
 		assert(w != b);
 		players[w].games_played++;
