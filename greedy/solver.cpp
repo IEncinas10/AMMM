@@ -1,4 +1,5 @@
 #include <boost/algorithm/string.hpp>
+#include <chrono>
 #include <cstdint>
 #include <fmt/core.h>
 #include <fmt/format.h>
@@ -10,22 +11,28 @@
 
 using player_id = uint64_t;
 
+// Alpha for GRASP. Default to 0, read from command line arguments
 float alpha = 0;
 
+// hack to print nicely the tournament schedule
+std::size_t NUM_PLAYERS;
+
 struct Player {
+    // Player input
+    std::vector<uint64_t> points;
 
+    // ID, just for bookkeeping
     player_id playerID;
-    std::vector<uint64_t> points_per_day;
-    uint64_t games_played = 0;
-    bool hasRested = false;
 
-    std::size_t &operator[](std::size_t index) { return points_per_day[index]; }
-    std::size_t operator[](std::size_t index) const { return points_per_day[index]; }
+    // Check whether or not a player has rested. Needed to avoid leting a player rest more than once
+    bool has_rested = false;
+
+    // To do checks after getting a tournament, it's not really needed
+    uint64_t games_played = 0, games_white = 0, games_black = 0;
 
     bool operator==(const Player &other) const { return playerID == other.playerID; }
 
-    bool has_missing_games() const { return points_per_day.size() - 1 != games_played; }
-    uint64_t total_games() const { return points_per_day.size() - 1; }
+    bool has_missing_games() const { return points.size() - 1 != games_played; }
 };
 
 struct Match {
@@ -40,15 +47,10 @@ struct Match {
     }
 };
 
+// This struct is not too useful, we just use to check our solution
 struct Game {
     player_id white;
     player_id black;
-
-    bool operator==(const Game &other) const {
-	return (white == other.white && black == other.black) || (white == other.black && black == other.white);
-    }
-
-    bool operator!=(const Game &other) const { return !((*this) == other); }
 };
 
 struct Tournament {
@@ -58,8 +60,11 @@ struct Tournament {
     // std::size_t num_days = num_players;
 
     std::vector<Player> players;
+
+    // Tournament schedule: {Day, player1, player2}
     std::multiset<Match> matches;
-    std::vector<Game> gamesPlayed;
+
+    // Just for checking solution
     std::vector<Game> games;
 
     void set_num_players(std::size_t num_players_) {
@@ -69,10 +74,13 @@ struct Tournament {
 
     void assign_player_ids() {
 	for (uint64_t player = 0; player < num_players; player++) {
-	    players[player].playerID = player;
+	    players.at(player).playerID = player;
+	    // players[player].playerID = player;
 	}
     }
 
+    // We create a set of games where every player plays against
+    // every other player (50% white, 50% black)
     void create_games() {
 	for (uint64_t x = 0; x < num_players; x++) {
 	    for (uint64_t y = x + 1; y < num_players; y++) {
@@ -89,243 +97,207 @@ struct Tournament {
 		}
 
 		Game g{white, black};
-		games.push_back(g); // GAMES IS NOW THE CANDIDATE VECTOR
+		games.push_back(g);
 	    }
 	}
-
-	// create a function to check that every player has the same games as black thn as white
-	fmt::print("\n[{}] ", games.size());
-	for (Game &g : games) {
-	    fmt::print("{} - {}, ", g.white, g.black);
-	}
-	fmt::print("\n");
     }
 
     void create_matchups() {
 
-	// we assign the ID to the players
+	// vector with ID of player that rests every day
+	std::vector<uint64_t> rests;
 	const uint64_t days = num_players;
-	std::vector<uint64_t> rests; // vector with ID of player that rests every day
-	uint64_t score = 0;
 
+	// we assign the ID to the players
 	assign_player_ids();
-	fmt::print("Creating all combination matches....\n"); // we just create the possible matches we have, we will
-							      // need to evaluate the points in each day.
-	// TODO: assign colors from this point forward
-	create_games();
 
-	fmt::print("All matches possible matches created in C.\n");
-
+	uint64_t score = 0;
 	for (uint64_t day = 0; day < days; day++) {
 	    // Make a copy to sort it by points this round
 	    std::vector<Player> players_round(players);
 
-	    fmt::print("DAY {}\n Ordering C by points\n", day);
+	    // fmt::print("DAY {}\n Ordering C by points\n", day);
 
 	    std::sort(players_round.begin(), players_round.end(),
 		      [&](const Player &x, Player &y) { // sorting by less points per match
-			  return x.points_per_day[day] > y.points_per_day[day];
+			  return x.points[day] > y.points[day];
 		      });
 
 	    assign_rest(players_round, day, rests, score);
 	}
 
-	auto points = 0;
-	fmt::print("SOLUTION GREEDY:\n[");
-	for (uint32_t i = 0; i < rests.size(); i++) {
-	    fmt::print("{} ", rests[i]);
-	    points += players[rests[i]].points_per_day[i];
-	}
+	fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
-	fmt::print("]\nFinal Score: {}\n", points);
+	local_search(rests, score);
 
-	local_search(rests);
-
+	// Generate set of valid games (just for validating solution, this does nothing right else now)
+	create_games();
 	make_calendar(days, rests);
     }
 
-    void make_calendar(const uint64_t days, std::vector<player_id> &rests) {
+    void make_calendar(uint64_t days, const std::vector<player_id> &rests) {
+	// Idea: fake a tournament with 2k players instead of 2k -1
+	// The "last" player is actually the rest day
+	// then map playsfake(day d) with rests[day d]
 
-	uint64_t MAX_TRIES = 100;
-	for (uint64_t day = 0; day < days; day++) {
+	// In reality: we do a 2k-1 players tournament but with self match
+	// then, we use this "self match" as a rest day, and obtain
+	// a fake rest day. After that, we rename the players like this:
+	//
+	// fakerest[day] <- rest[day]
+	//
+	// Then, every player rests in his desired day
 
-	    uint64_t todayMatches = 0;
-	    uint64_t tries = 0;
-	    bool succeed = create_matches_day(games, day, rests[day]);
-	    if (!succeed) {
-		fmt::print("Couldn't create every match for day {}\n", day);
+	std::vector<player_id> fakerest;
+	for (uint32_t day = 0; day < days; day++) {
+	    // fmt::print("\n\nDay {}\n", day);
+	    for (player_id p = 0; p <= num_players / 2; p++) {
+		// actually choose color correctly with parity blabla
+		player_id w = (p + day) % num_players;
+		player_id b = (day + num_players - 1 - p) % num_players;
+		// fmt::print("{} - {}\n", w, b);
+		if (w == b)
+		    fakerest.push_back(w);
 	    }
 	}
-    }
 
-    std::vector<player_id> remainingAdvs(player_id id) {
-	std::vector<player_id> remainingGames;
-	// buscar si existen los partidos con id
+	uint8_t id_width = std::log10(num_players) + 1;
+	fmt::print("Fake rest: [{:{}}]\nRest:      [{:{}}]\n", fmt::join(fakerest, " "), id_width,
+		   fmt::join(rests, " "), id_width);
 
-	for (const Game &g : games) {
-	    if (g.white == id)
-		remainingGames.push_back(g.black);
-	    else if (g.black == id)
-		remainingGames.push_back(g.white);
-	}
-	return remainingGames;
-    }
+	for (uint32_t day = 0; day < days; day++) {
+	    for (player_id p = 0; p <= num_players / 2; p++) {
+		player_id w = (p + day) % num_players;
+		player_id b = (day + num_players - 1 - p) % num_players;
 
-    bool create_matches_day(std::vector<Game> &games, uint64_t day, player_id rests_today) {
-	// we search in array games (C) the feasibles matchups and the best suitable
+		uint32_t rename_index_w = std::find(fakerest.begin(), fakerest.end(), w) - fakerest.begin();
+		uint32_t rename_index_b = std::find(fakerest.begin(), fakerest.end(), b) - fakerest.begin();
 
-	std::set<player_id> played_today;
+		// Color fairness
+		if (b > w && (w + b) % 2 != 0) {
+		    std::swap(w, b);
+		}
 
-	fmt::print("\n\nDay {}. Rests {}\n", day, rests_today);
-	std::vector<Player> players_sort_by_nummatches(players);
-	std::sort(players_sort_by_nummatches.begin(), players_sort_by_nummatches.end(),
-		  [](const Player &x, const Player &y) { return x.games_played > y.games_played; });
+		w = rests[rename_index_w];
+		b = rests[rename_index_b];
 
-	for (uint64_t p = 0; p < players_sort_by_nummatches.size(); p++) {
-	    if (players_sort_by_nummatches[p].playerID == rests_today ||
-		played_today.count(players_sort_by_nummatches[p].playerID))
-		continue;
-
-	    fmt::print("\nTrying to find match for {}\n==========\n", players_sort_by_nummatches[p].playerID);
-
-	    for (uint64_t i = 0; i < games.size(); i++) {
-		Game &g = games[i];
-		uint64_t white = g.white;
-		uint64_t black = g.black;
-		if (white != players_sort_by_nummatches[p].playerID &&
-		    black != players_sort_by_nummatches[p].playerID) {
+		if (w == rests[day]) {
+		    assert(w == b);
 		    continue;
 		}
 
-		const Match m{day, white, black};
-		fmt::print("Trying match {} - {} day {}.\n", white, black, day);
+		// Can't play vs yourself
+		assert(w != b);
 
-		// Check match is valid, no player is resting
-		if (white == rests_today || black == rests_today) {
-		    fmt::print("Cant. Some player is resting\n");
-		    continue;
-		}
-
-		// Check player hasn't played today
-		if (played_today.count(white) || played_today.count(black)) {
-		    fmt::print("Some player has played\n");
-		    continue;
-		}
-
-		played_today.insert(white);
-		played_today.insert(black);
-
-		fmt::print("Inserting match {} - {} day {}.\n", white, black, day);
+		players[w].games_played++;
+		players[w].games_white++;
+		players[b].games_played++;
+		players[b].games_black++;
+		const Match m{day, w, b};
 		matches.insert(m);
-
-		// Remove, dont care. We should check this when we create matches before doing the algorithm
-		players[white].games_played++;
-		players[black].games_played++;
-		//
-
-		games.erase(games.begin() + i);
-		// we have erased one game
-		i--;
-
-		break;
-		if (played_today.size() == num_players - 1)
-		    goto xd;
-	    }
-
-	    if (!played_today.count(players_sort_by_nummatches[p].playerID)) {
-		fmt::print("Couldn't find match for {}\n", players_sort_by_nummatches[p].playerID);
 	    }
 	}
 
-xd:
-	fmt::print("\nPlayers: [");
-	for(player_id i = 0; i < num_players; i++) {
-	    if(played_today.count(i))
-		fmt::print("{} ", i);
+	// Check that every game is present in our "matches" structure
+	for (const Game &g : games) {
+	    bool found = false;
+	    for (uint32_t day = 0; day < num_players; day++) {
+		const Match m{day, g.white, g.black};
+		if (matches.count(m))
+		    found = true;
+	    }
+
+	    assert(found);
 	}
-	fmt::print("]\n");
-	return played_today.size() == num_players - 1;
+	assert(games.size() == matches.size());
+
+	// Additionally, check that every player plays a correct amount of games and they're 50%w, 50%b
+	for (const Player &p : players) {
+	    assert(!p.has_missing_games());
+	    assert(p.games_white == (num_players - 1) / 2);
+	    assert(p.games_black == (num_players - 1) / 2);
+	}
     }
 
-    void local_search(std::vector<player_id> &rests) {
+    void local_search(std::vector<player_id> &rests, uint64_t &points) {
 	uint64_t num_days = num_players;
+	uint64_t prev_solution = points;
+	uint64_t old_points;
 
-	for (uint32_t i = 0; i < num_days; i++) {
-	    int best_swap = i;
-	    int best_swap_points = 0;
-	    for (uint32_t j = 0; j < num_days; j++) {
-		auto curr_points = players[rests[i]].points_per_day[i] + players[rests[j]].points_per_day[j];
-		auto swap_points = players[rests[j]].points_per_day[i] + players[rests[i]].points_per_day[j];
+	uint64_t i = 0;
 
-		int change = swap_points - curr_points;
-		if (change > best_swap_points) {
-		    fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[i], rests[j], change,
-			       best_swap_points);
-		    best_swap = j;
-		    best_swap_points = change;
+	do {
+	    old_points = points;
+
+	    for (uint32_t day = 0; day < num_days; day++) {
+		int best_swap = day;
+		int best_swap_points = 0;
+		for (uint32_t j = 0; j < num_days; j++) {
+		    auto curr_points = players[rests[day]].points[day] + players[rests[j]].points[j];
+		    auto swap_points = players[rests[j]].points[day] + players[rests[day]].points[j];
+
+		    int change = swap_points - curr_points;
+		    if (change > best_swap_points) {
+			fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[day], rests[j], change,
+				   best_swap_points);
+			best_swap = j;
+			best_swap_points = change;
+		    }
 		}
+
+		std::swap(rests[day], rests[best_swap]);
+		points += best_swap_points;
 	    }
+	    i++;
+	} while (points > old_points);
 
-	    std::swap(rests[i], rests[best_swap]);
-	}
-
-	uint32_t points = 0;
-	fmt::print("LOCAL SEARCH: [");
-	for (uint32_t i = 0; i < num_players; i++) {
-	    fmt::print("{} ", rests[i]);
-	    points += players[rests[i]].points_per_day[i];
-	}
-
-	fmt::print("] Points: {}\n", points);
-
-	return;
+	fmt::print("Points after local search: {}\n", points);
+	fmt::print("Improvement by LS in {} iterations: {}\n", i, points - prev_solution);
     }
 
     void assign_rest(std::vector<Player> &players_day, uint64_t day, std::vector<player_id> &rests, uint64_t &score) {
 
-	std::srand(std::time(nullptr)); // use current time as seed for random generator
-	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day", si no
-	// no va a ir
+	// use current time as seed for random generator
+	std::srand(std::time(nullptr));
+
+	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day"
 	std::vector<Player> clean_players;
-	uint64_t chosen_index = 0;
 
 	std::copy_if(players_day.begin(), players_day.end(), back_inserter(clean_players),
-		     [](Player &x) { return !x.hasRested; });
+		     [](Player &x) { return !x.has_rested; });
 
-	uint64_t last_index = (clean_players.size() - 1) * alpha;
+	// GRASP. If alpha 0 defaults to normal greedy
+	uint64_t chosen_index = 0, last_index = (clean_players.size() - 1) * alpha;
 	if (last_index != 0)
 	    chosen_index = std::rand() % last_index;
 
-	Player player = clean_players[chosen_index];
-	score += player.points_per_day[day];
+	const Player &player = clean_players[chosen_index];
+	score += player.points[day];
 	rests.push_back(player.playerID);
-	players[player.playerID].hasRested = true;
-	fmt::print("Player {} rests in day {} with {} points\n", player.playerID, day, player.points_per_day[day]);
-    }
+	players[player.playerID].has_rested = true;
 
-    bool player_can_play(player_id p, const std::vector<player_id> &playedToday) {
-	return std::find(playedToday.begin(), playedToday.end(), p) == playedToday.end();
-    }
-
-    bool contains(const std::vector<player_id> &adv, player_id player) {
-	return std::find(adv.begin(), adv.end(), player) != adv.end();
+	// fmt::print("Player {} rests in day {} with {} points\n", player.playerID, day, player.points_per_day[day]);
     }
 
     void print() {
 	fmt::print("{} players\n", num_players);
 	for (const auto &p : players) {
-	    fmt::print("[{}]\n", fmt::join(p.points_per_day, ", "));
+	    fmt::print("[{:3}]\n", fmt::join(p.points, ", "));
 	}
 
-	create_matchups();
 	fmt::print("[\n\t{}\n]\n", fmt::join(matches, "\n\t"));
 
 	for (const auto &p : players) {
 	    if (p.has_missing_games())
-		fmt::print("Player {} has played {} games\n", p.playerID, p.games_played);
+		fmt::print("Player {} has played {} games. {} w, {} b\n", p.playerID, p.games_played, p.games_white,
+			   p.games_black);
 	}
     }
 };
+
+/***************************************************/
+/*************** INSTANCE READING ******************/
+/***************************************************/
 
 void get_num_players(const std::string &current_line, uint64_t &number_of_players, uint64_t &remaining_players) {
     std::istringstream stream(current_line);
@@ -352,6 +324,7 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
 	if (number_of_players == 0) {
 	    get_num_players(current_line, number_of_players, remaining_players);
 	    tournament.set_num_players(number_of_players);
+	    NUM_PLAYERS = number_of_players;
 	} else if (!encountered_p) {
 	    encountered_p = current_line.find('p') != std::string::npos;
 	} else if (!current_line.empty()) {
@@ -360,7 +333,7 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
 	    uint64_t number_of_days = number_of_players, tmp = 0;
 	    for (uint64_t j = 0; j < number_of_days; j++) {
 		stream >> tmp;
-		tournament.players[player_index].points_per_day.push_back(tmp);
+		tournament.players[player_index].points.push_back(tmp);
 	    }
 	    player_index++;
 	    remaining_players--;
@@ -371,9 +344,12 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
 
     fmt::print("Read {} lines\n", lines_read);
 
-    tournament.print();
     return true;
 }
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
 
 void print_usage(const char *program_name) { fmt::print("Usage: {} instance_filepath alpha\n", program_name); }
 
@@ -392,31 +368,22 @@ int main(int argc, char **argv) {
     const char *instance_filename = argv[1];
 
     Tournament tournament;
-    read_instance(instance_filename, tournament);
+
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    bool read_ok = read_instance(instance_filename, tournament);
+    assert(read_ok);
+    tournament.create_matchups();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Time (s): " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000.0
+	      << std::endl;
+    tournament.print();
 }
 
+// fmtlib stuff, copypasted from somewhere and modified to fit our Match struct
 template <> struct fmt::formatter<Match> {
-    // Presentation format: 'f' - fixed, 'e' - exponential.
     char presentation = 'f';
 
-    // Parses format specifications of the form ['f' | 'e'].
     constexpr auto parse(format_parse_context &ctx) -> decltype(ctx.begin()) {
-	// [ctx.begin(), ctx.end()) is a character range that contains a part of
-	// the format string starting from the format specifications to be parsed,
-	// e.g. in
-	//
-	//   fmt::format("{:f} - point of interest", point{1, 2});
-	//
-	// the range will contain "f} - point of interest". The formatter should
-	// parse specifiers until '}' or the end of the range. In this example
-	// the formatter should parse the 'f' specifier and return an iterator
-	// pointing to '}'.
-
-	// Please also note that this character range may be empty, in case of
-	// the "{}" format string, so therefore you should check ctx.begin()
-	// for equality with ctx.end().
-
-	// Parse the presentation format and store it in the formatter:
 	auto it = ctx.begin(), end = ctx.end();
 	if (it != end && (*it == 'f' || *it == 'e'))
 	    presentation = *it++;
@@ -432,7 +399,9 @@ template <> struct fmt::formatter<Match> {
     // Formats the point p using the parsed format specification (presentation)
     // stored in this formatter.
     template <typename FormatContext> auto format(const Match &m, FormatContext &ctx) const -> decltype(ctx.out()) {
-	// ctx.out() is an output iterator to write to.
-	return fmt::format_to(ctx.out(), "[Day: {}, White: {}, Black: {}]", m.day, m.white, m.black);
+	// Print matches width-aligned to make it nicer
+	uint8_t id_width = std::log10(NUM_PLAYERS) + 1;
+	return fmt::format_to(ctx.out(), "[Day: {0:{3}}, White: {1:{3}}, Black: {2:{3}}]", m.day, m.white, m.black,
+			      id_width);
     }
 };
