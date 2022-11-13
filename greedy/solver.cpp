@@ -374,7 +374,7 @@ int main(int argc, char **argv) {
     assert(read_ok);
     tournament.create_matchups();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Time (s): " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000.0
+    std::cout << "Time (s): " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0
 	      << std::endl;
     tournament.print();
 }
