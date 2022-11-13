@@ -1,9 +1,5 @@
-% !TEX encoding = UTF-8 Unicode
-\documentclass[
-9pt,
-aspectratio=169,
-xcolor=table,
-]{beamer}
+% !TEX encoding = UTF-8 Unicode 
+\documentclass[9pt, aspectratio=169, xcolor=table]{beamer}
 \setbeamercovered{transparent=10}
 \usetheme[
 %  showheader,
@@ -272,7 +268,7 @@ xcolor=table,
     Every set will be constructed from a boolean multidimensional array. \textit{matches}$[w][b][r]$ will be 1 whenever player $w$ plays player $b$ in round $r$, and 0 otherwise.
     \begin{tcolorbox}[colback=gray!30, colframe=Veronablue, arc=0pt, outer arc=0pt, title = \textbf{Set constructions}]
 	\begin{align*}
-	    M(x, y)   &= \{ \{x, y, r\} &|& \ \text{matches}[x][y][r] = 1 \lor \text{matches}[x][y][r] = 1   &\forall &r \in [1, Rounds]\}\\
+	    M(x, y)   &= \{ \{x, y, r\} &|& \ \text{matches}[x][y][r] = 1 \lor \text{matches}[y][x][r] = 1   &\forall &r \in [1, Rounds]\}\\
 	    F(r)      &= \{ p           &|& \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0  &\forall &r \in [1, Rounds], o \in [1, n]\}\\
 	    W(p)      &= \{ \{p, b, r\} &|& \ \text{matches}[p][b][r] = 1                                    &\forall &r \in [1, Rounds], b \in [1, n]\}\\
 	    B(p)      &= \{ \{w, p, r\} &|& \ \text{matches}[w][p][r] = 1                                    &\forall &r \in [1, Rounds], w \in [1, n]\}\\
