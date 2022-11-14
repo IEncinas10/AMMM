@@ -9,15 +9,18 @@
 #include <iostream>
 #include <set>
 #include <sstream>
+#include <cstring>
 
 using player_id = uint64_t;
+
+static std::string instance_filename_str;
 
 // Alpha for GRASP. Default to 0, read from command line arguments
 float alpha = 0;
 
 // Algorithm selected [0, greedy] [1, localsearch]
 
-uint64_t algorithm = 0;
+bool useLocalSearch = false;
 
 // hack to print nicely the tournament schedule
 std::size_t NUM_PLAYERS;
@@ -151,7 +154,7 @@ struct Tournament {
 
 		fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
-		if(algorithm == 1 || alpha != 0)
+		if(useLocalSearch == true || alpha != 0)
 			local_search(rests, score);
 
 		notImproved++;
@@ -401,9 +404,9 @@ void parse(int argc, char **argv) {
 
 	// clang-format off
 	options.set_width(90).set_tab_expansion().add_options()
-		//("i, instance", "Path to the instance to solve")
-	    ("a, algorithm", "Algorithm selected, 0-Greedy 1-Local Search", cxxopts::value<uint64_t>()->default_value("0"))
-		("g, alpha", "Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP algorithm will be set", cxxopts::value<float>()->default_value("0"))
+		("i, instance", "Path to the instance to solve", cxxopts::value<std::string>())
+	    ("l, localsearch", "Use local search algorithm")
+		("a, alpha", "Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP algorithm will be set", cxxopts::value<float>()->default_value("0"))
 	    ("h, help", "Print help");
 	// clang-format off
 
@@ -415,12 +418,12 @@ void parse(int argc, char **argv) {
 	    exit(0);
 	}
 	
-	//instance_filename				= result["instance"].as<char*>();
-	algorithm                       = result["algorithm"].as<uint64_t>();
+	instance_filename_str				= result["instance"].as<std::string>();
+	useLocalSearch                  = result.count("localsearch");;
 	alpha							= result["alpha"].as<float>();
 
 	if(alpha != 0){
-		algorithm = 0;
+		useLocalSearch = false;
 	}
 
     } catch (const cxxopts::exceptions::exception &e) {
@@ -436,9 +439,9 @@ int main(int argc, char **argv) {
 	print_usage(argv[0]);
     }
 
-	fmt::print("Algorithm: {}, Alpha: {}\n", algorithm, alpha);
+	fmt::print("Alpha: {}\n", alpha);
 
-    const char *instance_filename = argv[1];
+	const char *instance_filename = instance_filename_str.c_str();
 
     Tournament tournament;
 
