@@ -10,10 +10,15 @@
 #include <set>
 #include <sstream>
 #include <cstring>
+#include <cmath>
 
 using player_id = uint64_t;
 
 static std::string instance_filename_str;
+
+
+std::vector<uint64_t> alpha_solution;
+
 
 // Alpha for GRASP. Default to 0, read from command line arguments
 float alpha = 0;
@@ -152,7 +157,7 @@ struct Tournament {
 			assign_rest(players_round, day, rests, score);
 		}
 
-		fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
+		//fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
 		if(useLocalSearch == true)
 			local_search(rests, score);
@@ -170,8 +175,10 @@ struct Tournament {
 
 	}while(notImproved < NOT_IMPROVED_MAX && nIter < MAXGRASP && alpha != 0);
 
-	if(alpha != 0)
-		fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
+	//if(alpha != 0)
+		//fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
+
+	alpha_solution.push_back(bestScore);
 
 	// Generate set of valid games (just for validating solution, this does nothing right else now)
 	create_games();
@@ -205,8 +212,8 @@ struct Tournament {
 	}
 
 	uint8_t id_width = std::log10(num_players) + 1;
-	fmt::print("Fake rest: [{:{}}]\nRest:      [{:{}}]\n", fmt::join(fakerest, " "), id_width,
-		   fmt::join(rests, " "), id_width);
+	//fmt::print("Fake rest: [{:{}}]\nRest:      [{:{}}]\n", fmt::join(fakerest, " "), id_width,
+		   //fmt::join(rests, " "), id_width);
 
 	for (uint32_t day = 0; day < days; day++) {
 	    for (player_id p = 0; p <= num_players / 2; p++) {
@@ -281,8 +288,8 @@ struct Tournament {
 
 		    int change = swap_points - curr_points;
 		    if (change > best_swap_points) {
-			fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[day], rests[j], change,
-				   best_swap_points);
+			//fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[day], rests[j], change,
+			//	   best_swap_points);
 			best_swap = j;
 			best_swap_points = change;
 		    }
@@ -294,8 +301,8 @@ struct Tournament {
 	    i++;
 	} while (points > old_points);
 
-	fmt::print("Points after local search: {}\n", points);
-	fmt::print("Improvement by LS in {} iterations: {}\n", i, points - prev_solution);
+	//fmt::print("Points after local search: {}\n", points);
+	//fmt::print("Improvement by LS in {} iterations: {}\n", i, points - prev_solution);
     }
 
     void assign_rest(std::vector<Player> &players_day, uint64_t day, std::vector<player_id> &rests, uint64_t &score) {
@@ -323,7 +330,7 @@ struct Tournament {
     }
 
     void print() {
-	fmt::print("{} players\n", num_players);
+	/*fmt::print("{} players\n", num_players);
 	for (const auto &p : players) {
 	    fmt::print("[{:3}]\n", fmt::join(p.points, ", "));
 	}
@@ -335,6 +342,7 @@ struct Tournament {
 		fmt::print("Player {} has played {} games. {} w, {} b\n", p.playerID, p.games_played, p.games_white,
 			   p.games_black);
 	}
+	*/
     }
 };
 
@@ -385,7 +393,7 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
 	lines_read++;
     } while (!input.eof() && remaining_players != 0);
 
-    fmt::print("Read {} lines\n", lines_read);
+    //fmt::print("Read {} lines\n", lines_read);
 
     return true;
 }
@@ -399,8 +407,6 @@ void print_usage(const char *program_name) { fmt::print("Usage: {} instance_file
 void parse(int argc, char **argv) {
     try {
 	cxxopts::Options options(argv[0], "AMMM Course Project 2022\nSolver");
-
-	// cxxopts::value<uint32_t>()->default_value("1"))
 
 	// clang-format off
 	options.set_width(90).set_tab_expansion().add_options()
@@ -432,27 +438,154 @@ void parse(int argc, char **argv) {
     }
 }
 
+/***************************************************************/
+/*******************READING OPTIMAL SOLUTIONS*******************/
+/***************************************************************/
+
+bool read_optimal_solutions(const char *results_filename, std::vector<uint64_t> &optimal_solutions, std::vector<double> &ilp_time) {
+    std::ifstream input(results_filename);
+    if (!input.is_open())
+		return false;
+
+	uint64_t MAXINSTANCES = 15;
+    uint64_t lines_read = 0;
+    std::string current_line;
+	double time;
+	uint64_t score;
+	std::string tmp;
+
+	do{
+		std::getline(input, current_line);
+		std::istringstream iss(current_line);
+		std::getline(iss, tmp, ',');
+		std::getline(iss, tmp, ',');
+		time = stod(tmp);
+		std::getline(iss, tmp, ',');
+		score = stoi(tmp);
+
+		optimal_solutions.push_back(score);
+		ilp_time.push_back(time);
+
+		lines_read++;
+
+	}while(lines_read < MAXINSTANCES);
+
+	
+
+    //fmt::print("Read {} lines\n", lines_read);
+
+	//for(int i = 0; i < 15; i++){
+		//fmt::print("[{}, {}]\n", optimal_solutions[i], ilp_time[i]);
+	//}
+
+    return true;
+}
+
+
+double arithmetic_mean(const std::vector<double> &errors){
+	if(errors.size() == 0)
+		return +INFINITY;
+	double total = 0;
+	for(int i = 0; i < errors.size(); i++){
+		total += errors[i];
+	}
+
+	return total / errors.size();
+}
+
+
+
 int main(int argc, char **argv) {
-	std::srand((unsigned)time(nullptr));
-	parse(argc, argv);
-    if (argc < 2) {
+	std::srand(0);
+	//parse(argc, argv);
+    /*if (argc < 2) {
 	print_usage(argv[0]);
+    }*/
+
+	uint64_t MAXINSTANCES = 31;
+
+    std::vector<uint64_t> optimal_solutions; //read from results...
+	std::vector<double> mean_error_by_alpha;
+
+	double best_alpha = -1;
+	double best_alpha_error = +INFINITY;
+
+	std::vector<double> ilp_times;
+	std::string prefix = "../instances/project.";
+	std::string sufix = ".dat";
+
+	const char *results_filename = "../results/ilp/clean";
+
+	bool read_solution_ok = read_optimal_solutions(results_filename, optimal_solutions, ilp_times);
+	assert(read_solution_ok);
+
+    //para cada alpha probar todas las instances
+    for(int j = 0; j <= MAXINSTANCES; j++){
+		alpha = j / MAXINSTANCES;
+		std::vector<double> errors_alpha;
+		alpha_solution.clear();
+		
+		
+		useLocalSearch = true;
+		
+		uint64_t index = 0;
+		for(int i = 3; i <= MAXINSTANCES; i += 2){
+			std::string instance_filename_str = prefix + std::to_string(i) + sufix;
+			const char *instance_filename = instance_filename_str.c_str();
+			Tournament tournament;
+
+			bool read_ok = read_instance(instance_filename, tournament);
+			assert(read_ok);
+
+
+			tournament.create_matchups();
+			tournament.print();
+			
+			errors_alpha.push_back(abs(optimal_solutions[index] - alpha_solution[index]));
+
+			index++;
+		}
+		fmt::print("{}\n", j);
+		fmt::print("[{}]\n", fmt::join(errors_alpha, ", "));
+
+		double mean_error = arithmetic_mean(errors_alpha);
+
+		mean_error_by_alpha.push_back(mean_error);
+
+		if(mean_error < best_alpha_error){
+			best_alpha = alpha;
+			best_alpha_error = mean_error;
+		}
+
+
+		
     }
 
-	fmt::print("Alpha: {}\n", alpha);
+	fmt::print("\n");
+
+	for(int i = 0; i < mean_error_by_alpha.size(); i++){
+
+		//fmt::print("{}, ", mean_error_by_alpha[i]);
+	}
+
+	//TODO  calculate error mean
+
+	//fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n", best_alpha, best_alpha_error);
+
+
+	/*fmt::print("Alpha: {}\n", alpha);
 
 	const char *instance_filename = instance_filename_str.c_str();
 
-    Tournament tournament;
+    
 
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    bool read_ok = read_instance(instance_filename, tournament);
-    assert(read_ok);
+    
     tournament.create_matchups();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time (s): " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0
 	      << std::endl;
-    tournament.print();
+    tournament.print();*/
 }
 
 // fmtlib stuff, copypasted from somewhere and modified to fit our Match struct
