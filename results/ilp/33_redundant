@@ -1,0 +1,718 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Tried aggregator 1 time.
+MIP Presolve eliminated 1617 rows and 1089 columns.
+Reduced MIP has 1717 rows, 34849 columns, and 214715 nonzeros.
+Reduced MIP has 34848 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,12 sec. (141,05 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 1717 rows, 34849 columns, and 214715 nonzeros.
+Reduced MIP has 34848 binaries, 1 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,11 sec. (134,41 ticks)
+Probing time = 0,04 sec. (9,94 ticks)
+Clique table members: 1617.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 12 threads.
+Root relaxation solution time = 3,85 sec. (3243,13 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0     1583,0000  1541                   1583,0000       11         
+      0     2     1583,0000   564                   1583,0000       11         
+Elapsed time = 89,47 sec. (108121,22 ticks, tree = 0,02 MB, solutions = 0)
+      1     3     1583,0000    65                   1583,0000    11230         
+      2     3     1583,0000   510                   1583,0000    15707         
+      3     4     1583,0000   621                   1583,0000    20961         
+*     4     4      integral     0     1583,0000     1583,0000    41387    0,00%
+      5     5     1583,0000   821     1583,0000     1583,0000    37098    0,00%
+      6     6     1583,0000   679     1583,0000     1583,0000    47765    0,00%
+      7     4     1583,0000   269     1583,0000     1583,0000    37409    0,00%
+      8     5     1583,0000   733     1583,0000     1583,0000    64162    0,00%
+
+Root node processing (before b&c):
+  Real time             =   89,22 sec. (107949,85 ticks)
+Parallel b&c, 12 threads:
+  Real time             =   27,37 sec. (31829,66 ticks)
+  Sync time (average)   =   11,15 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =  116,59 sec. (139779,51 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 1583
+1 is free in round 16
+1 plays 16 white matches, and 16 black matches
+2 is free in round 33
+2 plays 16 white matches, and 16 black matches
+3 is free in round 30
+3 plays 16 white matches, and 16 black matches
+4 is free in round 9
+4 plays 16 white matches, and 16 black matches
+5 is free in round 22
+5 plays 16 white matches, and 16 black matches
+6 is free in round 2
+6 plays 16 white matches, and 16 black matches
+7 is free in round 10
+7 plays 16 white matches, and 16 black matches
+8 is free in round 5
+8 plays 16 white matches, and 16 black matches
+9 is free in round 1
+9 plays 16 white matches, and 16 black matches
+10 is free in round 20
+10 plays 16 white matches, and 16 black matches
+11 is free in round 32
+11 plays 16 white matches, and 16 black matches
+12 is free in round 29
+12 plays 16 white matches, and 16 black matches
+13 is free in round 7
+13 plays 16 white matches, and 16 black matches
+14 is free in round 25
+14 plays 16 white matches, and 16 black matches
+15 is free in round 26
+15 plays 16 white matches, and 16 black matches
+16 is free in round 14
+16 plays 16 white matches, and 16 black matches
+17 is free in round 28
+17 plays 16 white matches, and 16 black matches
+18 is free in round 27
+18 plays 16 white matches, and 16 black matches
+19 is free in round 23
+19 plays 16 white matches, and 16 black matches
+20 is free in round 6
+20 plays 16 white matches, and 16 black matches
+21 is free in round 8
+21 plays 16 white matches, and 16 black matches
+22 is free in round 18
+22 plays 16 white matches, and 16 black matches
+23 is free in round 4
+23 plays 16 white matches, and 16 black matches
+24 is free in round 24
+24 plays 16 white matches, and 16 black matches
+25 is free in round 31
+25 plays 16 white matches, and 16 black matches
+26 is free in round 17
+26 plays 16 white matches, and 16 black matches
+27 is free in round 13
+27 plays 16 white matches, and 16 black matches
+28 is free in round 21
+28 plays 16 white matches, and 16 black matches
+29 is free in round 3
+29 plays 16 white matches, and 16 black matches
+30 is free in round 19
+30 plays 16 white matches, and 16 black matches
+31 is free in round 12
+31 plays 16 white matches, and 16 black matches
+32 is free in round 11
+32 plays 16 white matches, and 16 black matches
+33 is free in round 15
+33 plays 16 white matches, and 16 black matches
+Slot 1
+2 white, 21 black
+8 white, 31 black
+10 white, 1 black
+13 white, 16 black
+14 white, 23 black
+17 white, 3 black
+18 white, 28 black
+19 white, 26 black
+20 white, 30 black
+22 white, 7 black
+24 white, 4 black
+25 white, 6 black
+27 white, 12 black
+29 white, 15 black
+32 white, 11 black
+33 white, 5 black
+
+Slot 2
+2 white, 12 black
+3 white, 14 black
+4 white, 22 black
+5 white, 15 black
+8 white, 28 black
+9 white, 26 black
+11 white, 1 black
+13 white, 33 black
+16 white, 10 black
+17 white, 29 black
+18 white, 32 black
+19 white, 20 black
+21 white, 23 black
+24 white, 25 black
+30 white, 27 black
+31 white, 7 black
+
+Slot 3
+5 white, 4 black
+6 white, 10 black
+7 white, 1 black
+8 white, 18 black
+9 white, 3 black
+11 white, 15 black
+12 white, 19 black
+14 white, 2 black
+17 white, 13 black
+21 white, 31 black
+23 white, 25 black
+26 white, 20 black
+28 white, 24 black
+30 white, 22 black
+32 white, 16 black
+33 white, 27 black
+
+Slot 4
+2 white, 13 black
+3 white, 1 black
+6 white, 30 black
+11 white, 20 black
+14 white, 8 black
+16 white, 5 black
+17 white, 27 black
+18 white, 15 black
+19 white, 7 black
+22 white, 21 black
+24 white, 32 black
+25 white, 10 black
+26 white, 28 black
+29 white, 12 black
+31 white, 4 black
+33 white, 9 black
+
+Slot 5
+4 white, 1 black
+5 white, 2 black
+6 white, 7 black
+11 white, 12 black
+14 white, 18 black
+15 white, 30 black
+16 white, 28 black
+17 white, 20 black
+19 white, 33 black
+23 white, 3 black
+24 white, 10 black
+25 white, 22 black
+26 white, 21 black
+27 white, 9 black
+31 white, 13 black
+32 white, 29 black
+
+Slot 6
+4 white, 8 black
+6 white, 31 black
+7 white, 16 black
+9 white, 22 black
+10 white, 27 black
+13 white, 12 black
+14 white, 30 black
+15 white, 26 black
+18 white, 33 black
+19 white, 2 black
+21 white, 24 black
+23 white, 11 black
+25 white, 1 black
+28 white, 3 black
+29 white, 5 black
+32 white, 17 black
+
+Slot 7
+1 white, 30 black
+4 white, 3 black
+6 white, 8 black
+9 white, 5 black
+11 white, 10 black
+12 white, 7 black
+16 white, 29 black
+18 white, 17 black
+19 white, 31 black
+22 white, 20 black
+23 white, 24 black
+26 white, 14 black
+27 white, 15 black
+28 white, 25 black
+32 white, 2 black
+33 white, 21 black
+
+Slot 8
+1 white, 20 black
+3 white, 24 black
+7 white, 33 black
+9 white, 23 black
+10 white, 8 black
+12 white, 32 black
+13 white, 25 black
+15 white, 14 black
+16 white, 22 black
+19 white, 5 black
+26 white, 11 black
+27 white, 6 black
+28 white, 17 black
+29 white, 18 black
+30 white, 4 black
+31 white, 2 black
+
+Slot 9
+1 white, 14 black
+2 white, 26 black
+3 white, 30 black
+5 white, 25 black
+7 white, 23 black
+8 white, 22 black
+9 white, 15 black
+10 white, 28 black
+17 white, 11 black
+18 white, 31 black
+20 white, 12 black
+21 white, 16 black
+24 white, 13 black
+27 white, 32 black
+29 white, 19 black
+33 white, 6 black
+
+Slot 10
+1 white, 32 black
+2 white, 9 black
+3 white, 21 black
+4 white, 10 black
+5 white, 8 black
+12 white, 17 black
+13 white, 28 black
+16 white, 25 black
+20 white, 14 black
+24 white, 11 black
+26 white, 18 black
+27 white, 22 black
+29 white, 6 black
+30 white, 19 black
+31 white, 23 black
+33 white, 15 black
+
+Slot 11
+1 white, 2 black
+3 white, 13 black
+5 white, 30 black
+6 white, 19 black
+7 white, 28 black
+8 white, 15 black
+12 white, 10 black
+14 white, 17 black
+18 white, 23 black
+20 white, 27 black
+21 white, 11 black
+22 white, 24 black
+26 white, 16 black
+29 white, 9 black
+31 white, 25 black
+33 white, 4 black
+
+Slot 12
+1 white, 12 black
+3 white, 7 black
+4 white, 29 black
+5 white, 14 black
+8 white, 24 black
+10 white, 18 black
+11 white, 2 black
+15 white, 22 black
+16 white, 6 black
+17 white, 30 black
+19 white, 21 black
+20 white, 13 black
+25 white, 9 black
+26 white, 32 black
+27 white, 23 black
+33 white, 28 black
+
+Slot 13
+6 white, 4 black
+7 white, 11 black
+8 white, 25 black
+10 white, 21 black
+13 white, 9 black
+14 white, 29 black
+17 white, 26 black
+18 white, 3 black
+20 white, 24 black
+22 white, 19 black
+23 white, 2 black
+28 white, 12 black
+30 white, 16 black
+31 white, 5 black
+32 white, 15 black
+33 white, 1 black
+
+Slot 14
+2 white, 33 black
+3 white, 15 black
+4 white, 27 black
+11 white, 8 black
+12 white, 9 black
+14 white, 13 black
+17 white, 22 black
+18 white, 7 black
+20 white, 25 black
+21 white, 1 black
+23 white, 5 black
+26 white, 6 black
+28 white, 19 black
+29 white, 24 black
+30 white, 32 black
+31 white, 10 black
+
+Slot 15
+1 white, 5 black
+6 white, 32 black
+7 white, 17 black
+9 white, 30 black
+10 white, 26 black
+11 white, 31 black
+15 white, 2 black
+16 white, 4 black
+18 white, 24 black
+19 white, 13 black
+20 white, 3 black
+21 white, 14 black
+23 white, 29 black
+25 white, 12 black
+27 white, 8 black
+28 white, 22 black
+
+Slot 16
+3 white, 2 black
+5 white, 21 black
+7 white, 8 black
+10 white, 29 black
+11 white, 33 black
+14 white, 12 black
+16 white, 24 black
+18 white, 30 black
+19 white, 17 black
+22 white, 6 black
+23 white, 20 black
+25 white, 4 black
+27 white, 13 black
+28 white, 15 black
+31 white, 26 black
+32 white, 9 black
+
+Slot 17
+1 white, 18 black
+2 white, 20 black
+3 white, 6 black
+4 white, 11 black
+7 white, 13 black
+8 white, 23 black
+10 white, 22 black
+15 white, 16 black
+17 white, 5 black
+19 white, 14 black
+24 white, 9 black
+25 white, 27 black
+28 white, 32 black
+29 white, 21 black
+30 white, 12 black
+31 white, 33 black
+
+Slot 18
+7 white, 32 black
+8 white, 26 black
+10 white, 17 black
+11 white, 5 black
+12 white, 4 black
+13 white, 29 black
+15 white, 1 black
+16 white, 23 black
+18 white, 19 black
+21 white, 9 black
+25 white, 3 black
+27 white, 14 black
+28 white, 6 black
+30 white, 2 black
+31 white, 24 black
+33 white, 20 black
+
+Slot 19
+1 white, 6 black
+7 white, 15 black
+8 white, 29 black
+12 white, 3 black
+13 white, 18 black
+16 white, 11 black
+17 white, 9 black
+19 white, 4 black
+20 white, 10 black
+22 white, 31 black
+23 white, 33 black
+24 white, 14 black
+26 white, 25 black
+27 white, 21 black
+28 white, 2 black
+32 white, 5 black
+
+Slot 20
+1 white, 27 black
+3 white, 19 black
+8 white, 2 black
+11 white, 6 black
+12 white, 5 black
+13 white, 4 black
+14 white, 7 black
+20 white, 16 black
+21 white, 15 black
+22 white, 23 black
+24 white, 17 black
+25 white, 18 black
+26 white, 29 black
+28 white, 9 black
+30 white, 31 black
+32 white, 33 black
+
+Slot 21
+1 white, 16 black
+3 white, 33 black
+4 white, 26 black
+5 white, 20 black
+7 white, 2 black
+9 white, 11 black
+10 white, 13 black
+12 white, 23 black
+14 white, 32 black
+17 white, 31 black
+18 white, 27 black
+19 white, 8 black
+22 white, 29 black
+24 white, 6 black
+25 white, 15 black
+30 white, 21 black
+
+Slot 22
+1 white, 24 black
+2 white, 18 black
+3 white, 27 black
+4 white, 28 black
+7 white, 29 black
+9 white, 6 black
+12 white, 21 black
+13 white, 22 black
+14 white, 11 black
+15 white, 17 black
+16 white, 33 black
+19 white, 10 black
+20 white, 31 black
+23 white, 26 black
+30 white, 25 black
+32 white, 8 black
+
+Slot 23
+1 white, 29 black
+2 white, 27 black
+4 white, 17 black
+5 white, 7 black
+6 white, 12 black
+9 white, 31 black
+10 white, 30 black
+11 white, 3 black
+14 white, 16 black
+18 white, 20 black
+21 white, 13 black
+23 white, 28 black
+24 white, 15 black
+25 white, 32 black
+26 white, 22 black
+33 white, 8 black
+
+Slot 24
+4 white, 2 black
+5 white, 28 black
+6 white, 13 black
+8 white, 17 black
+9 white, 7 black
+10 white, 3 black
+11 white, 30 black
+14 white, 25 black
+15 white, 19 black
+20 white, 29 black
+21 white, 32 black
+22 white, 18 black
+23 white, 1 black
+26 white, 33 black
+27 white, 16 black
+31 white, 12 black
+
+Slot 25
+2 white, 17 black
+3 white, 22 black
+6 white, 5 black
+8 white, 9 black
+11 white, 28 black
+12 white, 16 black
+15 white, 23 black
+20 white, 4 black
+21 white, 18 black
+24 white, 27 black
+25 white, 19 black
+26 white, 7 black
+29 white, 30 black
+31 white, 1 black
+32 white, 13 black
+33 white, 10 black
+
+Slot 26
+1 white, 13 black
+2 white, 10 black
+3 white, 5 black
+6 white, 14 black
+7 white, 24 black
+12 white, 33 black
+17 white, 23 black
+18 white, 16 black
+19 white, 9 black
+20 white, 8 black
+21 white, 25 black
+22 white, 11 black
+26 white, 30 black
+29 white, 27 black
+31 white, 28 black
+32 white, 4 black
+
+Slot 27
+2 white, 29 black
+4 white, 15 black
+10 white, 5 black
+11 white, 19 black
+12 white, 24 black
+13 white, 23 black
+14 white, 9 black
+16 white, 31 black
+21 white, 6 black
+22 white, 1 black
+25 white, 7 black
+26 white, 3 black
+28 white, 27 black
+30 white, 8 black
+32 white, 20 black
+33 white, 17 black
+
+Slot 28
+1 white, 26 black
+2 white, 6 black
+4 white, 14 black
+5 white, 27 black
+9 white, 18 black
+10 white, 32 black
+15 white, 13 black
+16 white, 3 black
+21 white, 8 black
+22 white, 12 black
+23 white, 19 black
+25 white, 11 black
+28 white, 20 black
+30 white, 7 black
+31 white, 29 black
+33 white, 24 black
+
+Slot 29
+1 white, 28 black
+2 white, 16 black
+5 white, 24 black
+8 white, 3 black
+9 white, 4 black
+10 white, 14 black
+11 white, 18 black
+13 white, 26 black
+15 white, 6 black
+17 white, 21 black
+20 white, 7 black
+22 white, 33 black
+27 white, 19 black
+29 white, 25 black
+30 white, 23 black
+32 white, 31 black
+
+Slot 30
+2 white, 25 black
+4 white, 7 black
+5 white, 18 black
+6 white, 23 black
+8 white, 1 black
+12 white, 26 black
+13 white, 30 black
+14 white, 31 black
+15 white, 10 black
+17 white, 16 black
+20 white, 9 black
+22 white, 32 black
+24 white, 19 black
+27 white, 11 black
+28 white, 21 black
+29 white, 33 black
+
+Slot 31
+5 white, 22 black
+6 white, 20 black
+7 white, 21 black
+8 white, 12 black
+9 white, 10 black
+13 white, 11 black
+15 white, 31 black
+16 white, 19 black
+17 white, 1 black
+18 white, 4 black
+23 white, 32 black
+24 white, 2 black
+27 white, 26 black
+28 white, 14 black
+29 white, 3 black
+30 white, 33 black
+
+Slot 32
+2 white, 22 black
+5 white, 26 black
+6 white, 18 black
+7 white, 10 black
+9 white, 16 black
+13 white, 8 black
+15 white, 12 black
+19 white, 1 black
+21 white, 20 black
+23 white, 4 black
+24 white, 30 black
+25 white, 17 black
+29 white, 28 black
+31 white, 27 black
+32 white, 3 black
+33 white, 14 black
+
+Slot 33
+3 white, 31 black
+4 white, 21 black
+6 white, 17 black
+9 white, 1 black
+12 white, 18 black
+13 white, 5 black
+15 white, 20 black
+16 white, 8 black
+22 white, 14 black
+23 white, 10 black
+24 white, 26 black
+27 white, 7 black
+29 white, 11 black
+30 white, 28 black
+32 white, 19 black
+33 white, 25 black
+
+
+<<< post process
+
+
+<<< done
+

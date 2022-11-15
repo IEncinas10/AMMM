@@ -9,68 +9,41 @@ Tried aggregator 1 time.
 MIP Presolve eliminated 1247 rows and 841 columns.
 Reduced MIP has 1335 rows, 23549 columns, and 145633 nonzeros.
 Reduced MIP has 23548 binaries, 1 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.10 sec. (95.13 ticks)
+Presolve time = 0,07 sec. (95,13 ticks)
 Tried aggregator 1 time.
 Detecting symmetries...
 Reduced MIP has 1335 rows, 23549 columns, and 145633 nonzeros.
 Reduced MIP has 23548 binaries, 1 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.09 sec. (89.40 ticks)
-Probing time = 0.02 sec. (7.52 ticks)
+Presolve time = 0,06 sec. (89,40 ticks)
+Probing time = 0,02 sec. (7,54 ticks)
 Clique table members: 1247.
 MIP emphasis: balance optimality and feasibility.
 MIP search method: dynamic search.
-Parallel mode: deterministic, using up to 4 threads.
-Root relaxation solution time = 2.89 sec. (1881.84 ticks)
+Parallel mode: deterministic, using up to 12 threads.
+Root relaxation solution time = 1,98 sec. (1716,25 ticks)
 
         Nodes                                         Cuts/
    Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
 
-      0     0     1550.0000  1178                   1550.0000        9         
-      0     2     1550.0000   417                   1550.0000        9         
-Elapsed time = 98.27 sec. (62462.47 ticks, tree = 0.02 MB, solutions = 0)
-      1     3     1550.0000   434                   1550.0000     1142         
-      2     4     1550.0000   422                   1550.0000     1976         
-      3     3     1550.0000   574                   1550.0000     7092         
-      4     5     1550.0000   434                   1550.0000     8414         
-      6     5     1550.0000   456                   1550.0000    11508         
-      7     7     1550.0000   493                   1550.0000    19406         
-      8     6     1550.0000   652                   1550.0000    16803         
-      9     9     1550.0000   403                   1550.0000    36502         
-     10     8     1550.0000   485                   1550.0000    32161         
-     11    12     1550.0000   395                   1550.0000    52168         
-Elapsed time = 135.30 sec. (81240.08 ticks, tree = 0.09 MB, solutions = 0)
-     12    10     1550.0000   468                   1550.0000    47496         
-     13    11     1550.0000   471                   1550.0000    54518         
-     15    13     1550.0000   314                   1550.0000    66413         
-     16    14     1550.0000   546                   1550.0000    70665         
-     17    16     1550.0000   423                   1550.0000    89477         
-     18    16     1550.0000   472                   1550.0000    82806         
-     19    17     1550.0000    92                   1550.0000    99998         
-     20    22     1550.0000    92                   1550.0000   126645         
-     21    18     1550.0000   527                   1550.0000   111143         
-     23    19     1550.0000   689                   1550.0000   118319         
-Elapsed time = 167.97 sec. (101333.40 ticks, tree = 0.11 MB, solutions = 0)
-     24    21     1550.0000   564                   1550.0000   126418         
-*    25    17      integral     0     1550.0000     1550.0000   128799    0.00%
-     26    23     1550.0000   617     1550.0000     1550.0000   142114    0.00%
-     27    25     1550.0000   551     1550.0000     1550.0000   162432    0.00%
-     28    24     1550.0000   391     1550.0000     1550.0000   156049    0.00%
-     29    26     1550.0000   332     1550.0000     1550.0000   170384    0.00%
+      0     0     1550,0000  1189                   1550,0000       11         
+*     0+    0                         1550,0000     1550,0000             0,00%
+      0     0        cutoff           1550,0000     1550,0000       11    0,00%
+Elapsed time = 33,85 sec. (59681,17 ticks, tree = 0,01 MB, solutions = 1)
 
 Root node processing (before b&c):
-  Real time             =   98.11 sec. (62362.04 ticks)
-Parallel b&c, 4 threads:
-  Real time             =   81.32 sec. (51352.59 ticks)
-  Sync time (average)   =    2.68 sec.
-  Wait time (average)   =    0.00 sec.
+  Real time             =   33,86 sec. (59682,45 ticks)
+Parallel b&c, 12 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
                           ------------
-Total (root+branch&cut) =  179.44 sec. (113714.63 ticks)
+Total (root+branch&cut) =   33,86 sec. (59682,45 ticks)
 
 <<< solve
 
 
 OBJECTIVE: 1550
-1 is free in round 22
+1 is free in round 14
 1 plays 14 white matches, and 14 black matches
 2 is free in round 7
 2 plays 14 white matches, and 14 black matches
@@ -88,7 +61,7 @@ OBJECTIVE: 1550
 8 plays 14 white matches, and 14 black matches
 9 is free in round 27
 9 plays 14 white matches, and 14 black matches
-10 is free in round 14
+10 is free in round 22
 10 plays 14 white matches, and 14 black matches
 11 is free in round 28
 11 plays 14 white matches, and 14 black matches
@@ -129,468 +102,468 @@ OBJECTIVE: 1550
 29 is free in round 29
 29 plays 14 white matches, and 14 black matches
 Slot 1
-1 white, 28 black
-8 white, 11 black
-10 white, 17 black
-12 white, 19 black
-13 white, 3 black
-15 white, 4 black
-18 white, 7 black
-21 white, 14 black
-23 white, 22 black
-24 white, 2 black
-25 white, 9 black
-26 white, 16 black
-27 white, 5 black
-29 white, 20 black
+1 white, 2 black
+3 white, 14 black
+4 white, 22 black
+7 white, 24 black
+9 white, 28 black
+11 white, 8 black
+12 white, 27 black
+15 white, 21 black
+17 white, 26 black
+18 white, 16 black
+20 white, 13 black
+23 white, 10 black
+25 white, 5 black
+29 white, 19 black
 
 Slot 2
-1 white, 14 black
-3 white, 23 black
-4 white, 6 black
-5 white, 22 black
-7 white, 11 black
-10 white, 8 black
-18 white, 2 black
-20 white, 12 black
-21 white, 13 black
-24 white, 29 black
-25 white, 16 black
-26 white, 9 black
-27 white, 19 black
-28 white, 17 black
+2 white, 8 black
+4 white, 25 black
+5 white, 27 black
+6 white, 23 black
+9 white, 3 black
+10 white, 12 black
+11 white, 17 black
+16 white, 24 black
+18 white, 7 black
+19 white, 13 black
+20 white, 28 black
+21 white, 29 black
+22 white, 14 black
+26 white, 1 black
 
 Slot 3
-2 white, 11 black
-5 white, 1 black
-6 white, 17 black
-8 white, 29 black
-9 white, 19 black
-10 white, 26 black
-12 white, 7 black
-14 white, 13 black
-15 white, 3 black
-16 white, 4 black
-20 white, 23 black
-22 white, 25 black
-24 white, 21 black
-27 white, 18 black
-
-Slot 4
-1 white, 29 black
-2 white, 12 black
-4 white, 9 black
-7 white, 21 black
-8 white, 28 black
-11 white, 20 black
-13 white, 5 black
-17 white, 3 black
-18 white, 16 black
-19 white, 24 black
-22 white, 6 black
-23 white, 10 black
-26 white, 25 black
-27 white, 15 black
-
-Slot 5
-1 white, 19 black
-2 white, 10 black
-4 white, 28 black
+1 white, 16 black
+2 white, 18 black
+5 white, 19 black
 6 white, 3 black
+7 white, 17 black
 11 white, 21 black
-12 white, 16 black
-14 white, 22 black
-15 white, 9 black
-17 white, 7 black
-18 white, 29 black
-23 white, 13 black
-25 white, 20 black
-26 white, 5 black
-27 white, 8 black
-
-Slot 6
-1 white, 23 black
-2 white, 27 black
-3 white, 21 black
-7 white, 4 black
-12 white, 10 black
-13 white, 9 black
-14 white, 6 black
-15 white, 5 black
-16 white, 8 black
-17 white, 20 black
-18 white, 28 black
-22 white, 11 black
-24 white, 26 black
-29 white, 25 black
-
-Slot 7
-3 white, 24 black
-4 white, 19 black
-5 white, 12 black
-6 white, 26 black
-7 white, 27 black
-8 white, 14 black
-9 white, 16 black
-10 white, 21 black
-15 white, 22 black
-18 white, 17 black
-20 white, 28 black
-23 white, 11 black
-25 white, 1 black
+15 white, 4 black
+22 white, 9 black
+23 white, 20 black
+24 white, 14 black
+25 white, 12 black
+26 white, 8 black
+27 white, 10 black
 29 white, 13 black
 
+Slot 4
+1 white, 10 black
+2 white, 27 black
+3 white, 24 black
+4 white, 7 black
+5 white, 13 black
+12 white, 23 black
+16 white, 15 black
+17 white, 20 black
+19 white, 11 black
+21 white, 9 black
+22 white, 6 black
+25 white, 8 black
+26 white, 28 black
+29 white, 18 black
+
+Slot 5
+1 white, 4 black
+5 white, 10 black
+7 white, 26 black
+9 white, 15 black
+12 white, 3 black
+13 white, 11 black
+14 white, 6 black
+18 white, 17 black
+19 white, 20 black
+21 white, 2 black
+22 white, 25 black
+23 white, 29 black
+27 white, 16 black
+28 white, 8 black
+
+Slot 6
+2 white, 5 black
+4 white, 11 black
+7 white, 28 black
+8 white, 21 black
+9 white, 6 black
+13 white, 1 black
+16 white, 10 black
+17 white, 29 black
+18 white, 15 black
+20 white, 3 black
+22 white, 12 black
+25 white, 24 black
+26 white, 23 black
+27 white, 14 black
+
+Slot 7
+3 white, 15 black
+6 white, 24 black
+9 white, 23 black
+10 white, 26 black
+11 white, 18 black
+13 white, 8 black
+14 white, 16 black
+19 white, 7 black
+20 white, 1 black
+21 white, 12 black
+25 white, 17 black
+27 white, 4 black
+28 white, 5 black
+29 white, 22 black
+
 Slot 8
-1 white, 20 black
-2 white, 13 black
-3 white, 18 black
-6 white, 10 black
-7 white, 23 black
-9 white, 12 black
-11 white, 15 black
-14 white, 5 black
-16 white, 29 black
-17 white, 8 black
-25 white, 19 black
-26 white, 4 black
-27 white, 24 black
-28 white, 22 black
+3 white, 13 black
+6 white, 1 black
+7 white, 12 black
+8 white, 24 black
+9 white, 18 black
+10 white, 4 black
+11 white, 28 black
+14 white, 25 black
+15 white, 20 black
+17 white, 2 black
+19 white, 16 black
+22 white, 23 black
+26 white, 27 black
+29 white, 5 black
 
 Slot 9
-2 white, 6 black
-3 white, 14 black
-4 white, 25 black
-7 white, 10 black
-8 white, 24 black
+2 white, 14 black
+4 white, 3 black
+7 white, 13 black
+8 white, 16 black
 9 white, 27 black
-11 white, 28 black
-13 white, 18 black
-15 white, 1 black
-16 white, 17 black
-21 white, 29 black
-22 white, 20 black
-23 white, 19 black
-26 white, 12 black
+10 white, 22 black
+11 white, 25 black
+12 white, 19 black
+18 white, 6 black
+21 white, 1 black
+24 white, 17 black
+26 white, 20 black
+28 white, 23 black
+29 white, 15 black
 
 Slot 10
-5 white, 17 black
+1 white, 7 black
+4 white, 28 black
 6 white, 21 black
-7 white, 2 black
-8 white, 4 black
-12 white, 29 black
-15 white, 20 black
-16 white, 1 black
-18 white, 9 black
-22 white, 10 black
-24 white, 14 black
-25 white, 11 black
-26 white, 13 black
-27 white, 23 black
-28 white, 19 black
+8 white, 9 black
+12 white, 5 black
+13 white, 26 black
+15 white, 11 black
+16 white, 17 black
+18 white, 10 black
+19 white, 2 black
+20 white, 27 black
+23 white, 14 black
+24 white, 22 black
+29 white, 25 black
 
 Slot 11
-2 white, 28 black
-3 white, 25 black
-8 white, 15 black
-9 white, 23 black
-10 white, 11 black
-13 white, 22 black
-17 white, 4 black
-18 white, 5 black
-19 white, 26 black
-20 white, 14 black
-21 white, 12 black
-24 white, 1 black
-27 white, 16 black
-29 white, 6 black
+2 white, 4 black
+3 white, 26 black
+5 white, 16 black
+8 white, 1 black
+10 white, 21 black
+14 white, 18 black
+15 white, 13 black
+19 white, 22 black
+20 white, 6 black
+23 white, 17 black
+25 white, 9 black
+27 white, 11 black
+28 white, 24 black
+29 white, 12 black
 
 Slot 12
-3 white, 28 black
-4 white, 24 black
-5 white, 16 black
-7 white, 15 black
-10 white, 18 black
-12 white, 17 black
-19 white, 11 black
-20 white, 2 black
-21 white, 23 black
-22 white, 9 black
-25 white, 6 black
-26 white, 8 black
-27 white, 1 black
-29 white, 14 black
+3 white, 1 black
+5 white, 4 black
+6 white, 29 black
+8 white, 10 black
+12 white, 2 black
+15 white, 26 black
+17 white, 9 black
+19 white, 14 black
+21 white, 20 black
+22 white, 7 black
+23 white, 18 black
+24 white, 11 black
+27 white, 25 black
+28 white, 16 black
 
 Slot 13
-4 white, 5 black
-8 white, 18 black
-9 white, 3 black
-10 white, 25 black
-11 white, 26 black
-12 white, 24 black
-13 white, 27 black
+8 white, 20 black
+9 white, 26 black
+13 white, 12 black
 14 white, 7 black
-16 white, 28 black
-17 white, 1 black
-19 white, 15 black
-20 white, 6 black
-22 white, 21 black
-29 white, 2 black
+15 white, 1 black
+16 white, 4 black
+17 white, 5 black
+19 white, 18 black
+21 white, 28 black
+22 white, 3 black
+24 white, 10 black
+25 white, 2 black
+27 white, 6 black
+29 white, 11 black
 
 Slot 14
-1 white, 2 black
-3 white, 4 black
-5 white, 8 black
-6 white, 27 black
-9 white, 11 black
-13 white, 7 black
-14 white, 23 black
-16 white, 24 black
-18 white, 25 black
-20 white, 19 black
-21 white, 28 black
-22 white, 12 black
-26 white, 15 black
-29 white, 17 black
+3 white, 23 black
+4 white, 21 black
+5 white, 14 black
+7 white, 15 black
+8 white, 17 black
+9 white, 16 black
+10 white, 29 black
+11 white, 2 black
+12 white, 26 black
+13 white, 6 black
+18 white, 24 black
+19 white, 28 black
+25 white, 20 black
+27 white, 22 black
 
 Slot 15
-1 white, 12 black
-4 white, 22 black
-6 white, 19 black
-8 white, 13 black
-10 white, 27 black
-11 white, 14 black
-16 white, 3 black
-17 white, 25 black
-18 white, 26 black
-21 white, 5 black
-23 white, 2 black
-24 white, 15 black
-28 white, 9 black
-29 white, 7 black
+1 white, 27 black
+2 white, 3 black
+5 white, 15 black
+9 white, 4 black
+10 white, 7 black
+11 white, 23 black
+12 white, 18 black
+13 white, 17 black
+14 white, 8 black
+16 white, 22 black
+19 white, 25 black
+21 white, 26 black
+24 white, 29 black
+28 white, 6 black
 
 Slot 16
-2 white, 17 black
-5 white, 11 black
-6 white, 16 black
-9 white, 7 black
-10 white, 20 black
-13 white, 24 black
-18 white, 15 black
-19 white, 3 black
-21 white, 1 black
-22 white, 8 black
-25 white, 14 black
-27 white, 4 black
-28 white, 12 black
-29 white, 23 black
+2 white, 10 black
+3 white, 21 black
+5 white, 23 black
+7 white, 8 black
+11 white, 16 black
+12 white, 1 black
+13 white, 28 black
+18 white, 4 black
+20 white, 9 black
+22 white, 17 black
+24 white, 19 black
+25 white, 6 black
+27 white, 15 black
+29 white, 14 black
 
 Slot 17
-2 white, 8 black
-3 white, 7 black
-5 white, 25 black
-10 white, 1 black
-11 white, 27 black
-13 white, 12 black
-14 white, 17 black
-16 white, 19 black
-18 white, 21 black
-20 white, 4 black
-23 white, 15 black
-24 white, 9 black
-28 white, 6 black
-29 white, 26 black
+1 white, 17 black
+2 white, 29 black
+3 white, 16 black
+6 white, 15 black
+8 white, 27 black
+10 white, 11 black
+14 white, 4 black
+19 white, 9 black
+20 white, 7 black
+21 white, 18 black
+24 white, 23 black
+25 white, 13 black
+26 white, 5 black
+28 white, 12 black
 
 Slot 18
 1 white, 22 black
-3 white, 26 black
-4 white, 29 black
-7 white, 25 black
-9 white, 6 black
-11 white, 17 black
-12 white, 14 black
-15 white, 21 black
+3 white, 29 black
+4 white, 23 black
+5 white, 20 black
+6 white, 10 black
+11 white, 7 black
+13 white, 18 black
+14 white, 9 black
+15 white, 19 black
 16 white, 2 black
-19 white, 13 black
-20 white, 27 black
-23 white, 5 black
-24 white, 18 black
-28 white, 10 black
+17 white, 12 black
+24 white, 26 black
+27 white, 21 black
+28 white, 25 black
 
 Slot 19
-5 white, 29 black
-6 white, 12 black
-7 white, 26 black
-8 white, 21 black
-9 white, 20 black
-10 white, 19 black
-11 white, 3 black
-13 white, 1 black
-14 white, 27 black
-16 white, 15 black
-17 white, 23 black
+2 white, 13 black
+5 white, 11 black
+7 white, 29 black
+10 white, 9 black
+14 white, 1 black
+15 white, 12 black
+16 white, 6 black
+20 white, 24 black
+21 white, 19 black
 22 white, 18 black
-24 white, 28 black
-25 white, 2 black
+23 white, 8 black
+25 white, 26 black
+27 white, 3 black
+28 white, 17 black
 
 Slot 20
-3 white, 2 black
-6 white, 18 black
-7 white, 20 black
-8 white, 1 black
-9 white, 29 black
-11 white, 4 black
-13 white, 16 black
-15 white, 10 black
-17 white, 22 black
-19 white, 21 black
+6 white, 26 black
+7 white, 9 black
+8 white, 4 black
+10 white, 28 black
+11 white, 22 black
+13 white, 14 black
+15 white, 25 black
+16 white, 21 black
+17 white, 3 black
+18 white, 1 black
+23 white, 2 black
 24 white, 5 black
-25 white, 23 black
-26 white, 14 black
-28 white, 27 black
+27 white, 19 black
+29 white, 20 black
 
 Slot 21
-2 white, 9 black
-3 white, 29 black
+1 white, 24 black
+2 white, 28 black
+4 white, 19 black
 5 white, 6 black
-8 white, 7 black
-11 white, 1 black
-12 white, 4 black
-13 white, 10 black
-14 white, 15 black
-17 white, 24 black
-19 white, 18 black
-20 white, 16 black
-21 white, 26 black
-27 white, 22 black
-28 white, 23 black
+11 white, 12 black
+13 white, 9 black
+15 white, 14 black
+16 white, 26 black
+17 white, 10 black
+18 white, 3 black
+20 white, 22 black
+21 white, 7 black
+27 white, 23 black
+29 white, 8 black
 
 Slot 22
-2 white, 26 black
-4 white, 21 black
-5 white, 3 black
-6 white, 13 black
-8 white, 9 black
-10 white, 14 black
-11 white, 24 black
-15 white, 25 black
-17 white, 19 black
-18 white, 20 black
-22 white, 29 black
-23 white, 16 black
-27 white, 12 black
-28 white, 7 black
+1 white, 19 black
+2 white, 15 black
+4 white, 24 black
+5 white, 22 black
+6 white, 17 black
+7 white, 25 black
+8 white, 3 black
+13 white, 21 black
+14 white, 12 black
+16 white, 23 black
+20 white, 18 black
+26 white, 11 black
+28 white, 27 black
+29 white, 9 black
 
 Slot 23
-1 white, 3 black
-2 white, 22 black
-9 white, 14 black
-11 white, 29 black
-12 white, 23 black
-15 white, 6 black
-18 white, 4 black
-19 white, 7 black
-20 white, 5 black
-21 white, 16 black
-24 white, 10 black
-25 white, 8 black
-26 white, 17 black
-28 white, 13 black
+1 white, 29 black
+3 white, 11 black
+7 white, 6 black
+8 white, 19 black
+9 white, 24 black
+10 white, 13 black
+12 white, 4 black
+14 white, 28 black
+16 white, 20 black
+17 white, 21 black
+18 white, 5 black
+22 white, 15 black
+25 white, 23 black
+26 white, 2 black
 
 Slot 24
-1 white, 9 black
-4 white, 13 black
-6 white, 11 black
-7 white, 22 black
-8 white, 12 black
-10 white, 3 black
-14 white, 18 black
-17 white, 15 black
-19 white, 5 black
-20 white, 26 black
-21 white, 2 black
-23 white, 24 black
-28 white, 25 black
-29 white, 27 black
-
-Slot 25
-1 white, 18 black
-4 white, 23 black
-5 white, 2 black
-6 white, 8 black
-7 white, 24 black
-10 white, 9 black
-12 white, 25 black
-13 white, 11 black
-14 white, 16 black
-15 white, 28 black
-20 white, 3 black
-21 white, 27 black
-22 white, 26 black
-29 white, 19 black
-
-Slot 26
-2 white, 4 black
-7 white, 5 black
-9 white, 21 black
-14 white, 28 black
-15 white, 12 black
-16 white, 11 black
-17 white, 13 black
-19 white, 22 black
-20 white, 8 black
-23 white, 6 black
-25 white, 24 black
-26 white, 1 black
-27 white, 3 black
-29 white, 10 black
-
-Slot 27
-3 white, 22 black
-4 white, 1 black
-6 white, 7 black
-12 white, 11 black
-14 white, 2 black
-16 white, 10 black
-19 white, 8 black
-21 white, 17 black
-23 white, 18 black
-24 white, 20 black
-25 white, 13 black
-26 white, 27 black
-28 white, 5 black
-29 white, 15 black
-
-Slot 28
-1 white, 6 black
-2 white, 15 black
-3 white, 8 black
-4 white, 10 black
-5 white, 9 black
-12 white, 18 black
-13 white, 20 black
-16 white, 7 black
-17 white, 27 black
-19 white, 14 black
-22 white, 24 black
-23 white, 26 black
-25 white, 21 black
+1 white, 25 black
+3 white, 5 black
+4 white, 20 black
+6 white, 2 black
+11 white, 9 black
+12 white, 8 black
+14 white, 26 black
+15 white, 17 black
+18 white, 27 black
+19 white, 10 black
+21 white, 24 black
+22 white, 13 black
+23 white, 7 black
 28 white, 29 black
 
+Slot 25
+1 white, 11 black
+2 white, 9 black
+4 white, 6 black
+7 white, 3 black
+8 white, 5 black
+10 white, 25 black
+12 white, 20 black
+14 white, 21 black
+16 white, 29 black
+23 white, 19 black
+24 white, 15 black
+26 white, 18 black
+27 white, 13 black
+28 white, 22 black
+
+Slot 26
+2 white, 7 black
+3 white, 25 black
+6 white, 19 black
+8 white, 22 black
+9 white, 12 black
+10 white, 14 black
+13 white, 16 black
+15 white, 28 black
+17 white, 4 black
+20 white, 11 black
+21 white, 5 black
+23 white, 1 black
+24 white, 27 black
+26 white, 29 black
+
+Slot 27
+1 white, 5 black
+4 white, 13 black
+6 white, 11 black
+15 white, 8 black
+16 white, 7 black
+17 white, 14 black
+20 white, 10 black
+22 white, 2 black
+23 white, 21 black
+24 white, 12 black
+25 white, 18 black
+26 white, 19 black
+28 white, 3 black
+29 white, 27 black
+
+Slot 28
+4 white, 29 black
+5 white, 7 black
+6 white, 8 black
+9 white, 1 black
+10 white, 15 black
+12 white, 16 black
+14 white, 20 black
+17 white, 27 black
+18 white, 28 black
+19 white, 3 black
+21 white, 25 black
+23 white, 13 black
+24 white, 2 black
+26 white, 22 black
+
 Slot 29
-1 white, 7 black
-5 white, 10 black
-9 white, 17 black
-11 white, 18 black
-12 white, 3 black
-14 white, 4 black
-15 white, 13 black
-19 white, 2 black
-21 white, 20 black
-22 white, 16 black
-23 white, 8 black
-24 white, 6 black
-26 white, 28 black
-27 white, 25 black
+3 white, 10 black
+7 white, 27 black
+9 white, 5 black
+11 white, 14 black
+12 white, 6 black
+13 white, 24 black
+17 white, 19 black
+18 white, 8 black
+20 white, 2 black
+22 white, 21 black
+23 white, 15 black
+25 white, 16 black
+26 white, 4 black
+28 white, 1 black
 
 
 <<< post process

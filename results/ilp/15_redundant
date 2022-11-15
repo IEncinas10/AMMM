@@ -9,35 +9,36 @@ Tried aggregator 1 time.
 MIP Presolve eliminated 330 rows and 225 columns.
 Reduced MIP has 376 rows, 3151 columns, and 19979 nonzeros.
 Reduced MIP has 3150 binaries, 1 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.01 sec. (11.79 ticks)
+Presolve time = 0,01 sec. (11,79 ticks)
 Tried aggregator 1 time.
 Detecting symmetries...
 Reduced MIP has 376 rows, 3151 columns, and 19979 nonzeros.
 Reduced MIP has 3150 binaries, 1 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.01 sec. (11.96 ticks)
-Probing time = 0.01 sec. (2.83 ticks)
+Presolve time = 0,01 sec. (11,96 ticks)
+Probing time = 0,00 sec. (2,84 ticks)
 Clique table members: 330.
 MIP emphasis: balance optimality and feasibility.
 MIP search method: dynamic search.
-Parallel mode: deterministic, using up to 4 threads.
-Root relaxation solution time = 0.20 sec. (163.16 ticks)
+Parallel mode: deterministic, using up to 12 threads.
+Root relaxation solution time = 0,10 sec. (154,21 ticks)
 
         Nodes                                         Cuts/
    Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
 
-      0     0      690.0000   308                    690.0000        9         
-*     0+    0                          690.0000      690.0000             0.00%
-      0     0        cutoff            690.0000      690.0000        9    0.00%
-Elapsed time = 1.08 sec. (886.37 ticks, tree = 0.01 MB, solutions = 1)
+      0     0      690,0000   306                    690,0000        9         
+*     0+    0                          618,0000      690,0000            11,65%
+*     0+    0                          690,0000      690,0000             0,00%
+      0     0        cutoff            690,0000      690,0000        9    0,00%
+Elapsed time = 0,85 sec. (1432,81 ticks, tree = 0,01 MB, solutions = 2)
 
 Root node processing (before b&c):
-  Real time             =    1.08 sec. (886.54 ticks)
-Parallel b&c, 4 threads:
-  Real time             =    0.00 sec. (0.00 ticks)
-  Sync time (average)   =    0.00 sec.
-  Wait time (average)   =    0.00 sec.
+  Real time             =    0,85 sec. (1433,01 ticks)
+Parallel b&c, 12 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
                           ------------
-Total (root+branch&cut) =    1.08 sec. (886.54 ticks)
+Total (root+branch&cut) =    0,85 sec. (1433,01 ticks)
 
 <<< solve
 
@@ -55,7 +56,7 @@ OBJECTIVE: 690
 5 plays 7 white matches, and 7 black matches
 6 is free in round 9
 6 plays 7 white matches, and 7 black matches
-7 is free in round 10
+7 is free in round 3
 7 plays 7 white matches, and 7 black matches
 8 is free in round 8
 8 plays 7 white matches, and 7 black matches
@@ -67,146 +68,146 @@ OBJECTIVE: 690
 11 plays 7 white matches, and 7 black matches
 12 is free in round 14
 12 plays 7 white matches, and 7 black matches
-13 is free in round 3
+13 is free in round 10
 13 plays 7 white matches, and 7 black matches
 14 is free in round 15
 14 plays 7 white matches, and 7 black matches
 15 is free in round 7
 15 plays 7 white matches, and 7 black matches
 Slot 1
-4 white, 12 black
-6 white, 7 black
-8 white, 1 black
-9 white, 5 black
-11 white, 13 black
-14 white, 3 black
-15 white, 2 black
+3 white, 1 black
+5 white, 2 black
+6 white, 8 black
+7 white, 12 black
+11 white, 4 black
+14 white, 13 black
+15 white, 9 black
 
 Slot 2
-1 white, 13 black
-5 white, 11 black
-6 white, 10 black
-7 white, 3 black
-8 white, 4 black
-12 white, 15 black
-14 white, 2 black
+2 white, 1 black
+4 white, 13 black
+5 white, 10 black
+8 white, 14 black
+11 white, 7 black
+12 white, 6 black
+15 white, 3 black
 
 Slot 3
-1 white, 12 black
-2 white, 6 black
-3 white, 15 black
-5 white, 8 black
-7 white, 4 black
-9 white, 14 black
-10 white, 11 black
+1 white, 6 black
+2 white, 11 black
+3 white, 9 black
+5 white, 4 black
+8 white, 10 black
+13 white, 12 black
+15 white, 14 black
 
 Slot 4
-3 white, 10 black
-6 white, 5 black
-9 white, 7 black
-12 white, 2 black
-13 white, 8 black
+1 white, 9 black
+2 white, 13 black
+7 white, 15 black
+8 white, 5 black
+10 white, 6 black
+12 white, 3 black
 14 white, 11 black
-15 white, 1 black
 
 Slot 5
-5 white, 13 black
-7 white, 2 black
-8 white, 12 black
-9 white, 1 black
-10 white, 15 black
-11 white, 4 black
-14 white, 6 black
+1 white, 10 black
+2 white, 15 black
+4 white, 14 black
+7 white, 13 black
+9 white, 8 black
+11 white, 6 black
+12 white, 5 black
 
 Slot 6
-2 white, 1 black
-3 white, 12 black
-4 white, 10 black
-6 white, 13 black
-7 white, 14 black
-9 white, 15 black
-11 white, 8 black
+1 white, 15 black
+3 white, 2 black
+4 white, 8 black
+6 white, 7 black
+11 white, 12 black
+13 white, 9 black
+14 white, 10 black
 
 Slot 7
-1 white, 4 black
-3 white, 6 black
-5 white, 14 black
-10 white, 8 black
-11 white, 2 black
-12 white, 7 black
-13 white, 9 black
+3 white, 13 black
+5 white, 9 black
+6 white, 14 black
+7 white, 1 black
+8 white, 11 black
+10 white, 2 black
+12 white, 4 black
 
 Slot 8
-3 white, 9 black
-4 white, 14 black
-5 white, 7 black
-6 white, 1 black
-10 white, 2 black
-11 white, 12 black
-13 white, 15 black
+4 white, 7 black
+6 white, 15 black
+9 white, 2 black
+10 white, 12 black
+11 white, 1 black
+13 white, 5 black
+14 white, 3 black
 
 Slot 9
-1 white, 11 black
-2 white, 3 black
-4 white, 9 black
-7 white, 8 black
-10 white, 13 black
-12 white, 5 black
-14 white, 15 black
+1 white, 4 black
+2 white, 8 black
+3 white, 7 black
+9 white, 12 black
+11 white, 15 black
+13 white, 10 black
+14 white, 5 black
 
 Slot 10
-1 white, 5 black
-2 white, 4 black
-6 white, 11 black
-8 white, 15 black
-10 white, 14 black
-12 white, 9 black
-13 white, 3 black
+3 white, 8 black
+5 white, 1 black
+6 white, 2 black
+7 white, 9 black
+11 white, 10 black
+12 white, 14 black
+15 white, 4 black
 
 Slot 11
-1 white, 10 black
-2 white, 9 black
-4 white, 13 black
-5 white, 3 black
-8 white, 6 black
-14 white, 12 black
-15 white, 7 black
-
-Slot 12
-2 white, 5 black
-3 white, 4 black
-6 white, 12 black
-8 white, 14 black
-10 white, 9 black
-13 white, 7 black
-15 white, 11 black
-
-Slot 13
-3 white, 8 black
-4 white, 6 black
-7 white, 1 black
-9 white, 11 black
-12 white, 10 black
-13 white, 14 black
+1 white, 12 black
+4 white, 2 black
+6 white, 3 black
+8 white, 13 black
+10 white, 7 black
+14 white, 9 black
 15 white, 5 black
 
+Slot 12
+2 white, 12 black
+5 white, 3 black
+9 white, 6 black
+10 white, 4 black
+13 white, 11 black
+14 white, 7 black
+15 white, 8 black
+
+Slot 13
+1 white, 14 black
+3 white, 11 black
+4 white, 6 black
+7 white, 5 black
+9 white, 10 black
+12 white, 8 black
+15 white, 13 black
+
 Slot 14
-4 white, 5 black
-7 white, 10 black
-8 white, 9 black
-11 white, 3 black
-13 white, 2 black
-14 white, 1 black
-15 white, 6 black
+2 white, 14 black
+4 white, 3 black
+6 white, 5 black
+8 white, 7 black
+9 white, 11 black
+10 white, 15 black
+13 white, 1 black
 
 Slot 15
-1 white, 3 black
-2 white, 8 black
-5 white, 10 black
-9 white, 6 black
-11 white, 7 black
-12 white, 13 black
-15 white, 4 black
+5 white, 11 black
+7 white, 2 black
+8 white, 1 black
+9 white, 4 black
+10 white, 3 black
+12 white, 15 black
+13 white, 6 black
 
 
 <<< post process
