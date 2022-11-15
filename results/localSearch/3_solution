@@ -1,19 +1,18 @@
 Alpha: 0
 Read 8 lines
-SOLUTION GREEDY: [0 1 2]
-Points: 68
-Swapping 0 and 2. Change: 3. Prev: 0
-Points after local search: 71
-Improvement by LS in 2 iterations: 3
+SOLUTION GREEDY: [1 0 2]
+Points: 194
+Points after local search: 194
+Improvement by LS in 1 iterations: 0
 Fake rest: [1 2 0]
-Rest:      [2 1 0]
-Time (s): 3.3286e-05
+Rest:      [1 0 2]
+Time (s): 3.3843e-05
 3 players
-[ 25,  35,  33]
-[ 10,  35,   4]
-[  3,  14,   8]
+[  0, 100,   0]
+[ 94,   6,   0]
+[  0, 100,   0]
 [
-	[Day: 0, White: 0, Black: 1]
-	[Day: 1, White: 2, Black: 0]
-	[Day: 2, White: 1, Black: 2]
+	[Day: 0, White: 2, Black: 0]
+	[Day: 1, White: 1, Black: 2]
+	[Day: 2, White: 0, Black: 1]
 ]
