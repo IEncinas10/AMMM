@@ -1,0 +1,109 @@
+Alpha: 0.8387
+Read 12 lines
+SOLUTION GREEDY: [0 3 2 1 5 4 6]
+Points: 316
+Swapping 0 and 3. Change: 19. Prev: 0
+Swapping 2 and 5. Change: 12. Prev: 0
+Swapping 2 and 6. Change: 40. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 71
+SOLUTION GREEDY: [3 4 2 1 5 0 6]
+Points: 255
+Swapping 4 and 0. Change: 80. Prev: 0
+Swapping 2 and 5. Change: 12. Prev: 0
+Swapping 2 and 6. Change: 40. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 132
+SOLUTION GREEDY: [0 3 5 1 6 4 2]
+Points: 368
+Swapping 0 and 3. Change: 19. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 19
+SOLUTION GREEDY: [3 4 2 1 6 0 5]
+Points: 262
+Swapping 4 and 0. Change: 80. Prev: 0
+Swapping 2 and 5. Change: 45. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 125
+SOLUTION GREEDY: [0 3 2 1 6 4 5]
+Points: 323
+Swapping 0 and 3. Change: 19. Prev: 0
+Swapping 2 and 5. Change: 45. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 64
+SOLUTION GREEDY: [0 3 5 1 6 4 2]
+Points: 368
+Swapping 0 and 3. Change: 19. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 19
+SOLUTION GREEDY: [0 4 5 1 6 2 3]
+Points: 357
+Swapping 0 and 3. Change: 18. Prev: 0
+Swapping 4 and 2. Change: 12. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 30
+SOLUTION GREEDY: [3 4 5 0 6 2 1]
+Points: 338
+Swapping 4 and 2. Change: 12. Prev: 0
+Swapping 4 and 1. Change: 18. Prev: 12
+Swapping 0 and 1. Change: 17. Prev: 0
+Swapping 2 and 4. Change: 14. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 49
+SOLUTION GREEDY: [3 1 5 0 6 4 2]
+Points: 370
+Swapping 1 and 0. Change: 17. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 17
+SOLUTION GREEDY: [0 4 2 1 5 6 3]
+Points: 207
+Swapping 0 and 3. Change: 18. Prev: 0
+Swapping 4 and 6. Change: 81. Prev: 0
+Swapping 2 and 5. Change: 12. Prev: 0
+Swapping 2 and 6. Change: 69. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 180
+SOLUTION GREEDY: [3 4 5 0 6 2 1]
+Points: 338
+Swapping 4 and 2. Change: 12. Prev: 0
+Swapping 4 and 1. Change: 18. Prev: 12
+Swapping 0 and 1. Change: 17. Prev: 0
+Swapping 2 and 4. Change: 14. Prev: 0
+Points after local search: 387
+Improvement by LS in 2 iterations: 49
+Final score and solution [3 0 5 1 6 4 2]
+Points: 387
+Fake rest: [3 4 5 6 0 1 2]
+Rest:      [3 0 5 1 6 4 2]
+Time (s): 8.0116e-05
+7 players
+[ 56,   0,   0,  43,   0,   1,   0]
+[  0,  20,   0,  80,   0,   0,   0]
+[  9,   0,  22,   0,   0,  69,   0]
+[ 83,   8,   0,   0,   0,   0,   9]
+[  0,   7,   0,   0,   0,  88,   5]
+[  0,   0,  67,   0,  33,   0,   0]
+[  0,   0,   0,   2,  69,   0,  29]
+[
+	[Day: 0, White: 6, Black: 1]
+	[Day: 0, White: 4, Black: 5]
+	[Day: 0, White: 2, Black: 0]
+	[Day: 1, White: 4, Black: 6]
+	[Day: 1, White: 2, Black: 1]
+	[Day: 1, White: 3, Black: 5]
+	[Day: 2, White: 2, Black: 4]
+	[Day: 2, White: 3, Black: 6]
+	[Day: 2, White: 0, Black: 1]
+	[Day: 3, White: 3, Black: 2]
+	[Day: 3, White: 0, Black: 4]
+	[Day: 3, White: 5, Black: 6]
+	[Day: 4, White: 0, Black: 3]
+	[Day: 4, White: 5, Black: 2]
+	[Day: 4, White: 1, Black: 4]
+	[Day: 5, White: 5, Black: 0]
+	[Day: 5, White: 1, Black: 3]
+	[Day: 5, White: 6, Black: 2]
+	[Day: 6, White: 1, Black: 5]
+	[Day: 6, White: 6, Black: 0]
+	[Day: 6, White: 4, Black: 3]
+]

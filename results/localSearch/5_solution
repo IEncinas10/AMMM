@@ -1,0 +1,29 @@
+Alpha: 0
+Read 10 lines
+SOLUTION GREEDY: [4 2 0 3 1]
+Points: 126
+Swapping 2 and 1. Change: 4. Prev: 0
+Swapping 2 and 4. Change: 7. Prev: 0
+Points after local search: 137
+Improvement by LS in 2 iterations: 11
+Fake rest: [2 3 4 0 1]
+Rest:      [2 1 0 3 4]
+Time (s): 3.7337e-05
+5 players
+[ 17,  12,  33,  24,  14]
+[ 11,  15,  18,  24,   7]
+[ 32,  19,  24,   0,  15]
+[ 28,  15,   7,  33,   5]
+[ 34,   3,  28,  11,  24]
+[
+	[Day: 0, White: 3, Black: 0]
+	[Day: 0, White: 4, Black: 1]
+	[Day: 1, White: 4, Black: 3]
+	[Day: 1, White: 2, Black: 0]
+	[Day: 2, White: 2, Black: 4]
+	[Day: 2, White: 1, Black: 3]
+	[Day: 3, White: 1, Black: 2]
+	[Day: 3, White: 0, Black: 4]
+	[Day: 4, White: 0, Black: 1]
+	[Day: 4, White: 3, Black: 2]
+]
