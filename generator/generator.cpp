@@ -12,15 +12,17 @@
 #define TOTAL_POINTS 100
 #define MIN_PLAYERS 3
 
+static uint16_t MAX_POINTS_PER_DAY = TOTAL_POINTS;
+
 static uint64_t N = 0;
 static std::mt19937 generator;
-static std::uniform_int_distribution<uint16_t> distribution(MIN_POINTS, TOTAL_POINTS);
 static bool generate_every_instance = false;
 static std::string output_directory;
 
 void setup_generator(uint64_t seed) { generator.seed(seed); }
 
 std::vector<uint16_t> generate_points_per_player(uint64_t players) {
+    static std::uniform_int_distribution<uint16_t> distribution(MIN_POINTS, MAX_POINTS_PER_DAY);
     std::vector<uint16_t> points(players);
 
     // Let's access the points array via a shuffled array of indices
@@ -53,6 +55,7 @@ void parse(int argc, char **argv) {
 	options.set_width(90).set_tab_expansion().add_options()
 	    ("n, numplayers", "Number of players. has to be odd", cxxopts::value<uint64_t>()->default_value("3"))
 	    ("s, seed", "Seed for the random engine", cxxopts::value<uint64_t>()->default_value("1"))
+	    ("max_points_per_day", "Maximum points that can be assigned to a given day", cxxopts::value<uint16_t>()->default_value("100"))
 	    ("every_instance", "Generate every instance up to [numplayers]")
 	    ("output_dir", "Output directory for generated instance(s)", cxxopts::value<std::string>()->default_value("../instances/"))
 	    ("h, help", "Print help");
@@ -67,6 +70,7 @@ void parse(int argc, char **argv) {
 	}
 
 	N                       = result["numplayers"].as<uint64_t>();
+	MAX_POINTS_PER_DAY      = result["max_points_per_day"].as<uint16_t>();
 	generate_every_instance = result.count("every_instance");
 	output_directory        = result["output_dir"].as<std::string>();
 	uint64_t seed = result["seed"].as<uint64_t>();
@@ -74,8 +78,8 @@ void parse(int argc, char **argv) {
 	
 	setup_generator(seed);
 
-	fmt::print("N = {}, Seed = {}, generate_every_instance = {}, output_directory = {}\n",
-		N, seed, generate_every_instance, output_directory);
+	fmt::print("N = {}, Seed = {}, generate_every_instance = {}, output_directory = {}, MAX_POINTS_PER_DAY = {}\n",
+		N, seed, generate_every_instance, output_directory, MAX_POINTS_PER_DAY);
 
     } catch (const cxxopts::exceptions::exception &e) {
 	std::cout << "error parsing options: " << e.what() << std::endl;
