@@ -312,16 +312,25 @@ struct Tournament {
 
 	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day"
 	std::vector<Player> clean_players;
+	std::vector<Player> RCL_players;
 
 	std::copy_if(players_day.begin(), players_day.end(), back_inserter(clean_players),
 		     [](Player &x) { return !x.has_rested; });
 
+	uint64_t qmin = clean_players[clean_players.size()-1].points[day];
+	uint64_t qmax = clean_players[0].points[day];
+
+	uint64_t worst_possible_points = qmax - alpha * (qmax - qmin);
+
+	std::copy_if(clean_players.begin(), clean_players.end(), back_inserter(RCL_players),
+			[&](Player &x) { return x.points[day] >= worst_possible_points; });
+
 	// GRASP. If alpha 0 defaults to normal greedy
-	uint64_t chosen_index = 0, last_index = (clean_players.size() - 1) * alpha;
+	uint64_t chosen_index = 0, last_index = RCL_players.size();
 	if (last_index != 0)
 	    chosen_index = std::rand() % last_index;
 
-	const Player &player = clean_players[chosen_index];
+	const Player &player = RCL_players[chosen_index];
 	score += player.points[day];
 	rests.push_back(player.playerID);
 	players[player.playerID].has_rested = true;
@@ -521,7 +530,7 @@ int main(int argc, char **argv) {
 
     //para cada alpha probar todas las instances
     for(int j = 0; j <= MAXINSTANCES; j++){
-		alpha = j / MAXINSTANCES;
+		alpha = (float) j / MAXINSTANCES;
 		std::vector<double> errors_alpha;
 		alpha_solution.clear();
 		
@@ -552,6 +561,8 @@ int main(int argc, char **argv) {
 
 		mean_error_by_alpha.push_back(mean_error);
 
+		//fmt::print("Alpha = {}, error= {}", alpha, mean_error);
+
 		if(mean_error < best_alpha_error){
 			best_alpha = alpha;
 			best_alpha_error = mean_error;
@@ -563,14 +574,11 @@ int main(int argc, char **argv) {
 
 	fmt::print("\n");
 
-	for(int i = 0; i < mean_error_by_alpha.size(); i++){
-
-		//fmt::print("{}, ", mean_error_by_alpha[i]);
-	}
+	fmt::print("[{}]\n", fmt::join(mean_error_by_alpha, ", "));
 
 	//TODO  calculate error mean
 
-	//fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n", best_alpha, best_alpha_error);
+	fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n", best_alpha, best_alpha_error);
 
 
 	/*fmt::print("Alpha: {}\n", alpha);
