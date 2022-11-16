@@ -222,9 +222,10 @@ In the local search phase we evaluate if swapping the players that rest in two g
 We can repeat this procedure iteratively until the local search provides no further improvement just by adding an outer loop.
 
 
+\clearpage
 \subsection{GRASP}
 
-\todo[inline]{GRASP ESTA MAL}
+In the GRASP we randomize the selection of the player in descending order by points, according to a RCL calculated by $\alpha$.
 
 \begin{algorithm}
 	\caption{GRASP} 
@@ -234,13 +235,16 @@ We can repeat this procedure iteratively until the local search provides no furt
 	    \For {day in 0..days}]b
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
 	      \State sortedPlayers $\leftarrow$ sort PlayersToRest(p) by p.points[day] (DESC) 
-	      \State last\_index $\leftarrow$ (playersToRest.size - 1) * $\alpha$
-	      \State RCL $\leftarrow$ sortedPlayers(p) $|$ p $\in$ [0, last\_index] 
+        \State $q_{max} \leftarrow $ sortedPlayers.first.points
+        \State $q_{min} \leftarrow$ sortedPlayers.last.points
+        \State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.Points >= q_{max} - \alpha * (q_{max} - q_{min})\}$
 	      \State select p $\in$ RCL at random
 	      \State rests[day]\ $\leftarrow$\ p
 	    \EndFor
 	\end{algorithmic} 
 \end{algorithm}
+
+We must repeat this algorithm iteratively, having some stop conditions as a MAX\_ITER and a MAX\_ITER\_NOTIMPROVED. In this way, we put a maximum of iterations and a maximum of iterations without improve the objective function.
 
 
 \section{Parameter tuning}
