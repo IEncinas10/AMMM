@@ -1,5 +1,8 @@
 # AMMM
 
+This document contains the necessary instructions to reproduce our AMMM project results. We have implemented it in C++ and use some libraries for printing and reading input files. Of couse, we assume a C++ compiler and CPLEX are already installed.
+
+
 ## Dependencies
 
 - Boost libraries 
@@ -97,9 +100,3 @@ This slows down the program a lot, and are there just to check the validity of o
 We are providing the instances we've used for our report, so running the ILP, Greedy and Local Search should give the same answer(\*). GRASP might vary as we're using random numbers, and although we're specifying the seed for the random number generator we have no guarantee that it gives the same result under different libstdc++ implementations.
 
 (\*) Maybe the std::sort is implemented differently so they might vary slightly (rest vector, tournament schedule) but the objective function value should be exactly the same.
-
-## Slides
-
-```
-xelatex -shell-escape main.tex
-```
