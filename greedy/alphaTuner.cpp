@@ -426,22 +426,21 @@ void parse(int argc, char **argv) {
 	    ("l, localsearch", "Use local search algorithm")
 		("a, alpha", "Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP algorithm will be set", cxxopts::value<float>()->default_value("0"))
 	    ("h, help", "Print help");
-	// clang-format off
+	// clang-format on
 
 	auto result = options.parse(argc, argv);
-
 
 	if (result.count("help")) {
 	    std::cout << options.help() << std::endl;
 	    exit(0);
 	}
-	
-	instance_filename_str				= result["instance"].as<std::string>();
-	useLocalSearch                  = result.count("localsearch");;
-	alpha							= result["alpha"].as<float>();
 
-	if(alpha != 0){
-		useLocalSearch = true;
+	instance_filename_str = result["instance"].as<std::string>();
+	useLocalSearch = result.count("localsearch");
+	alpha = result["alpha"].as<float>();
+
+	if (alpha != 0) {
+	    useLocalSearch = true;
 	}
 
     } catch (const cxxopts::exceptions::exception &e) {
@@ -454,156 +453,146 @@ void parse(int argc, char **argv) {
 /*******************READING OPTIMAL SOLUTIONS*******************/
 /***************************************************************/
 
-bool read_optimal_solutions(const char *results_filename, std::vector<uint64_t> &optimal_solutions, std::vector<double> &ilp_time) {
+bool read_optimal_solutions(const char *results_filename, std::vector<uint64_t> &optimal_solutions,
+			    std::vector<double> &ilp_time) {
     std::ifstream input(results_filename);
     if (!input.is_open())
-		return false;
+	return false;
 
-	uint64_t MAXINSTANCES = 15;
+    uint64_t MAXINSTANCES = 15;
     uint64_t lines_read = 0;
     std::string current_line;
-	double time;
-	uint64_t score;
-	std::string tmp;
+    double time;
+    uint64_t score;
+    std::string tmp;
 
-	do{
-		std::getline(input, current_line);
-		std::istringstream iss(current_line);
-		std::getline(iss, tmp, ',');
-		std::getline(iss, tmp, ',');
-		time = stod(tmp);
-		std::getline(iss, tmp, ',');
-		score = stoi(tmp);
+    do {
+	std::getline(input, current_line);
+	std::istringstream iss(current_line);
+	std::getline(iss, tmp, ',');
+	std::getline(iss, tmp, ',');
+	time = stod(tmp);
+	std::getline(iss, tmp, ',');
+	score = stoi(tmp);
 
-		optimal_solutions.push_back(score);
-		ilp_time.push_back(time);
+	optimal_solutions.push_back(score);
+	ilp_time.push_back(time);
 
-		lines_read++;
+	lines_read++;
 
-	}while(lines_read < MAXINSTANCES);
+    } while (lines_read < MAXINSTANCES);
 
-	
+    // fmt::print("Read {} lines\n", lines_read);
 
-    //fmt::print("Read {} lines\n", lines_read);
-
-	//for(int i = 0; i < 15; i++){
-		//fmt::print("[{}, {}]\n", optimal_solutions[i], ilp_time[i]);
-	//}
+    // for(int i = 0; i < 15; i++){
+    // fmt::print("[{}, {}]\n", optimal_solutions[i], ilp_time[i]);
+    //}
 
     return true;
 }
 
+double arithmetic_mean(const std::vector<double> &errors) {
+    if (errors.size() == 0)
+	return +INFINITY;
+    double total = 0;
+    for (int i = 0; i < errors.size(); i++) {
+	total += errors[i];
+    }
 
-double arithmetic_mean(const std::vector<double> &errors){
-	if(errors.size() == 0)
-		return +INFINITY;
-	double total = 0;
-	for(int i = 0; i < errors.size(); i++){
-		total += errors[i];
-	}
-
-	return total / errors.size();
+    return total / errors.size();
 }
 
-
-
 int main(int argc, char **argv) {
-	//std::srand(0);
-	generator.seed(0);
+    // std::srand(0);
+    generator.seed(0);
 
-	//parse(argc, argv);
+    // parse(argc, argv);
     /*if (argc < 2) {
 	print_usage(argv[0]);
     }*/
 
-	uint64_t MAXINSTANCES = 31;
+    uint64_t MAXINSTANCES = 31;
 
-    std::vector<uint64_t> optimal_solutions; //read from results...
-	std::vector<double> mean_error_by_alpha;
+    std::vector<uint64_t> optimal_solutions; // read from results...
+    std::vector<double> mean_error_by_alpha;
 
-	double best_alpha = -1;
-	double best_alpha_error = +INFINITY;
+    double best_alpha = -1;
+    double best_alpha_error = +INFINITY;
 
-	std::vector<double> ilp_times;
-	std::string prefix = "../instances/project.";
-	std::string sufix = ".dat";
+    std::vector<double> ilp_times;
+    std::string prefix = "../instances/project.";
+    std::string sufix = ".dat";
 
-	const char *results_filename = "../results/ilp/clean";
+    const char *results_filename = "../results/ilp/clean";
 
-	bool read_solution_ok = read_optimal_solutions(results_filename, optimal_solutions, ilp_times);
-	assert(read_solution_ok);
+    bool read_solution_ok = read_optimal_solutions(results_filename, optimal_solutions, ilp_times);
+    assert(read_solution_ok);
 
-    //para cada alpha probar todas las instances
-    for(int j = 0; j <= MAXINSTANCES; j++){
-		alpha = (float) j / MAXINSTANCES;
-		std::vector<double> errors_alpha;
-		alpha_solution.clear();
-		
-		
-		useLocalSearch = true;
-		
-		uint64_t index = 0;
-		for(int i = 3; i <= MAXINSTANCES; i += 2){
-			std::string instance_filename_str = prefix + std::to_string(i) + sufix;
-			const char *instance_filename = instance_filename_str.c_str();
-			Tournament tournament;
+    // para cada alpha probar todas las instances
+    for (int j = 0; j <= MAXINSTANCES; j++) {
+	alpha = (float)j / MAXINSTANCES;
+	std::vector<double> errors_alpha;
+	alpha_solution.clear();
 
-			bool read_ok = read_instance(instance_filename, tournament);
-			assert(read_ok);
+	useLocalSearch = true;
 
+	uint64_t index = 0;
+	for (int i = 3; i <= MAXINSTANCES; i += 2) {
+	    std::string instance_filename_str = prefix + std::to_string(i) + sufix;
+	    const char *instance_filename = instance_filename_str.c_str();
+	    Tournament tournament;
 
-			tournament.create_matchups();
-			tournament.print();
-			
-			errors_alpha.push_back(abs(optimal_solutions[index] - alpha_solution[index]));
+	    bool read_ok = read_instance(instance_filename, tournament);
+	    assert(read_ok);
 
-			index++;
-		}
-		fmt::print("{}\n", j);
-		fmt::print("[{}]\n", fmt::join(errors_alpha, ", "));
+	    tournament.create_matchups();
+	    tournament.print();
 
-		double mean_error = arithmetic_mean(errors_alpha);
+	    errors_alpha.push_back(abs(optimal_solutions[index] - alpha_solution[index]));
 
-		mean_error_by_alpha.push_back(mean_error);
+	    index++;
+	}
+	fmt::print("{}\n", j);
+	fmt::print("[{}]\n", fmt::join(errors_alpha, ", "));
 
-		//fmt::print("Alpha = {}, error= {}", alpha, mean_error);
+	double mean_error = arithmetic_mean(errors_alpha);
 
-		if(mean_error < best_alpha_error){
-			best_alpha = alpha;
-			best_alpha_error = mean_error;
-		}
+	mean_error_by_alpha.push_back(mean_error);
 
+	// fmt::print("Alpha = {}, error= {}", alpha, mean_error);
 
-		
+	if (mean_error < best_alpha_error) {
+	    best_alpha = alpha;
+	    best_alpha_error = mean_error;
+	}
     }
 
-	fmt::print("\n");
+    fmt::print("\n");
 
-	fmt::print("[{}]\n", fmt::join(mean_error_by_alpha, ", "));
+    fmt::print("[{}]\n", fmt::join(mean_error_by_alpha, ", "));
 
-	//TODO  calculate error mean
+    // TODO  calculate error mean
 
-	fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n\n\n", best_alpha, best_alpha_error);
+    fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n\n\n", best_alpha, best_alpha_error);
 
-	for(int j = 0; j <= MAXINSTANCES; j++){
-	    alpha = (float) j / MAXINSTANCES;
-	    fmt::print("{}, {}\n", alpha, mean_error_by_alpha[j]);
-	}
+    for (int j = 0; j <= MAXINSTANCES; j++) {
+	alpha = (float)j / MAXINSTANCES;
+	fmt::print("{}, {}\n", alpha, mean_error_by_alpha[j]);
+    }
+
+    /*fmt::print("Alpha: {}\n", alpha);
+
+    const char *instance_filename = instance_filename_str.c_str();
 
 
-	/*fmt::print("Alpha: {}\n", alpha);
 
-	const char *instance_filename = instance_filename_str.c_str();
+std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    
-
-    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    
-    tournament.create_matchups();
-    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Time (s): " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0
-	      << std::endl;
-    tournament.print();*/
+tournament.create_matchups();
+std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+std::cout << "Time (s): " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0
+	  << std::endl;
+tournament.print();*/
 }
 
 // fmtlib stuff, copypasted from somewhere and modified to fit our Match struct

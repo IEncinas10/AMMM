@@ -1,7 +1,8 @@
-#include <boost/algorithm/string.hpp>
 #include "../include/cxxopts.hpp"
+#include <boost/algorithm/string.hpp>
 #include <chrono>
 #include <cstdint>
+#include <cstring>
 #include <fmt/core.h>
 #include <fmt/format.h>
 #include <fmt/ranges.h>
@@ -9,7 +10,6 @@
 #include <iostream>
 #include <set>
 #include <sstream>
-#include <cstring>
 
 using player_id = uint64_t;
 
@@ -87,14 +87,14 @@ struct Tournament {
 	}
     }
 
-	void clear_players_attributes(){
-		for (uint64_t player = 0; player < num_players; player++) {
+    void clear_players_attributes() {
+	for (uint64_t player = 0; player < num_players; player++) {
 	    players.at(player).has_rested = false;
-		players.at(player).games_played = 0;
-		players.at(player).games_black = 0;
-		players.at(player).games_white = 0;
+	    players.at(player).games_played = 0;
+	    players.at(player).games_black = 0;
+	    players.at(player).games_white = 0;
 	}
-	}
+    }
 
     // We create a set of games where every player plays against
     // every other player (50% white, 50% black)
@@ -122,7 +122,7 @@ struct Tournament {
     void create_matchups() {
 
 	// vector with ID of player that rests every day
-	
+
 	std::vector<uint64_t> bestRests;
 	const uint64_t days = num_players;
 	uint64_t nIter = 0;
@@ -134,44 +134,43 @@ struct Tournament {
 	// we assign the ID to the players
 	assign_player_ids();
 
-	do{
-		std::vector<uint64_t> rests;
-		uint64_t score = 0;
-		nIter++;
-		for (uint64_t day = 0; day < days; day++) {
-			// Make a copy to sort it by points this round
-			std::vector<Player> players_round(players);
+	do {
+	    std::vector<uint64_t> rests;
+	    uint64_t score = 0;
+	    nIter++;
+	    for (uint64_t day = 0; day < days; day++) {
+		// Make a copy to sort it by points this round
+		std::vector<Player> players_round(players);
 
-			// fmt::print("DAY {}\n Ordering C by points\n", day);
+		// fmt::print("DAY {}\n Ordering C by points\n", day);
 
-			std::sort(players_round.begin(), players_round.end(),
-				[&](const Player &x, Player &y) { // sorting by less points per match
-				return x.points[day] > y.points[day];
-				});
+		std::sort(players_round.begin(), players_round.end(),
+			  [&](const Player &x, Player &y) { // sorting by less points per match
+			      return x.points[day] > y.points[day];
+			  });
 
-			assign_rest(players_round, day, rests, score);
-		}
+		assign_rest(players_round, day, rests, score);
+	    }
 
-		fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
+	    fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
-		if(useLocalSearch == true)
-			local_search(rests, score);
+	    if (useLocalSearch == true)
+		local_search(rests, score);
 
-		notImproved++;
-		if(score >= bestScore){
-			if(score > bestScore)
-				notImproved = 0;
-			bestScore = score;
-			bestRests = rests;
-		}
-		
-		
-		clear_players_attributes();
+	    notImproved++;
+	    if (score >= bestScore) {
+		if (score > bestScore)
+		    notImproved = 0;
+		bestScore = score;
+		bestRests = rests;
+	    }
 
-	}while(notImproved < NOT_IMPROVED_MAX && nIter < MAXGRASP && alpha != 0);
+	    clear_players_attributes();
 
-	if(alpha != 0)
-		fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
+	} while (notImproved < NOT_IMPROVED_MAX && nIter < MAXGRASP && alpha != 0);
+
+	if (alpha != 0)
+	    fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
 
 	// Generate set of valid games (just for validating solution, this does nothing right else now)
 	create_games();
@@ -302,7 +301,6 @@ struct Tournament {
 
 	// use current time as seed for random generator
 
-
 	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day"
 	std::vector<Player> clean_players;
 	std::vector<Player> RCL_players;
@@ -310,13 +308,13 @@ struct Tournament {
 	std::copy_if(players_day.begin(), players_day.end(), back_inserter(clean_players),
 		     [](Player &x) { return !x.has_rested; });
 
-	uint64_t qmin = clean_players[clean_players.size()-1].points[day];
+	uint64_t qmin = clean_players[clean_players.size() - 1].points[day];
 	uint64_t qmax = clean_players[0].points[day];
 
 	uint64_t worst_possible_points = qmax - alpha * (qmax - qmin);
 
 	std::copy_if(clean_players.begin(), clean_players.end(), back_inserter(RCL_players),
-			[&](Player &x) { return x.points[day] >= worst_possible_points; });
+		     [&](Player &x) { return x.points[day] >= worst_possible_points; });
 
 	// GRASP. If alpha 0 defaults to normal greedy
 	uint64_t chosen_index = 0, last_index = RCL_players.size();
@@ -417,22 +415,21 @@ void parse(int argc, char **argv) {
 	    ("l, localsearch", "Use local search algorithm")
 		("a, alpha", "Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP algorithm will be set", cxxopts::value<float>()->default_value("0"))
 	    ("h, help", "Print help");
-	// clang-format off
+	// clang-format on
 
 	auto result = options.parse(argc, argv);
-
 
 	if (result.count("help")) {
 	    std::cout << options.help() << std::endl;
 	    exit(0);
 	}
-	
-	instance_filename_str				= result["instance"].as<std::string>();
-	useLocalSearch                  = result.count("localsearch");;
-	alpha							= result["alpha"].as<float>();
 
-	if(alpha != 0){
-		useLocalSearch = true;
+	instance_filename_str = result["instance"].as<std::string>();
+	useLocalSearch = result.count("localsearch");
+	alpha = result["alpha"].as<float>();
+
+	if (alpha != 0) {
+	    useLocalSearch = true;
 	}
 
     } catch (const cxxopts::exceptions::exception &e) {
@@ -442,15 +439,15 @@ void parse(int argc, char **argv) {
 }
 
 int main(int argc, char **argv) {
-	std::srand(0);
-	parse(argc, argv);
+    std::srand(0);
+    parse(argc, argv);
     if (argc < 2) {
 	print_usage(argv[0]);
     }
 
-	fmt::print("Alpha: {}\n", alpha);
+    fmt::print("Alpha: {}\n", alpha);
 
-	const char *instance_filename = instance_filename_str.c_str();
+    const char *instance_filename = instance_filename_str.c_str();
 
     Tournament tournament;
 
@@ -459,8 +456,8 @@ int main(int argc, char **argv) {
     assert(read_ok);
     tournament.create_matchups();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Time (s): " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0
-	      << std::endl;
+    std::cout << "Time (s): "
+	      << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0 << std::endl;
     tournament.print();
 }
 
