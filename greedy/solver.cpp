@@ -22,6 +22,9 @@ float alpha = 0;
 
 bool useLocalSearch = false;
 
+// whether to print or not the full calendar
+bool print_calendar = true;
+
 // hack to print nicely the tournament schedule
 std::size_t NUM_PLAYERS;
 
@@ -153,7 +156,7 @@ struct Tournament {
 		assign_rest(players_round, day, rests, score);
 	    }
 
-	    fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
+	    //fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
 	    if (useLocalSearch == true)
 		local_search(rests, score);
@@ -173,8 +176,7 @@ struct Tournament {
 	std::cout << "Rest vector time (s): "
 		  << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0 << '\n';
 
-	if (alpha != 0)
-	    fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
+	fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
 
 	// Generate set of valid games (just for validating solution, this does nothing right else now)
 	create_games();
@@ -284,8 +286,8 @@ struct Tournament {
 
 		    int change = swap_points - curr_points;
 		    if (change > best_swap_points) {
-			fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[day], rests[j], change,
-				   best_swap_points);
+			//fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[day], rests[j], change,
+				   //best_swap_points);
 			best_swap = j;
 			best_swap_points = change;
 		    }
@@ -297,8 +299,8 @@ struct Tournament {
 	    i++;
 	} while (points > old_points);
 
-	fmt::print("Points after local search: {}\n", points);
-	fmt::print("Improvement by LS in {} iterations: {}\n", i, points - prev_solution);
+	//fmt::print("Points after local search: {}\n", points);
+	//fmt::print("Improvement by LS in {} iterations: {}\n", i, points - prev_solution);
     }
 
     void assign_rest(std::vector<Player> &players_day, uint64_t day, std::vector<player_id> &rests, uint64_t &score) {
@@ -417,6 +419,7 @@ void parse(int argc, char **argv) {
 	options.set_width(90).set_tab_expansion().add_options()
 	    ("i, instance", "Path to the instance to solve", cxxopts::value<std::string>())
 	    ("l, localsearch", "Enable local search. It's implied whenever we do GRASP")
+	    ("no-calendar", "Avoid printing full calendar and point matrix")
 	    ("a, alpha", "Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP algorithm will be set", cxxopts::value<float>()->default_value("0"))
 	    ("h, help", "Print help");
 	// clang-format on
@@ -431,6 +434,8 @@ void parse(int argc, char **argv) {
 	instance_filename_str = result["instance"].as<std::string>();
 	useLocalSearch = result.count("localsearch");
 	alpha = result["alpha"].as<float>();
+
+	print_calendar = !result.count("no-calendar");
 
 	if (alpha != 0) {
 	    useLocalSearch = true;
@@ -462,7 +467,9 @@ int main(int argc, char **argv) {
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time (s): "
 	      << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0 << std::endl;
-    tournament.print();
+
+    if(print_calendar)
+	tournament.print();
 }
 
 // fmtlib stuff, copypasted from somewhere and modified to fit our Match struct
