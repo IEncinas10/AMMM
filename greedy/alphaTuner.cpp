@@ -15,6 +15,8 @@
 
 using player_id = uint64_t;
 
+uint64_t MAXINSTANCES = 31;
+
 static std::string instance_filename_str;
 
 std::vector<uint64_t> alpha_solution;
@@ -459,7 +461,7 @@ bool read_optimal_solutions(const char *results_filename, std::vector<uint64_t> 
     if (!input.is_open())
 	return false;
 
-    uint64_t MAXINSTANCES = 15;
+
     uint64_t lines_read = 0;
     std::string current_line;
 
@@ -479,7 +481,7 @@ bool read_optimal_solutions(const char *results_filename, std::vector<uint64_t> 
 
 	lines_read++;
 
-    } while (lines_read < MAXINSTANCES);
+    } while (lines_read < (MAXINSTANCES - 1 / 2));
 
     // fmt::print("Read {} lines\n", lines_read);
 
@@ -510,7 +512,7 @@ int main(int argc, char **argv) {
 	print_usage(argv[0]);
     }*/
 
-    uint64_t MAXINSTANCES = 31;
+	const uint64_t MAXPOINTS = 100;
 
     std::vector<uint64_t> optimal_solutions; // read from results...
     std::vector<double> mean_error_by_alpha;
@@ -528,8 +530,8 @@ int main(int argc, char **argv) {
     assert(read_solution_ok);
 
     // para cada alpha probar todas las instances
-    for (int j = 0; j <= MAXINSTANCES; j++) {
-	alpha = (float)j / MAXINSTANCES;
+    for (int j = 0; j <= MAXPOINTS; j++) {
+	alpha = (float)j / MAXPOINTS;
 	std::vector<double> errors_alpha;
 	alpha_solution.clear();
 
@@ -572,10 +574,10 @@ int main(int argc, char **argv) {
 
     // TODO  calculate error mean
 
-    fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n\n\n", best_alpha, best_alpha_error);
+    fmt::print("\nBEST ALPHA FOR INSTANCES IS {:.32} WITH ERROR: {}\n\n\n", best_alpha, best_alpha_error);
 
-    for (int j = 0; j <= MAXINSTANCES; j++) {
-	alpha = (float)j / MAXINSTANCES;
+    for (int j = 0; j <= MAXPOINTS; j++) {
+	alpha = (float)j / MAXPOINTS;
 	fmt::print("{}, {}\n", alpha, mean_error_by_alpha[j]);
     }
 

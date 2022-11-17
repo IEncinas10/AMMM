@@ -327,6 +327,7 @@ struct Tournament {
 
 	// GRASP. If alpha 0 defaults to normal greedy
 	uint64_t chosen_index = 0, last_index = RCL_players.size();
+	
 	if (last_index != 0) {
 	    std::uniform_int_distribution<uint32_t> dist(0, last_index - 1);
 	    chosen_index = dist(generator);
