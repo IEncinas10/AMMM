@@ -49,6 +49,23 @@ With that command, we create instances from 3 to 31 (3, 5, 7, ..., 31) at direct
 
 [time_per_instance.pdf](https://github.com/IEncinas10/AMMM/files/9900567/time_per_instance.pdf)
 
+## (Meta)Heuristics
+
+To execute our solver we have to compile solver.cpp and specify the instance we want to solve, whether we want local search or not and the value of alpha for GRASP.
+
+```
+AMMM Course Project 2022
+Solver
+Usage:
+  ./solver [OPTION...]
+
+  -i, --instance arg  Path to the instance to solve
+  -l, --localsearch   Enable local search. It's implied whenever we do GRASP
+  -a, --alpha arg     Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP 
+                      algorithm will be set (default: 0)
+  -h, --help          Print help
+```
+
 ## Slides
 
 ```
