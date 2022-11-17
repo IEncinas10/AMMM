@@ -67,6 +67,7 @@ Usage:
 
   -i, --instance arg  Path to the instance to solve
   -l, --localsearch   Enable local search. It's implied whenever we do GRASP
+      --no-calendar   Avoid printing full calendar and point matrix
   -a, --alpha arg     Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP 
                       algorithm will be set (default: 0)
   -h, --help          Print help
