@@ -43,7 +43,13 @@ The good thing about this is that the instances are reproducible(under the same 
 With that command, we create instances from 3 to 31 (3, 5, 7, ..., 31) at directory ../instances using seed 1.
 
 ## ILP
+Just out of curiosity, we provide two ILP models:
+- redundant.mod: ILP with redundant constraints 
+- clean.mod: ILP with what we believe is the minimum amount of constraints
 
+```
+oplrun clean.mod instance_filepath
+``
 
 
 ## (Meta)Heuristics
