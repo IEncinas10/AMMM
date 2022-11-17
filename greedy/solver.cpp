@@ -134,6 +134,7 @@ struct Tournament {
 	// we assign the ID to the players
 	assign_player_ids();
 
+	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	do {
 	    std::vector<uint64_t> rests;
 	    uint64_t score = 0;
@@ -151,6 +152,10 @@ struct Tournament {
 
 		assign_rest(players_round, day, rests, score);
 	    }
+	    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	    std::cout << "Rest vector time (s): "
+		      << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0
+		      << '\n';
 
 	    fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
