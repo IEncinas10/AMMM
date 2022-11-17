@@ -411,9 +411,9 @@ void parse(int argc, char **argv) {
 
 	// clang-format off
 	options.set_width(90).set_tab_expansion().add_options()
-		("i, instance", "Path to the instance to solve", cxxopts::value<std::string>())
-	    ("l, localsearch", "Use local search algorithm")
-		("a, alpha", "Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP algorithm will be set", cxxopts::value<float>()->default_value("0"))
+	    ("i, instance", "Path to the instance to solve", cxxopts::value<std::string>())
+	    ("l, localsearch", "Enable local search. It's implied whenever we do GRASP")
+	    ("a, alpha", "Set alpha for GRASP [0-1]. If alpha is different to (0) GRASP algorithm will be set", cxxopts::value<float>()->default_value("0"))
 	    ("h, help", "Print help");
 	// clang-format on
 
