@@ -152,10 +152,6 @@ struct Tournament {
 
 		assign_rest(players_round, day, rests, score);
 	    }
-	    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-	    std::cout << "Rest vector time (s): "
-		      << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0
-		      << '\n';
 
 	    fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
@@ -173,6 +169,9 @@ struct Tournament {
 	    clear_players_attributes();
 
 	} while (notImproved < NOT_IMPROVED_MAX && nIter < MAXGRASP && alpha != 0);
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	std::cout << "Rest vector time (s): "
+		  << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() / 1000000000.0 << '\n';
 
 	if (alpha != 0)
 	    fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
