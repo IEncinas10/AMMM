@@ -462,18 +462,17 @@ bool read_optimal_solutions(const char *results_filename, std::vector<uint64_t> 
     uint64_t MAXINSTANCES = 15;
     uint64_t lines_read = 0;
     std::string current_line;
-    double time;
-    uint64_t score;
-    std::string tmp;
 
-    do {
-	std::getline(input, current_line);
-	std::istringstream iss(current_line);
-	std::getline(iss, tmp, ',');
-	std::getline(iss, tmp, ',');
-	time = stod(tmp);
-	std::getline(iss, tmp, ',');
-	score = stoi(tmp);
+	double time;
+	uint64_t score;
+	std::string tmp;
+	char dummy;
+
+	do{
+		std::getline(input, current_line);
+		std::istringstream iss(current_line);
+
+		iss >> tmp >> dummy >> time >> dummy >> score;
 
 	optimal_solutions.push_back(score);
 	ilp_time.push_back(time);
