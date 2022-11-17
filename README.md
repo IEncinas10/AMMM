@@ -23,15 +23,16 @@ $ ./generator --help
 AMMM Course Project 2022
 Instance generator
 Usage:
-  ./generator [OPTION...]
+  ./a.out [OPTION...]
 
-  -n, --numplayers arg  Number of players. has to be odd (default: 3)
-  -s, --seed arg        Seed for the random engine (default: 1)
-      --every_instance  Generate every instance up to [numplayers]
-      --output_dir arg  Output directory for generated instance(s) (default: 
-                        ../instances/)
-  -h, --help            Print help
-
+  -n, --numplayers arg          Number of players. has to be odd (default: 3)
+  -s, --seed arg                Seed for the random engine (default: 1)
+      --max_points_per_day arg  Maximum points that can be assigned to a given day 
+                                (default: 100)
+      --every_instance          Generate every instance up to [numplayers]
+      --output_dir arg          Output directory for generated instance(s) (default: 
+                                ../instances/)
+  -h, --help                    Print help
 ```
 
 The good thing about this is that the instances are reproducible(under the same libc++ implementation), as we specify the seed. Creating them is as simple as:
