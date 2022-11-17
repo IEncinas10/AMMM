@@ -1,6 +1,7 @@
 #include "../include/cxxopts.hpp"
 #include <boost/algorithm/string.hpp>
 #include <chrono>
+#include <cmath>
 #include <cstdint>
 #include <cstring>
 #include <fmt/core.h>
@@ -8,12 +9,14 @@
 #include <fmt/ranges.h>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <set>
 #include <sstream>
 
 using player_id = uint64_t;
 
 static std::string instance_filename_str;
+static std::mt19937 generator;
 
 // Alpha for GRASP. Default to 0, read from command line arguments
 float alpha = 0;
@@ -324,8 +327,10 @@ struct Tournament {
 
 	// GRASP. If alpha 0 defaults to normal greedy
 	uint64_t chosen_index = 0, last_index = RCL_players.size();
-	if (last_index != 0)
-	    chosen_index = std::rand() % last_index;
+	if (last_index != 0) {
+	    std::uniform_int_distribution<uint32_t> dist(0, last_index - 1);
+	    chosen_index = dist(generator);
+	}
 
 	const Player &player = RCL_players[chosen_index];
 	score += player.points[day];
@@ -448,7 +453,8 @@ void parse(int argc, char **argv) {
 }
 
 int main(int argc, char **argv) {
-    std::srand(0);
+	generator.seed(0);
+
     parse(argc, argv);
     if (argc < 2) {
 	print_usage(argv[0]);
