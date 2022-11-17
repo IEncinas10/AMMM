@@ -1,0 +1,98 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+\pgfplotsset{compat=1.10}
+
+
+\begin{document}
+\makeatletter
+\pgfplotsset{
+    calculate offset/.code={
+        \pgfkeys{/pgf/fpu=true,/pgf/fpu/output format=fixed}
+        \pgfmathsetmacro\testmacro{(\pgfplotspointmeta *10^\pgfplots@data@scale@trafo@EXPONENT@y)*\pgfplots@y@veclength)}
+        \pgfkeys{/pgf/fpu=false}
+    },
+    every node near coord/.style={
+        /pgfplots/calculate offset,
+        yshift=-\testmacro
+    },
+}
+    \begin{tikzpicture}
+	%\begin{axis}[
+	    %width=\textwidth,
+	    %%height=0.55\textwidth,
+	    %xlabel=Number of players,
+	    %grid=major,
+	    %ylabel=Total points,
+	    %ybar,
+	    %%ymode=log,
+	    %%xmin=-0.1,xmax=5000, % <-- added here to preserve view
+	    %%ymin=-0.1,ymax=37000,
+	    %legend style={at={(0.52,-0.12)},anchor=north, legend columns=3}
+	%]
+
+	\begin{axis}[
+	    ybar=0pt,
+	    width=\textwidth,
+	    ylabel={Points},
+	    xlabel={Players},
+	    ymajorgrids,
+	    xmax=35,
+	    xtick=data,
+	    minor tick length=2ex,
+	    bar width=0.37,
+	    %enlargelimits=0.15,
+	    %xticklabels = {
+		%Category 1,
+		%Category 2,
+		%Category 3,
+		%Category 7,
+		%Category 5,
+		%Category 7
+	    %},
+	    major x tick style = {opacity=0},
+	    minor x tick num = 1,
+	    enlarge x limits=0.05,
+	    minor tick length=2ex,
+	    legend style={at={(0.52,-0.12)},anchor=north, legend columns=7},
+	    %nodes near coords,
+	    %nodes near coords style={anchor=south,rotate=00,inner xsep=1pt, font=\footnotesize},
+	    %every node near coord/.append style={
+		    %anchor=east,
+		    %rotate=70
+	    %}
+	]
+
+	\addplot[draw=black, fill=black!70] table [col sep=comma, y index = {2}, nodes near coords=ILP]{../results/ilp/clean};	
+	\addlegendentry{ILP};
+
+	\addplot[draw=green, fill=green!70] table [col sep=comma, y index = {2}, nodes near coords=GRASP]{../results/grasp/clean};	
+	\addlegendentry{GRASP};
+
+	\addplot[draw=blue, fill=blue!70] table [col sep=comma, y index = {2}, nodes near coords=Local Search]{../results/localSearch/clean};	
+	\addlegendentry{Local Search};
+
+	\addplot[draw=brown, fill=brown!70] table [col sep=comma, y index = {2}, nodes near coords=Greedy]{../results/greedy/clean};	
+	\addlegendentry{Greedy};
+
+
+	%\addplot[mark=pentagon, mark size=1pt, black] table [col sep=comma, y index = {2}]{../results/ilp/clean};	
+	%\addlegendentry{Optimal};
+
+
+	%\addplot[mark=*,mark size=0.25pt, dashed, green] table [col sep=comma, y index = {2}]{../results/grasp/clean};	
+	%\addlegendentry{GRASP};
+
+	%\addplot[mark=pentagon, mark size=1pt, brown] table [col sep=comma, y index = {2}]{../results/greedy/clean};	
+	%\addlegendentry{Greedy};
+
+	%\addplot[mark=pentagon, mark size=1pt, blue] table [col sep=comma, y index = {2}]{../results/localSearch/clean};	
+	%\addlegendentry{Local Search};
+
+	\end{axis}
+    \end{tikzpicture}
+\end{document}
+
