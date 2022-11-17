@@ -70,6 +70,16 @@ Usage:
 - Greedy + LS: ./solver -i instance_filepath --localsearch
 - GRASP: ./solver -i instance_filepath --alpha ALPHA_VALUE
 
+### Details
+Of course, results are obtaining compiling with optimizations and adding -DNDEBUG. This removes the asserts we do in order to check that our solution is correct. That is:
+
+- We check every player plays vs every other player
+- Check 50% black, 50% white
+- Check total number of matches
+
+
+This slows down the program a lot, and are there just to check the validity of our solution just in case.
+
 ## Slides
 
 ```
