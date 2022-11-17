@@ -66,9 +66,18 @@ Usage:
   -h, --help          Print help
 ```
 
-- Greedy: ./solver -i instance_filepath 
-- Greedy + LS: ./solver -i instance_filepath --localsearch
-- GRASP: ./solver -i instance_filepath --alpha ALPHA_VALUE
+- Greedy: 
+```
+./solver -i instance_filepath 
+```
+- Greedy + LS: 
+```
+./solver -i instance_filepath --localsearch
+```
+- GRASP: 
+```
+./solver -i instance_filepath --alpha ALPHA_VALUE
+```
 
 ### Details
 Of course, results are obtaining compiling with optimizations and adding -DNDEBUG. This removes the asserts we do in order to check that our solution is correct. That is:
