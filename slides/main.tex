@@ -273,7 +273,7 @@
 	    W(p)      &= \{ \{p, b, r\} &|& \ \text{matches}[p][b][r] = 1                                    &\forall &r \in [1, Rounds], b \in [1, n]\}\\
 	    B(p)      &= \{ \{w, p, r\} &|& \ \text{matches}[w][p][r] = 1                                    &\forall &r \in [1, Rounds], w \in [1, n]\}\\
 	    R(r)      &= \{ \{w, b, r\} &|& \ \text{matches}[w][b][r] = 1                                    &\forall &w, b \in [1, n]\}\\
-	    G(p, r)   &= \{ r           &|& \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1  &\forall &o \in [1, n]\}\\
+	    G(p, r)   &= \{ \{o, p, r\}           &|& \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1  &\forall &o \in [1, n]\}\\
 	\end{align*}
     \end{tcolorbox}
 \end{frame}
@@ -318,7 +318,7 @@
 \subsection{Redundant constraints}
 \begin{frame}{\secname: \subsecname}
     \begin{minipage}{0.40\textwidth}
-	Redundant constraints might appear to make the model faster but they make it much slower in the long run
+	Redundant constraints might appear to make the model faster but they seem make it slower in the long run
 	\begin{equation*}
 	    \label{noselfplay}
 	    |M(x,x)| = 0 \quad \forall x \in P 
