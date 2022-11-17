@@ -66,6 +66,10 @@ Usage:
   -h, --help          Print help
 ```
 
+- Greedy: ./solver -i instance_filepath 
+- Greedy + LS: ./solver -i instance_filepath --localsearch
+- GRASP: ./solver -i instance_filepath --alpha ALPHA_VALUE
+
 ## Slides
 
 ```
