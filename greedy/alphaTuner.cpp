@@ -1,24 +1,25 @@
-#include <boost/algorithm/string.hpp>
 #include "../include/cxxopts.hpp"
+#include <boost/algorithm/string.hpp>
 #include <chrono>
+#include <cmath>
 #include <cstdint>
+#include <cstring>
 #include <fmt/core.h>
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <set>
 #include <sstream>
-#include <cstring>
-#include <cmath>
 
 using player_id = uint64_t;
 
 static std::string instance_filename_str;
 
-
 std::vector<uint64_t> alpha_solution;
 
+static std::mt19937 generator;
 
 // Alpha for GRASP. Default to 0, read from command line arguments
 float alpha = 0;
@@ -92,14 +93,14 @@ struct Tournament {
 	}
     }
 
-	void clear_players_attributes(){
-		for (uint64_t player = 0; player < num_players; player++) {
+    void clear_players_attributes() {
+	for (uint64_t player = 0; player < num_players; player++) {
 	    players.at(player).has_rested = false;
-		players.at(player).games_played = 0;
-		players.at(player).games_black = 0;
-		players.at(player).games_white = 0;
+	    players.at(player).games_played = 0;
+	    players.at(player).games_black = 0;
+	    players.at(player).games_white = 0;
 	}
-	}
+    }
 
     // We create a set of games where every player plays against
     // every other player (50% white, 50% black)
@@ -127,7 +128,7 @@ struct Tournament {
     void create_matchups() {
 
 	// vector with ID of player that rests every day
-	
+
 	std::vector<uint64_t> bestRests;
 	const uint64_t days = num_players;
 	uint64_t nIter = 0;
@@ -139,44 +140,43 @@ struct Tournament {
 	// we assign the ID to the players
 	assign_player_ids();
 
-	do{
-		std::vector<uint64_t> rests;
-		uint64_t score = 0;
-		nIter++;
-		for (uint64_t day = 0; day < days; day++) {
-			// Make a copy to sort it by points this round
-			std::vector<Player> players_round(players);
+	do {
+	    std::vector<uint64_t> rests;
+	    uint64_t score = 0;
+	    nIter++;
+	    for (uint64_t day = 0; day < days; day++) {
+		// Make a copy to sort it by points this round
+		std::vector<Player> players_round(players);
 
-			// fmt::print("DAY {}\n Ordering C by points\n", day);
+		// fmt::print("DAY {}\n Ordering C by points\n", day);
 
-			std::sort(players_round.begin(), players_round.end(),
-				[&](const Player &x, Player &y) { // sorting by less points per match
-				return x.points[day] > y.points[day];
-				});
+		std::sort(players_round.begin(), players_round.end(),
+			  [&](const Player &x, Player &y) { // sorting by less points per match
+			      return x.points[day] > y.points[day];
+			  });
 
-			assign_rest(players_round, day, rests, score);
-		}
+		assign_rest(players_round, day, rests, score);
+	    }
 
-		//fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
+	    // fmt::print("SOLUTION GREEDY: [{}]\nPoints: {}\n", fmt::join(rests, " "), score);
 
-		if(useLocalSearch == true)
-			local_search(rests, score);
+	    if (useLocalSearch == true)
+		local_search(rests, score);
 
-		notImproved++;
-		if(score >= bestScore){
-			if(score > bestScore)
-				notImproved = 0;
-			bestScore = score;
-			bestRests = rests;
-		}
-		
-		
-		clear_players_attributes();
+	    notImproved++;
+	    if (score >= bestScore) {
+		if (score > bestScore)
+		    notImproved = 0;
+		bestScore = score;
+		bestRests = rests;
+	    }
 
-	}while(notImproved < NOT_IMPROVED_MAX && nIter < MAXGRASP && alpha != 0);
+	    clear_players_attributes();
 
-	//if(alpha != 0)
-		//fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
+	} while (notImproved < NOT_IMPROVED_MAX && nIter < MAXGRASP && alpha != 0);
+
+	// if(alpha != 0)
+	// fmt::print("Final score and solution [{}]\nPoints: {}\n", fmt::join(bestRests, " "), bestScore);
 
 	alpha_solution.push_back(bestScore);
 
@@ -212,8 +212,8 @@ struct Tournament {
 	}
 
 	uint8_t id_width = std::log10(num_players) + 1;
-	//fmt::print("Fake rest: [{:{}}]\nRest:      [{:{}}]\n", fmt::join(fakerest, " "), id_width,
-		   //fmt::join(rests, " "), id_width);
+	// fmt::print("Fake rest: [{:{}}]\nRest:      [{:{}}]\n", fmt::join(fakerest, " "), id_width,
+	// fmt::join(rests, " "), id_width);
 
 	for (uint32_t day = 0; day < days; day++) {
 	    for (player_id p = 0; p <= num_players / 2; p++) {
@@ -288,7 +288,7 @@ struct Tournament {
 
 		    int change = swap_points - curr_points;
 		    if (change > best_swap_points) {
-			//fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[day], rests[j], change,
+			// fmt::print("Swapping {} and {}. Change: {}. Prev: {}\n", rests[day], rests[j], change,
 			//	   best_swap_points);
 			best_swap = j;
 			best_swap_points = change;
@@ -301,14 +301,13 @@ struct Tournament {
 	    i++;
 	} while (points > old_points);
 
-	//fmt::print("Points after local search: {}\n", points);
-	//fmt::print("Improvement by LS in {} iterations: {}\n", i, points - prev_solution);
+	// fmt::print("Points after local search: {}\n", points);
+	// fmt::print("Improvement by LS in {} iterations: {}\n", i, points - prev_solution);
     }
 
     void assign_rest(std::vector<Player> &players_day, uint64_t day, std::vector<player_id> &rests, uint64_t &score) {
 
 	// use current time as seed for random generator
-
 
 	// Para que GRASP vaya hay que quitarse los jugadores que han descansado de "players_day"
 	std::vector<Player> clean_players;
@@ -317,18 +316,22 @@ struct Tournament {
 	std::copy_if(players_day.begin(), players_day.end(), back_inserter(clean_players),
 		     [](Player &x) { return !x.has_rested; });
 
-	uint64_t qmin = clean_players[clean_players.size()-1].points[day];
+	uint64_t qmin = clean_players[clean_players.size() - 1].points[day];
 	uint64_t qmax = clean_players[0].points[day];
 
 	uint64_t worst_possible_points = qmax - alpha * (qmax - qmin);
 
 	std::copy_if(clean_players.begin(), clean_players.end(), back_inserter(RCL_players),
-			[&](Player &x) { return x.points[day] >= worst_possible_points; });
+		     [&](Player &x) { return x.points[day] >= worst_possible_points; });
 
 	// GRASP. If alpha 0 defaults to normal greedy
 	uint64_t chosen_index = 0, last_index = RCL_players.size();
-	if (last_index != 0)
-	    chosen_index = std::rand() % last_index;
+	// if (last_index != 0)
+	// chosen_index = std::rand() % last_index;
+	if (last_index != 0) {
+	    std::uniform_int_distribution<uint32_t> dist(0, last_index - 1);
+	    chosen_index = dist(generator);
+	}
 
 	const Player &player = RCL_players[chosen_index];
 	score += player.points[day];
@@ -402,7 +405,7 @@ bool read_instance(const char *instance_filename, Tournament &tournament) {
 	lines_read++;
     } while (!input.eof() && remaining_players != 0);
 
-    //fmt::print("Read {} lines\n", lines_read);
+    // fmt::print("Read {} lines\n", lines_read);
 
     return true;
 }
@@ -505,7 +508,9 @@ double arithmetic_mean(const std::vector<double> &errors){
 
 
 int main(int argc, char **argv) {
-	std::srand(0);
+	//std::srand(0);
+	generator.seed(0);
+
 	//parse(argc, argv);
     /*if (argc < 2) {
 	print_usage(argv[0]);
@@ -578,7 +583,12 @@ int main(int argc, char **argv) {
 
 	//TODO  calculate error mean
 
-	fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n", best_alpha, best_alpha_error);
+	fmt::print("\nBEST ALPHA FOR INSTANCES IS {} WITH ERROR: {}\n\n\n", best_alpha, best_alpha_error);
+
+	for(int j = 0; j <= MAXINSTANCES; j++){
+	    alpha = (float) j / MAXINSTANCES;
+	    fmt::print("{}, {}\n", alpha, mean_error_by_alpha[j]);
+	}
 
 
 	/*fmt::print("Alpha: {}\n", alpha);
