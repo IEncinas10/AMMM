@@ -89,6 +89,12 @@ Of course, results are obtaining compiling with optimizations and adding -DNDEBU
 
 This slows down the program a lot, and are there just to check the validity of our solution just in case.
 
+## Reproducing results
+
+We are providing the instances we've used for our report, so running the ILP, Greedy and Local Search should give the same answer(\*). GRASP might vary as we're using random numbers, and although we're specifying the seed for the random number generator we have no guarantee that it gives the same result under different libstdc++ implementations.
+
+(\*) Maybe the std::sort is implemented differently so they might vary slightly (rest vector, tournament schedule) but the objective function value should be exactly the same.
+
 ## Slides
 
 ```
