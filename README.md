@@ -88,7 +88,7 @@ Usage:
 ```
 
 ### Details
-Of course, results are obtaining compiling with optimizations and adding -DNDEBUG. This removes the asserts we do in order to check that our solution is correct. That is:
+Of course, results are obtained compiling with optimizations and adding -DNDEBUG. This removes the asserts we do in order to check that our solution is correct. That is:
 
 - We check every player plays vs every other player
 - Check 50% black, 50% white
