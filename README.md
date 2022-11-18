@@ -25,7 +25,7 @@ $ ./generator --help
 AMMM Course Project 2022
 Instance generator
 Usage:
-  ./a.out [OPTION...]
+  ./generator [OPTION...]
 
   -n, --numplayers arg          Number of players. has to be odd (default: 3)
   -s, --seed arg                Seed for the random engine (default: 1)
