@@ -96,8 +96,31 @@ Of course, results are obtaining compiling with optimizations and adding -DNDEBU
 
 This slows down the program a lot, and are there just to check the validity of our solution just in case.
 
+### Tuning alpha
+
+The tuner will select the smallest alpha that gives the best error possible. Tries alphas [0, 1] with step 0,01. Instances tells the biggest instance
+we want to solve. Instances have to be stored in the predefined folder.
+
+```
+AMMM Course Project 2022
+Alpha tuner
+Usage:
+  ./tuner [OPTION...]
+
+      --instances arg  Range from {3..arg} with step 2
+  -h, --help           Print help
+```
+
+For example: 
+```
+./tuner --instances 11
+```
+
+Would try instances 3, 5, 7, 9 and 11.
+
 ## Reproducing results
 
 We are providing the instances we've used for our report, so running the ILP, Greedy and Local Search should give the same answer(\*). GRASP might vary as we're using random numbers, and although we're specifying the seed for the random number generator we have no guarantee that it gives the same result under different libstdc++ implementations.
 
 (\*) Maybe the std::sort is implemented differently so they might vary slightly (rest vector, tournament schedule) but the objective function value should be exactly the same.
+
