@@ -1,127 +1,11 @@
-Alpha: 0.8387
+Alpha: 0.19
 Read 16 lines
-SOLUTION GREEDY: [3 7 0 2 1 4 9 5 6 10 8]
-Points: 214
-Swapping 3 and 9. Change: 25. Prev: 0
-Swapping 7 and 9. Change: 64. Prev: 0
-Swapping 0 and 8. Change: 10. Prev: 0
-Swapping 2 and 6. Change: 59. Prev: 0
-Swapping 1 and 4. Change: 22. Prev: 0
-Swapping 1 and 2. Change: 24. Prev: 22
-Swapping 4 and 8. Change: 65. Prev: 0
-Swapping 10 and 4. Change: 30. Prev: 0
-Swapping 2 and 4. Change: 76. Prev: 0
-Points after local search: 567
-Improvement by LS in 3 iterations: 353
-SOLUTION GREEDY: [3 7 0 5 4 8 2 1 6 10 9]
-Points: 364
-Swapping 7 and 5. Change: 31. Prev: 0
-Swapping 7 and 6. Change: 38. Prev: 0
-Swapping 1 and 7. Change: 54. Prev: 0
-Swapping 9 and 5. Change: 13. Prev: 0
-Swapping 3 and 7. Change: 5. Prev: 0
-Swapping 0 and 5. Change: 21. Prev: 0
-Swapping 2 and 3. Change: 11. Prev: 0
-Swapping 10 and 5. Change: 30. Prev: 0
-Points after local search: 567
-Improvement by LS in 3 iterations: 203
-SOLUTION GREEDY: [7 9 10 5 4 8 2 6 1 0 3]
-Points: 427
-Swapping 7 and 5. Change: 7. Prev: 0
-Swapping 10 and 0. Change: 3. Prev: 0
-Swapping 7 and 6. Change: 38. Prev: 0
-Swapping 2 and 3. Change: 11. Prev: 0
-Swapping 7 and 5. Change: 30. Prev: 0
-Swapping 2 and 0. Change: 21. Prev: 0
-Swapping 2 and 10. Change: 30. Prev: 0
-Points after local search: 567
-Improvement by LS in 3 iterations: 140
-SOLUTION GREEDY: [7 5 0 2 4 10 3 6 1 9 8]
-Points: 345
-Swapping 5 and 9. Change: 40. Prev: 0
-Swapping 0 and 8. Change: 10. Prev: 0
-Swapping 2 and 6. Change: 59. Prev: 0
-Swapping 10 and 8. Change: 113. Prev: 0
-Points after local search: 567
-Improvement by LS in 2 iterations: 222
-SOLUTION GREEDY: [1 0 10 6 4 8 2 7 9 3 5]
-Points: 401
-Swapping 1 and 7. Change: 14. Prev: 0
-Swapping 1 and 9. Change: 37. Prev: 14
-Swapping 0 and 9. Change: 34. Prev: 0
-Swapping 0 and 5. Change: 48. Prev: 34
-Swapping 2 and 3. Change: 11. Prev: 0
-Swapping 7 and 9. Change: 30. Prev: 0
-Swapping 5 and 9. Change: 40. Prev: 0
-Points after local search: 567
-Improvement by LS in 3 iterations: 166
-SOLUTION GREEDY: [7 5 10 6 1 4 3 0 9 2 8]
-Points: 320
-Swapping 5 and 0. Change: 6. Prev: 0
-Swapping 5 and 9. Change: 50. Prev: 6
-Swapping 1 and 4. Change: 22. Prev: 0
-Swapping 1 and 5. Change: 43. Prev: 0
-Swapping 1 and 8. Change: 78. Prev: 43
-Swapping 0 and 1. Change: 54. Prev: 0
-Swapping 5 and 1. Change: 43. Prev: 0
-Points after local search: 567
-Improvement by LS in 2 iterations: 247
-SOLUTION GREEDY: [3 0 10 7 4 8 2 5 1 9 6]
-Points: 425
-Swapping 0 and 9. Change: 34. Prev: 0
-Swapping 0 and 6. Change: 41. Prev: 34
-Swapping 7 and 6. Change: 51. Prev: 0
-Swapping 9 and 7. Change: 34. Prev: 0
-Swapping 3 and 7. Change: 5. Prev: 0
-Swapping 2 and 3. Change: 11. Prev: 0
-Points after local search: 567
-Improvement by LS in 3 iterations: 142
-SOLUTION GREEDY: [1 5 10 7 4 8 9 0 2 6 3]
-Points: 317
-Swapping 1 and 2. Change: 38. Prev: 0
-Swapping 5 and 9. Change: 77. Prev: 0
-Swapping 7 and 2. Change: 9. Prev: 0
-Swapping 7 and 6. Change: 38. Prev: 9
-Swapping 5 and 2. Change: 2. Prev: 0
-Swapping 5 and 3. Change: 13. Prev: 2
-Swapping 0 and 5. Change: 54. Prev: 0
-Swapping 7 and 2. Change: 30. Prev: 0
-Points after local search: 567
-Improvement by LS in 2 iterations: 250
-SOLUTION GREEDY: [1 5 10 6 4 8 2 0 3 7 9]
-Points: 421
-Swapping 1 and 3. Change: 63. Prev: 0
-Swapping 5 and 0. Change: 6. Prev: 0
-Swapping 5 and 9. Change: 13. Prev: 6
-Swapping 0 and 5. Change: 54. Prev: 0
-Swapping 7 and 3. Change: 5. Prev: 0
-Swapping 2 and 3. Change: 11. Prev: 0
-Points after local search: 567
-Improvement by LS in 3 iterations: 146
-SOLUTION GREEDY: [1 5 10 2 4 8 9 3 7 6 0]
-Points: 350
-Swapping 1 and 3. Change: 9. Prev: 0
-Swapping 1 and 7. Change: 68. Prev: 9
-Swapping 5 and 9. Change: 77. Prev: 0
-Swapping 2 and 6. Change: 59. Prev: 0
-Swapping 5 and 3. Change: 13. Prev: 0
-Points after local search: 567
-Improvement by LS in 2 iterations: 217
-SOLUTION GREEDY: [3 9 0 6 4 10 5 2 1 8 7]
-Points: 415
-Swapping 3 and 7. Change: 5. Prev: 0
-Swapping 0 and 3. Change: 21. Prev: 0
-Swapping 10 and 3. Change: 24. Prev: 0
-Swapping 10 and 8. Change: 83. Prev: 24
-Swapping 5 and 3. Change: 13. Prev: 0
-Swapping 10 and 5. Change: 30. Prev: 0
-Points after local search: 567
-Improvement by LS in 2 iterations: 152
-Final score and solution [7 9 10 6 4 8 3 2 1 5 0]
+Rest vector time (s): 9.1257e-05
+Final score and solution [7 9 10 6 4 8 3 5 1 2 0]
 Points: 567
 Fake rest: [ 5  6  7  8  9 10  0  1  2  3  4]
-Rest:      [ 7  9 10  6  4  8  3  2  1  5  0]
-Time (s): 0.000175477
+Rest:      [ 7  9 10  6  4  8  3  5  1  2  0]
+Time (s): 0.000148588
 11 players
 [  0,  13,  33,   0,   0,   0,   0,   0,   0,   0,  54]
 [ 16,   0,   0,   0,  30,   0,   0,   0,  54,   0,   0]
@@ -136,58 +20,58 @@ Time (s): 0.000175477
 [  0,   0,  47,   0,   0,  23,  13,   0,   0,  17,   0]
 [
 	[Day:  0, White:  3, Black:  8]
-	[Day:  0, White:  2, Black:  4]
+	[Day:  0, White:  5, Black:  4]
 	[Day:  0, White:  1, Black:  6]
-	[Day:  0, White:  5, Black: 10]
+	[Day:  0, White:  2, Black: 10]
 	[Day:  0, White:  0, Black:  9]
-	[Day:  1, White:  2, Black:  3]
+	[Day:  1, White:  5, Black:  3]
 	[Day:  1, White:  1, Black:  8]
-	[Day:  1, White:  5, Black:  4]
+	[Day:  1, White:  2, Black:  4]
 	[Day:  1, White:  0, Black:  6]
 	[Day:  1, White:  7, Black: 10]
-	[Day:  2, White:  1, Black:  2]
-	[Day:  2, White:  5, Black:  3]
+	[Day:  2, White:  1, Black:  5]
+	[Day:  2, White:  2, Black:  3]
 	[Day:  2, White:  0, Black:  8]
 	[Day:  2, White:  7, Black:  4]
 	[Day:  2, White:  9, Black:  6]
-	[Day:  3, White:  5, Black:  1]
-	[Day:  3, White:  0, Black:  2]
+	[Day:  3, White:  2, Black:  1]
+	[Day:  3, White:  0, Black:  5]
 	[Day:  3, White:  7, Black:  3]
 	[Day:  3, White:  9, Black:  8]
 	[Day:  3, White: 10, Black:  4]
-	[Day:  4, White:  0, Black:  5]
+	[Day:  4, White:  0, Black:  2]
 	[Day:  4, White:  7, Black:  1]
-	[Day:  4, White:  9, Black:  2]
+	[Day:  4, White:  9, Black:  5]
 	[Day:  4, White: 10, Black:  3]
 	[Day:  4, White:  6, Black:  8]
 	[Day:  5, White:  7, Black:  0]
-	[Day:  5, White:  9, Black:  5]
+	[Day:  5, White:  9, Black:  2]
 	[Day:  5, White: 10, Black:  1]
-	[Day:  5, White:  6, Black:  2]
+	[Day:  5, White:  6, Black:  5]
 	[Day:  5, White:  4, Black:  3]
 	[Day:  6, White:  9, Black:  7]
 	[Day:  6, White: 10, Black:  0]
-	[Day:  6, White:  6, Black:  5]
+	[Day:  6, White:  6, Black:  2]
 	[Day:  6, White:  4, Black:  1]
-	[Day:  6, White:  8, Black:  2]
+	[Day:  6, White:  8, Black:  5]
 	[Day:  7, White: 10, Black:  9]
 	[Day:  7, White:  6, Black:  7]
 	[Day:  7, White:  4, Black:  0]
-	[Day:  7, White:  8, Black:  5]
+	[Day:  7, White:  8, Black:  2]
 	[Day:  7, White:  3, Black:  1]
 	[Day:  8, White:  6, Black: 10]
 	[Day:  8, White:  4, Black:  9]
 	[Day:  8, White:  8, Black:  7]
 	[Day:  8, White:  3, Black:  0]
-	[Day:  8, White:  2, Black:  5]
+	[Day:  8, White:  5, Black:  2]
 	[Day:  9, White:  4, Black:  6]
 	[Day:  9, White:  8, Black: 10]
 	[Day:  9, White:  3, Black:  9]
-	[Day:  9, White:  2, Black:  7]
+	[Day:  9, White:  5, Black:  7]
 	[Day:  9, White:  1, Black:  0]
 	[Day: 10, White:  8, Black:  4]
 	[Day: 10, White:  3, Black:  6]
-	[Day: 10, White:  2, Black: 10]
+	[Day: 10, White:  5, Black: 10]
 	[Day: 10, White:  1, Black:  9]
-	[Day: 10, White:  5, Black:  7]
+	[Day: 10, White:  2, Black:  7]
 ]

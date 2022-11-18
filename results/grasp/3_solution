@@ -1,60 +1,17 @@
-Alpha: 0.8387
+Alpha: 0.19
 Read 8 lines
-SOLUTION GREEDY: [1 0 2]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 2 0]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 0 2]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 0 2]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 2 0]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 0 2]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 0 2]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 2 0]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 0 2]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 2 0]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-SOLUTION GREEDY: [1 0 2]
-Points: 194
-Points after local search: 194
-Improvement by LS in 1 iterations: 0
-Final score and solution [1 0 2]
+Rest vector time (s): 6.4563e-05
+Final score and solution [1 2 0]
 Points: 194
 Fake rest: [1 2 0]
-Rest:      [1 0 2]
-Time (s): 0.000209001
+Rest:      [1 2 0]
+Time (s): 0.000399494
 3 players
 [  0, 100,   0]
 [ 94,   6,   0]
 [  0, 100,   0]
 [
-	[Day: 0, White: 2, Black: 0]
-	[Day: 1, White: 1, Black: 2]
-	[Day: 2, White: 0, Black: 1]
+	[Day: 0, White: 0, Black: 2]
+	[Day: 1, White: 1, Black: 0]
+	[Day: 2, White: 2, Black: 1]
 ]

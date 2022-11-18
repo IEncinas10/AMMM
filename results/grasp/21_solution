@@ -1,190 +1,11 @@
-Alpha: 0.8387
+Alpha: 0.19
 Read 26 lines
-SOLUTION GREEDY: [20 12 0 11 7 5 10 4 16 2 18 13 8 14 3 15 19 6 9 17 1]
-Points: 731
-Swapping 20 and 16. Change: 38. Prev: 0
-Swapping 12 and 6. Change: 12. Prev: 0
-Swapping 5 and 17. Change: 80. Prev: 0
-Swapping 10 and 19. Change: 22. Prev: 0
-Swapping 2 and 17. Change: 26. Prev: 0
-Swapping 8 and 16. Change: 7. Prev: 0
-Swapping 14 and 1. Change: 53. Prev: 0
-Swapping 15 and 14. Change: 76. Prev: 0
-Swapping 10 and 12. Change: 55. Prev: 0
-Swapping 9 and 19. Change: 33. Prev: 0
-Swapping 8 and 13. Change: 23. Prev: 0
-Swapping 7 and 2. Change: 9. Prev: 0
-Points after local search: 1165
-Improvement by LS in 3 iterations: 434
-SOLUTION GREEDY: [7 6 0 11 2 5 3 4 16 12 18 8 9 14 19 15 20 10 13 1 17]
-Points: 776
-Swapping 7 and 3. Change: 11. Prev: 0
-Swapping 7 and 1. Change: 17. Prev: 11
-Swapping 5 and 7. Change: 63. Prev: 0
-Swapping 3 and 7. Change: 11. Prev: 0
-Swapping 3 and 9. Change: 23. Prev: 11
-Swapping 3 and 19. Change: 104. Prev: 23
-Swapping 16 and 20. Change: 38. Prev: 0
-Swapping 9 and 16. Change: 31. Prev: 0
-Swapping 14 and 1. Change: 53. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Points after local search: 1104
-Improvement by LS in 2 iterations: 328
-SOLUTION GREEDY: [9 13 0 11 2 5 3 4 16 20 8 18 7 14 12 15 19 10 17 1 6]
-Points: 607
-Swapping 9 and 3. Change: 37. Prev: 0
-Swapping 13 and 12. Change: 10. Prev: 0
-Swapping 13 and 6. Change: 22. Prev: 10
-Swapping 5 and 1. Change: 80. Prev: 0
-Swapping 16 and 20. Change: 16. Prev: 0
-Swapping 16 and 7. Change: 37. Prev: 0
-Swapping 16 and 17. Change: 45. Prev: 37
-Swapping 8 and 18. Change: 92. Prev: 0
-Swapping 7 and 16. Change: 37. Prev: 0
-Swapping 14 and 1. Change: 53. Prev: 0
-Swapping 12 and 3. Change: 67. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Swapping 19 and 7. Change: 33. Prev: 0
-Swapping 13 and 15. Change: 54. Prev: 0
-Points after local search: 1165
-Improvement by LS in 2 iterations: 558
-SOLUTION GREEDY: [9 13 2 11 7 5 3 4 16 17 8 18 0 1 10 15 20 6 19 14 12]
-Points: 603
-Swapping 9 and 3. Change: 37. Prev: 0
-Swapping 13 and 6. Change: 22. Prev: 0
-Swapping 2 and 0. Change: 41. Prev: 0
-Swapping 7 and 2. Change: 17. Prev: 0
-Swapping 5 and 14. Change: 80. Prev: 0
-Swapping 16 and 20. Change: 38. Prev: 0
-Swapping 17 and 12. Change: 26. Prev: 0
-Swapping 8 and 18. Change: 92. Prev: 0
-Swapping 7 and 16. Change: 37. Prev: 0
-Swapping 10 and 3. Change: 67. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Swapping 13 and 10. Change: 55. Prev: 0
-Points after local search: 1137
-Improvement by LS in 2 iterations: 534
-SOLUTION GREEDY: [0 6 2 11 7 5 19 4 20 17 8 18 16 1 3 15 10 12 9 14 13]
-Points: 779
-Swapping 0 and 2. Change: 41. Prev: 0
-Swapping 7 and 2. Change: 9. Prev: 0
-Swapping 5 and 14. Change: 80. Prev: 0
-Swapping 19 and 9. Change: 33. Prev: 0
-Swapping 17 and 13. Change: 10. Prev: 0
-Swapping 8 and 18. Change: 92. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Swapping 10 and 12. Change: 55. Prev: 0
-Swapping 13 and 12. Change: 16. Prev: 0
-Points after local search: 1137
-Improvement by LS in 3 iterations: 358
-SOLUTION GREEDY: [9 13 0 11 2 5 19 4 20 17 8 3 7 1 18 14 6 10 15 12 16]
-Points: 768
-Swapping 9 and 7. Change: 6. Prev: 0
-Swapping 13 and 6. Change: 22. Prev: 0
-Swapping 5 and 12. Change: 80. Prev: 0
-Swapping 17 and 16. Change: 8. Prev: 0
-Swapping 8 and 3. Change: 23. Prev: 0
-Swapping 8 and 18. Change: 65. Prev: 23
-Swapping 3 and 8. Change: 108. Prev: 0
-Swapping 9 and 16. Change: 31. Prev: 0
-Swapping 12 and 9. Change: 16. Prev: 0
-Points after local search: 1104
-Improvement by LS in 3 iterations: 336
-SOLUTION GREEDY: [18 13 0 11 7 5 9 4 20 12 8 17 16 1 3 15 14 10 19 2 6]
-Points: 840
-Swapping 18 and 8. Change: 65. Prev: 0
-Swapping 13 and 6. Change: 22. Prev: 0
-Swapping 7 and 2. Change: 26. Prev: 0
-Swapping 5 and 7. Change: 63. Prev: 0
-Swapping 12 and 17. Change: 29. Prev: 0
-Swapping 12 and 8. Change: 44. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Swapping 15 and 13. Change: 54. Prev: 0
-Points after local search: 1165
-Improvement by LS in 2 iterations: 325
-SOLUTION GREEDY: [18 12 9 11 7 5 3 4 16 2 8 13 19 14 20 15 6 10 1 0 17]
-Points: 579
-Swapping 18 and 8. Change: 65. Prev: 0
-Swapping 12 and 6. Change: 12. Prev: 0
-Swapping 9 and 3. Change: 23. Prev: 0
-Swapping 9 and 0. Change: 77. Prev: 23
-Swapping 5 and 9. Change: 80. Prev: 0
-Swapping 3 and 9. Change: 37. Prev: 0
-Swapping 16 and 19. Change: 5. Prev: 0
-Swapping 16 and 20. Change: 38. Prev: 5
-Swapping 13 and 8. Change: 23. Prev: 0
-Swapping 19 and 13. Change: 6. Prev: 0
-Swapping 19 and 9. Change: 14. Prev: 6
-Swapping 19 and 16. Change: 45. Prev: 14
-Swapping 14 and 1. Change: 53. Prev: 0
-Swapping 19 and 3. Change: 67. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Swapping 15 and 19. Change: 33. Prev: 0
-Points after local search: 1131
-Improvement by LS in 2 iterations: 552
-SOLUTION GREEDY: [16 12 0 11 7 5 3 4 20 2 8 13 9 14 10 15 19 1 18 6 17]
-Points: 653
-Swapping 16 and 9. Change: 31. Prev: 0
-Swapping 12 and 6. Change: 12. Prev: 0
-Swapping 5 and 12. Change: 80. Prev: 0
-Swapping 3 and 9. Change: 37. Prev: 0
-Swapping 3 and 10. Change: 82. Prev: 37
-Swapping 8 and 13. Change: 5. Prev: 0
-Swapping 8 and 18. Change: 65. Prev: 5
-Swapping 13 and 8. Change: 23. Prev: 0
-Swapping 14 and 1. Change: 53. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Swapping 19 and 10. Change: 22. Prev: 0
-Swapping 19 and 13. Change: 33. Prev: 22
-Swapping 15 and 10. Change: 10. Prev: 0
-Swapping 19 and 15. Change: 34. Prev: 0
-Points after local search: 1098
-Improvement by LS in 2 iterations: 445
-SOLUTION GREEDY: [5 13 2 11 7 9 3 4 16 17 8 18 20 14 15 1 0 10 19 12 6]
-Points: 549
-Swapping 5 and 9. Change: 10. Prev: 0
-Swapping 5 and 12. Change: 90. Prev: 10
-Swapping 13 and 12. Change: 10. Prev: 0
-Swapping 13 and 6. Change: 22. Prev: 10
-Swapping 2 and 0. Change: 41. Prev: 0
-Swapping 7 and 2. Change: 9. Prev: 0
-Swapping 9 and 3. Change: 37. Prev: 0
-Swapping 16 and 20. Change: 83. Prev: 0
-Swapping 17 and 13. Change: 10. Prev: 0
-Swapping 8 and 18. Change: 92. Prev: 0
-Swapping 14 and 1. Change: 121. Prev: 0
-Swapping 15 and 3. Change: 67. Prev: 0
-Swapping 12 and 13. Change: 16. Prev: 0
-Points after local search: 1137
-Improvement by LS in 3 iterations: 588
-SOLUTION GREEDY: [10 6 0 11 7 5 3 4 20 12 16 18 9 14 1 15 19 2 8 17 13]
-Points: 598
-Swapping 10 and 3. Change: 15. Prev: 0
-Swapping 10 and 2. Change: 55. Prev: 15
-Swapping 7 and 2. Change: 9. Prev: 0
-Swapping 5 and 17. Change: 80. Prev: 0
-Swapping 3 and 7. Change: 11. Prev: 0
-Swapping 3 and 9. Change: 23. Prev: 11
-Swapping 3 and 1. Change: 37. Prev: 23
-Swapping 12 and 17. Change: 29. Prev: 0
-Swapping 16 and 18. Change: 53. Prev: 0
-Swapping 16 and 9. Change: 31. Prev: 0
-Swapping 16 and 8. Change: 44. Prev: 31
-Swapping 9 and 1. Change: 53. Prev: 0
-Swapping 14 and 1. Change: 53. Prev: 0
-Swapping 15 and 14. Change: 22. Prev: 0
-Swapping 19 and 16. Change: 33. Prev: 0
-Swapping 13 and 17. Change: 10. Prev: 0
-Swapping 13 and 15. Change: 60. Prev: 10
-Swapping 7 and 13. Change: 2. Prev: 0
-Swapping 7 and 16. Change: 37. Prev: 0
-Points after local search: 1165
-Improvement by LS in 3 iterations: 567
-Final score and solution [13 6 0 11 2 12 9 4 20 17 18 8 16 1 3 14 7 10 19 5 15]
+Rest vector time (s): 0.000652583
+Final score and solution [12 6 0 11 2 7 9 4 20 17 18 8 16 1 3 14 13 10 19 5 15]
 Points: 1165
 Fake rest: [10 11 12 13 14 15 16 17 18 19 20  0  1  2  3  4  5  6  7  8  9]
-Rest:      [13  6  0 11  2 12  9  4 20 17 18  8 16  1  3 14  7 10 19  5 15]
-Time (s): 0.000682494
+Rest:      [12  6  0 11  2  7  9  4 20 17 18  8 16  1  3 14 13 10 19  5 15]
+Time (s): 0.000768209
 21 players
 [  0,   9,  91,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]
 [  0,  14,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,  85,   0,   0,   0,   0,   0,   0,   0]
@@ -213,7 +34,7 @@ Time (s): 0.000682494
 	[Day:  0, White:  1, Black: 20]
 	[Day:  0, White:  3, Black:  4]
 	[Day:  0, White: 14, Black:  9]
-	[Day:  0, White:  7, Black: 12]
+	[Day:  0, White: 13, Black:  7]
 	[Day:  0, White: 10, Black:  2]
 	[Day:  0, White: 19, Black: 11]
 	[Day:  0, White:  5, Black:  0]
@@ -222,200 +43,200 @@ Time (s): 0.000682494
 	[Day:  1, White:  1, Black: 18]
 	[Day:  1, White:  3, Black: 17]
 	[Day:  1, White: 14, Black: 20]
-	[Day:  1, White:  7, Black:  4]
+	[Day:  1, White: 13, Black:  4]
 	[Day:  1, White: 10, Black:  9]
-	[Day:  1, White: 19, Black: 12]
+	[Day:  1, White: 19, Black:  7]
 	[Day:  1, White:  5, Black:  2]
 	[Day:  1, White: 15, Black: 11]
-	[Day:  1, White: 13, Black:  0]
+	[Day:  1, White: 12, Black:  0]
 	[Day:  2, White:  1, Black: 16]
 	[Day:  2, White:  3, Black:  8]
 	[Day:  2, White: 14, Black: 18]
-	[Day:  2, White:  7, Black: 17]
+	[Day:  2, White: 13, Black: 17]
 	[Day:  2, White: 10, Black: 20]
 	[Day:  2, White: 19, Black:  4]
 	[Day:  2, White:  5, Black:  9]
-	[Day:  2, White: 15, Black: 12]
-	[Day:  2, White: 13, Black:  2]
+	[Day:  2, White: 15, Black:  7]
+	[Day:  2, White: 12, Black:  2]
 	[Day:  2, White:  6, Black: 11]
 	[Day:  3, White:  3, Black:  1]
 	[Day:  3, White: 14, Black: 16]
-	[Day:  3, White:  7, Black:  8]
+	[Day:  3, White: 13, Black:  8]
 	[Day:  3, White: 10, Black: 18]
 	[Day:  3, White: 19, Black: 17]
 	[Day:  3, White:  5, Black: 20]
 	[Day:  3, White: 15, Black:  4]
-	[Day:  3, White: 13, Black:  9]
-	[Day:  3, White:  6, Black: 12]
+	[Day:  3, White: 12, Black:  9]
+	[Day:  3, White:  6, Black:  7]
 	[Day:  3, White:  0, Black:  2]
 	[Day:  4, White: 14, Black:  3]
-	[Day:  4, White:  7, Black:  1]
+	[Day:  4, White: 13, Black:  1]
 	[Day:  4, White: 10, Black: 16]
 	[Day:  4, White: 19, Black:  8]
 	[Day:  4, White:  5, Black: 18]
 	[Day:  4, White: 15, Black: 17]
-	[Day:  4, White: 13, Black: 20]
+	[Day:  4, White: 12, Black: 20]
 	[Day:  4, White:  6, Black:  4]
 	[Day:  4, White:  0, Black:  9]
-	[Day:  4, White: 11, Black: 12]
-	[Day:  5, White:  7, Black: 14]
+	[Day:  4, White: 11, Black:  7]
+	[Day:  5, White: 13, Black: 14]
 	[Day:  5, White: 10, Black:  3]
 	[Day:  5, White: 19, Black:  1]
 	[Day:  5, White:  5, Black: 16]
 	[Day:  5, White: 15, Black:  8]
-	[Day:  5, White: 13, Black: 18]
+	[Day:  5, White: 12, Black: 18]
 	[Day:  5, White:  6, Black: 17]
 	[Day:  5, White:  0, Black: 20]
 	[Day:  5, White: 11, Black:  4]
 	[Day:  5, White:  2, Black:  9]
-	[Day:  6, White: 10, Black:  7]
+	[Day:  6, White: 10, Black: 13]
 	[Day:  6, White: 19, Black: 14]
 	[Day:  6, White:  5, Black:  3]
 	[Day:  6, White: 15, Black:  1]
-	[Day:  6, White: 13, Black: 16]
+	[Day:  6, White: 12, Black: 16]
 	[Day:  6, White:  6, Black:  8]
 	[Day:  6, White:  0, Black: 18]
 	[Day:  6, White: 11, Black: 17]
 	[Day:  6, White:  2, Black: 20]
-	[Day:  6, White: 12, Black:  4]
+	[Day:  6, White:  7, Black:  4]
 	[Day:  7, White: 19, Black: 10]
-	[Day:  7, White:  5, Black:  7]
+	[Day:  7, White:  5, Black: 13]
 	[Day:  7, White: 15, Black: 14]
-	[Day:  7, White: 13, Black:  3]
+	[Day:  7, White: 12, Black:  3]
 	[Day:  7, White:  6, Black:  1]
 	[Day:  7, White:  0, Black: 16]
 	[Day:  7, White: 11, Black:  8]
 	[Day:  7, White:  2, Black: 18]
-	[Day:  7, White: 12, Black: 17]
+	[Day:  7, White:  7, Black: 17]
 	[Day:  7, White:  9, Black: 20]
 	[Day:  8, White:  5, Black: 19]
 	[Day:  8, White: 15, Black: 10]
-	[Day:  8, White: 13, Black:  7]
+	[Day:  8, White: 12, Black: 13]
 	[Day:  8, White:  6, Black: 14]
 	[Day:  8, White:  0, Black:  3]
 	[Day:  8, White: 11, Black:  1]
 	[Day:  8, White:  2, Black: 16]
-	[Day:  8, White: 12, Black:  8]
+	[Day:  8, White:  7, Black:  8]
 	[Day:  8, White:  9, Black: 18]
 	[Day:  8, White:  4, Black: 17]
 	[Day:  9, White: 15, Black:  5]
-	[Day:  9, White: 13, Black: 19]
+	[Day:  9, White: 12, Black: 19]
 	[Day:  9, White:  6, Black: 10]
-	[Day:  9, White:  0, Black:  7]
+	[Day:  9, White:  0, Black: 13]
 	[Day:  9, White: 11, Black: 14]
 	[Day:  9, White:  2, Black:  3]
-	[Day:  9, White: 12, Black:  1]
+	[Day:  9, White:  7, Black:  1]
 	[Day:  9, White:  9, Black: 16]
 	[Day:  9, White:  4, Black:  8]
 	[Day:  9, White: 20, Black: 18]
-	[Day: 10, White: 13, Black: 15]
+	[Day: 10, White: 12, Black: 15]
 	[Day: 10, White:  6, Black:  5]
 	[Day: 10, White:  0, Black: 19]
 	[Day: 10, White: 11, Black: 10]
-	[Day: 10, White:  2, Black:  7]
-	[Day: 10, White: 12, Black: 14]
+	[Day: 10, White:  2, Black: 13]
+	[Day: 10, White:  7, Black: 14]
 	[Day: 10, White:  9, Black:  3]
 	[Day: 10, White:  4, Black:  1]
 	[Day: 10, White: 20, Black: 16]
 	[Day: 10, White: 17, Black:  8]
-	[Day: 11, White:  6, Black: 13]
+	[Day: 11, White:  6, Black: 12]
 	[Day: 11, White:  0, Black: 15]
 	[Day: 11, White: 11, Black:  5]
 	[Day: 11, White:  2, Black: 19]
-	[Day: 11, White: 12, Black: 10]
-	[Day: 11, White:  9, Black:  7]
+	[Day: 11, White:  7, Black: 10]
+	[Day: 11, White:  9, Black: 13]
 	[Day: 11, White:  4, Black: 14]
 	[Day: 11, White: 20, Black:  3]
 	[Day: 11, White: 17, Black:  1]
 	[Day: 11, White: 18, Black: 16]
 	[Day: 12, White:  0, Black:  6]
-	[Day: 12, White: 11, Black: 13]
+	[Day: 12, White: 11, Black: 12]
 	[Day: 12, White:  2, Black: 15]
-	[Day: 12, White: 12, Black:  5]
+	[Day: 12, White:  7, Black:  5]
 	[Day: 12, White:  9, Black: 19]
 	[Day: 12, White:  4, Black: 10]
-	[Day: 12, White: 20, Black:  7]
+	[Day: 12, White: 20, Black: 13]
 	[Day: 12, White: 17, Black: 14]
 	[Day: 12, White: 18, Black:  3]
 	[Day: 12, White:  8, Black:  1]
 	[Day: 13, White: 11, Black:  0]
 	[Day: 13, White:  2, Black:  6]
-	[Day: 13, White: 12, Black: 13]
+	[Day: 13, White:  7, Black: 12]
 	[Day: 13, White:  9, Black: 15]
 	[Day: 13, White:  4, Black:  5]
 	[Day: 13, White: 20, Black: 19]
 	[Day: 13, White: 17, Black: 10]
-	[Day: 13, White: 18, Black:  7]
+	[Day: 13, White: 18, Black: 13]
 	[Day: 13, White:  8, Black: 14]
 	[Day: 13, White: 16, Black:  3]
 	[Day: 14, White:  2, Black: 11]
-	[Day: 14, White: 12, Black:  0]
+	[Day: 14, White:  7, Black:  0]
 	[Day: 14, White:  9, Black:  6]
-	[Day: 14, White:  4, Black: 13]
+	[Day: 14, White:  4, Black: 12]
 	[Day: 14, White: 20, Black: 15]
 	[Day: 14, White: 17, Black:  5]
 	[Day: 14, White: 18, Black: 19]
 	[Day: 14, White:  8, Black: 10]
-	[Day: 14, White: 16, Black:  7]
+	[Day: 14, White: 16, Black: 13]
 	[Day: 14, White:  1, Black: 14]
-	[Day: 15, White: 12, Black:  2]
+	[Day: 15, White:  7, Black:  2]
 	[Day: 15, White:  9, Black: 11]
 	[Day: 15, White:  4, Black:  0]
 	[Day: 15, White: 20, Black:  6]
-	[Day: 15, White: 17, Black: 13]
+	[Day: 15, White: 17, Black: 12]
 	[Day: 15, White: 18, Black: 15]
 	[Day: 15, White:  8, Black:  5]
 	[Day: 15, White: 16, Black: 19]
 	[Day: 15, White:  1, Black: 10]
-	[Day: 15, White:  3, Black:  7]
-	[Day: 16, White:  9, Black: 12]
+	[Day: 15, White:  3, Black: 13]
+	[Day: 16, White:  9, Black:  7]
 	[Day: 16, White:  4, Black:  2]
 	[Day: 16, White: 20, Black: 11]
 	[Day: 16, White: 17, Black:  0]
 	[Day: 16, White: 18, Black:  6]
-	[Day: 16, White:  8, Black: 13]
+	[Day: 16, White:  8, Black: 12]
 	[Day: 16, White: 16, Black: 15]
 	[Day: 16, White:  1, Black:  5]
 	[Day: 16, White:  3, Black: 19]
 	[Day: 16, White: 14, Black: 10]
 	[Day: 17, White:  4, Black:  9]
-	[Day: 17, White: 20, Black: 12]
+	[Day: 17, White: 20, Black:  7]
 	[Day: 17, White: 17, Black:  2]
 	[Day: 17, White: 18, Black: 11]
 	[Day: 17, White:  8, Black:  0]
 	[Day: 17, White: 16, Black:  6]
-	[Day: 17, White:  1, Black: 13]
+	[Day: 17, White:  1, Black: 12]
 	[Day: 17, White:  3, Black: 15]
 	[Day: 17, White: 14, Black:  5]
-	[Day: 17, White:  7, Black: 19]
+	[Day: 17, White: 13, Black: 19]
 	[Day: 18, White: 20, Black:  4]
 	[Day: 18, White: 17, Black:  9]
-	[Day: 18, White: 18, Black: 12]
+	[Day: 18, White: 18, Black:  7]
 	[Day: 18, White:  8, Black:  2]
 	[Day: 18, White: 16, Black: 11]
 	[Day: 18, White:  1, Black:  0]
 	[Day: 18, White:  3, Black:  6]
-	[Day: 18, White: 14, Black: 13]
-	[Day: 18, White:  7, Black: 15]
+	[Day: 18, White: 14, Black: 12]
+	[Day: 18, White: 13, Black: 15]
 	[Day: 18, White: 10, Black:  5]
 	[Day: 19, White: 17, Black: 20]
 	[Day: 19, White: 18, Black:  4]
 	[Day: 19, White:  8, Black:  9]
-	[Day: 19, White: 16, Black: 12]
+	[Day: 19, White: 16, Black:  7]
 	[Day: 19, White:  1, Black:  2]
 	[Day: 19, White:  3, Black: 11]
 	[Day: 19, White: 14, Black:  0]
-	[Day: 19, White:  7, Black:  6]
-	[Day: 19, White: 10, Black: 13]
+	[Day: 19, White: 13, Black:  6]
+	[Day: 19, White: 10, Black: 12]
 	[Day: 19, White: 19, Black: 15]
 	[Day: 20, White: 18, Black: 17]
 	[Day: 20, White:  8, Black: 20]
 	[Day: 20, White: 16, Black:  4]
 	[Day: 20, White:  1, Black:  9]
-	[Day: 20, White:  3, Black: 12]
+	[Day: 20, White:  3, Black:  7]
 	[Day: 20, White: 14, Black:  2]
-	[Day: 20, White:  7, Black: 11]
+	[Day: 20, White: 13, Black: 11]
 	[Day: 20, White: 10, Black:  0]
 	[Day: 20, White: 19, Black:  6]
-	[Day: 20, White:  5, Black: 13]
+	[Day: 20, White:  5, Black: 12]
 ]
