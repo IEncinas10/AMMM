@@ -49,6 +49,7 @@ With that command, we create instances from 3 to 31 (3, 5, 7, ..., 31) at direct
 Just out of curiosity, we provide two ILP models:
 - redundant.mod: ILP with redundant constraints 
 - clean.mod: ILP with what we believe is the minimum amount of constraints
+- rest.mod: ILP that just gets the optimal resting days. Actual pairings can be done as we do in our metaheuristic code. 
 
 ```
 oplrun clean.mod instance_filepath
