@@ -304,7 +304,7 @@ Figure \ref{fig:time} shows the runtime needed for the different models and solv
 \end{figure}
 Our motivation for testing this simpler ILP model is that while solving the assignment we realized that the hardest part of it was actually getting a valid tournament schedule, not optimizing the objective function. Then, we started wondering whether the CPLEX time cost was spent optimizing the objective function or not. 
 
-Results indicate that our minimal CPLEX model is very fast, and we could combine its output with a tournament schedule maker to obtain the optimal solution several orders of magnitude faster than the complete CPLEX model while maintaining optimality, in constrast to heuristic-based solvers. For large instances the simple ILP model is even faster than our GRASP implementation. 
+Results indicate that our minimal CPLEX model is very fast, and we could combine its output with a tournament schedule maker (see Section \ref{sec:schedule}) to obtain the optimal solution several orders of magnitude faster than the complete CPLEX model while maintaining optimality, in constrast to heuristic-based solvers. For large instances the simple ILP model is even faster than our GRASP implementation\footnote{Of course if the stop criteria plays a great role in the GRASP runtime, and it could be greatly reduced if we're willing to tolerate worse solutions}. 
 
 
 \clearpage
@@ -332,6 +332,7 @@ GRASP commonly reachs the optimal solution. It obviously does not find it every 
 
 \clearpage
 \section{Schedule construction}
+\label{sec:schedule}
 
 When solving the assignment we assumed that the schedule construction would be trivial, and tried to construct it while optimizing the objective function. After many fruitless efforts, we gave up on the idea and decided to make our greedy solver just compute the rest day for each player. This is enough information to compute the objective function, as the actual pairings don't affect it.
 
