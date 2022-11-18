@@ -176,9 +176,6 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 \clearpage
 
 \section{Meta-heuristics}
-\textit{For the meta-heuristics, the pseudo-code of your constructive, local search and GRASP algorithms, including equations for describing the greedy cost function(s) and the RCL}
-
-\todo[inline]{Poner ecuaciones para el greedy cost y la RCL}
 
 As a solution must exist no matter which player rests in a given day, we will focus on assigning a rest day for every player $p$. This information is enough for calculating our objective function, performing local search and GRASP. After all this, we will construct the pairings for the whole tournament.
 
@@ -262,7 +259,7 @@ In the GRASP we randomize the selection of the player in descending order by poi
 	  \State rests $\leftarrow$ \{\}
 	    \For {day in 0..days}]b
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
-	      \State sortedPlayers $\leftarrow$ sort PlayersToRest(p) by p.points[day] (DESC) 
+	      \State sortedPlayers $\leftarrow$ sort PlayersToRest(p) by q(p,day) (DESC) 
         \State $q_{max} \leftarrow $ sortedPlayers.first().points[day]
         \State $q_{min} \leftarrow$ sortedPlayers.last().points[day]
         \State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.Points >= q_{max} - \alpha * (q_{max} - q_{min})\}$
@@ -278,11 +275,11 @@ We must repeat this algorithm iteratively, having some stop conditions as a MAX\
 
 \section{Parameter tuning} 
 
-To obtain the mean error of each $\alpha$, we have calculated the error of the resulting GRASP's objective function with respect to the optimal solution for each of the instances. Then, for each $\alpha$ we calculated the arithmetic mean error. 
+For tuning $\alpha$, we have calculated the error of the resulting GRASP's objective function with respect to the optimal solution for each of the instances. Then, for each $\alpha$ we calculated the arithmetic mean error. 
 
 In Figure \ref{fig:error}, we show the tuning of $\alpha$ using two size of steps between calculated alphas. One fine-grained ($\alpha + 0.01$) and the other coarse-grained ($\alpha + 0.1$). It shows the mean error obtained w.r.t. the selected $\alpha$. 
 
-Using that data, we can say (taking in account the fine-grained tuned alpha) that $\alpha = 0.19$ is the best and lowest alpha we find to obtain the best mean error for the instances 3-31.
+Using that data, we can say (taking in account the fine-grained tuned alpha) that $\alpha = 0.19$ is the best and lowest alpha we find to obtain the best mean error for the instances 3 to 31.
 
 
 \begin{figure}[H]
@@ -308,7 +305,7 @@ Figure \ref{fig:time} shows the time needed to reach the final solution for the 
 \clearpage
 \subsection{Objective function}
 
-Figure \ref{fig:objfunc} shows the objective function obtained for each of the implementations: ILP, Greedy, Local Search and GRASP. 
+Figure \ref{fig:objfunc} shows the value of the objective function obtained for each of the implementations: ILP, Greedy, Local Search and GRASP. 
 
 Greedy finds the worst solutions between all the implementations. In most of the instances, the results are 50\% the optimal solution. Just in instances of 33 and 35, we obtain scores close to the optimal ones.
 
