@@ -1,6 +1,15 @@
 \documentclass[a4paper, 10pt]{article}
 \usepackage[a4paper,left=3cm,right=2cm,top=2.0cm,bottom=1.5cm]{geometry}
 \usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+
+\urlstyle{same}
+
 \usepackage[utf8]{inputenc} % Change according your file encoding
 \usepackage{graphicx}
 %\usepackage[demo]{graphicx}
@@ -148,6 +157,7 @@ Eq. \ref{fairness} ensures that ``a contestant should play black as many whites 
 given that Eq. \ref{playwitheachother} ensures that $|\text{Games}(p)| = n - 1$ and $|\text{Games}(p)| = |W(p)| + |B(p)|$  
 
 \subsection{Redundant constraints}
+\label{subsec:redundant}
 
 
 \begin{minipage}{0.45\linewidth}
@@ -294,12 +304,19 @@ Using that data, we can say (taking in account the fine-grained tuned alpha) tha
 
 \subsection{Time}
 
-Figure \ref{fig:time} shows the time needed to reach the final solution for the different models and solvers.
+Figure \ref{fig:time} shows the runtime needed for the different models and solvers. Section \ref{subsec:redundant} introduced the redundant and non-redundant ILP models. ILP rest corresponds to the ILP model that just computes the optimal rest day for each player, without obtaining a valid tournament schedule. 
+
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{plots/times.pdf}
     \caption{Runtime for the different ILP models and (meta)heuristic based solvers}
     \label{fig:time}
 \end{figure}
+Our motivation for testing this simpler ILP model is that while solving the assignment we realized that the hardest part of it was actually getting a valid tournament schedule, not optimizing the objective function. Then, we started wondering whether the CPLEX time cost was spent optimizing the objective function or not. 
+
+Results indicate that our minimal CPLEX model is very fast, and we could combine its output with a tournament schedule maker to obtain the optimal solution several orders of magnitude faster than the complete CPLEX model while maintaining optimality, in constrast to heuristic-based solvers. For large instances the simple ILP model is even faster than our GRASP implementation. 
+
+
+\clearpage
 
 
 \clearpage
@@ -318,4 +335,85 @@ GRASP with the tuned alpha ($\alpha = 0.19$) obtains exactly the optimal solutio
     \caption{Objective function value per instance and solver}
     \label{fig:objfunc}
 \end{figure}
+
+
+\clearpage
+\section{Schedule construction}
+
+When solving the assignment we assumed that the schedule construction would be trivial, and tried to construct it while optimizing the objective function. After many fruitless efforts, we gave up on the idea and decided to make our greedy solver just compute the rest day for each player. This is enough information to compute the objective function, as the actual pairings don't affect it.
+
+We believe that the solution to this part of the assignment should have been provided to us, as it is much more difficult that the actual assignment and has nothing to do with the subject's contents. Even more so considering this was completely accidental.
+
+
+Just for completeness we will briefly explain our solution and our thought process:
+
+\begin{enumerate}
+    \item The problem with making the pairings are the rest days
+    \item If there were no rest days and we had an even number of players, obtaining a valid pairing is relatively simple
+\end{enumerate}
+
+Then, our solution involves adding an extra match for our players. This match can be a match against themselves or against an extra ``fake'' player. After doing this, we have what we wanted: a valid tournament schedule. The problem with this schedule is that it doesn't take into account our objective function, so it is useless for us.
+
+
+\subsection{Solution}
+The trick we discovered is that we can use this basic schedule to construct our desired schedule. The procedure is the following:
+
+Our valid schedule $v$ will contain an invalid match each day. This invalid match is the one of the form $p$ - $p$ or $p$ - $f$. Where $p$ stands for player and $f$ for ``fake'' player. From $v$ we can extract what we call a \textit{rest vector}\footnote{The rest vector just keeps track of which players rests which day} $r$, where player will rest a given day if he plays an invalid match. Keep in mind that our greedy algorithm provides us with our \textit{desired rest vector} $d$.
+
+Then, from $v$ we can obtain a valid schedule that respects our desired rest vector $d$ by removing invalid matches and remapping the players in the following way:
+
+
+\begin{equation}
+    \label{eq:remap}
+    r[i] \leftarrow d[i] \quad \forall i \in [1, Rounds]
+\end{equation}
+
+The explanation is a bit vague on purpouse for brevity's sake. The whole procedure can be better understood by reading the source code and in the toy example we'll describe next.
+
+\subsection{Toy example}
+Let's say we want to find a valid\footnote{The 50\% white games and 50\% black games can be easily added so we ignore the issue here, but it is obviously taken into account for the assignment} schedule for a tournament of 3 players with an arbitrary rest vector $r$. Our basic schedule
+looks like this\footnote{The basic schedule is arbitrary. See \href{https://en.wikipedia.org/wiki/Round-robin\_tournament\#Berger\_tables}{Wikipedia} for more information}:
+
+\begin{minipage}[t]{0.45\linewidth}
+    \begin{table}[H]
+	    \centering
+	    \begin{tabular}{ccl}
+		\multicolumn{3}{c}{Day}                                 \\ \hline
+		\multicolumn{1}{c}{0}  & \multicolumn{1}{c}{1}  & 2     \\ \hline
+		0-2                     & 1-0                     & 2-1 \\
+		\multicolumn{1}{l}{1-1} & \multicolumn{1}{l}{2-2} & 0-0 \\
+		\hline
+	    \end{tabular}
+	\caption{Template schedule}
+    \end{table}
+    The \textit{rest vector} $r$ would be:
+    \begin{equation*}
+	r = \{1, 2, 0\}
+    \end{equation*}
+    While we want to be able to have an arbitrary \textit{rest vector} $d$. For example:
+    \begin{equation*}
+	d = \{2, 1, 0\}
+    \end{equation*}
+\end{minipage} \hfill
+\begin{minipage}[t]{0.45\linewidth}
+    \begin{table}[H]
+	    \centering
+	    \begin{tabular}{ccl}
+		\multicolumn{3}{c}{Day}                                 \\ \hline
+		\multicolumn{1}{c}{0}  & \multicolumn{1}{c}{1}  & 2   \\ \hline
+		0-1                     & 2-0                     & 1-2 \\
+		\hline
+	    \end{tabular}
+	\caption{Valid schedule}
+	\label{table:remap}
+    \end{table}
+    Table \ref{table:remap} shows a correct schedule after remapping as indicated by Eq. \ref{eq:remap}: 
+
+    \begin{center}
+    $1 \leftarrow 2$, $2 \leftarrow 1$, $0 \leftarrow 0$
+    \end{center}
+
+\end{minipage}
+
+
 \end{document}
