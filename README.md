@@ -124,3 +124,5 @@ We are providing the instances we've used for our report, so running the ILP, Gr
 
 (\*) Maybe the std::sort is implemented differently so they might vary slightly (rest vector, tournament schedule) but the objective function value should be exactly the same.
 
+Also, we have experienced minor differences in the objective functions for some *alphas* because of how floating points are stored/represented internally.
+
