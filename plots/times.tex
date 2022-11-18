@@ -26,6 +26,9 @@
 	\addplot[mark=pentagon, mark size=1pt, red] table [col sep=comma]{../results/ilp/redundant};	
 	\addlegendentry{ILP redundant};
 
+	\addplot[mark=pentagon, mark size=1pt, orange] table [col sep=comma]{../results/ilp/rest};	
+	\addlegendentry{ILP rest};
+
 	\addplot[mark=pentagon, mark size=1pt, green] table [col sep=comma]{../results/grasp/clean};	
 	\addlegendentry{GRASP};
 
@@ -34,6 +37,8 @@
 
 	\addplot[mark=pentagon, mark size=1pt, blue] table [col sep=comma]{../results/localSearch/clean};	
 	\addlegendentry{Local Search};
+
+
 
 	%\addplot[mark=pentagon, mark size=1pt, black] table [col sep=comma]{../exp1/clean};	
 	%\addlegendentry{Agreement time};
