@@ -184,6 +184,13 @@ As a solution must exist no matter which player rests in a given day, we will fo
 
 The greedy cost function is the points that a player $p$ assigns to resting on day $d$. As we want to maximize this, we will sort the available players in descending order and pick the one with highest value.
 
+\begin{equation}
+  \label{eq:greedy-cost}
+  q(c,day)= c.points\_per\_day[day]
+\end{equation}
+Eq. \ref{eq:greedy-cost} is used as greedy cost function to take who rests.
+
+
 \begin{algorithm}
 	\caption{Greedy algorithm} 
 	\begin{algorithmic}[1]
@@ -191,7 +198,7 @@ The greedy cost function is the points that a player $p$ assigns to resting on d
 	  \State rests $\leftarrow$ \{\}
 	    \For {day in 0..days}
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
-	      \State sortedPlayers $\leftarrow$ sort playersToRest(p) by p.points[day] (DESC) 
+        \State sortedPlayers $\leftarrow$ sort playersToRest(p) by q(p,day) (DESC) 
 	      \State select p $\in$ sortedPlayers[0]
 	      \State rests[day]\ $\leftarrow$\ p
 	    \EndFor
