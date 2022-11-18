@@ -346,11 +346,11 @@ Just for completeness we will briefly explain our solution and our thought proce
     \item If there were no rest days and we had an even number of players, obtaining a valid pairing is relatively simple
 \end{enumerate}
 
-Then, our solution involves adding an extra match for our players. This match can be a match against themselves or against an extra ``fake'' player. After doing this, we have what we wanted: a valid tournament schedule. The problem with this schedule is that it doesn't take into account our objective function, so it is useless for us.
+Then, our solution involves adding every day an extra invalid match for our players. This match can be a match against themselves or against an extra ``fake'' player. After doing this, we have what we wanted: a tournament schedule. The problem with this schedule is that it doesn't take into account our objective function and contains invalid matches, so for the moment it remains useless for us.
 
 
 \subsection{Solution}
-The trick we discovered is that we can use this basic schedule to construct our desired schedule. The procedure is the following:
+The trick is that we can use this template schedule to construct our desired schedule. The procedure is the following:
 
 Our template schedule $t$ will contain an invalid match each day. This invalid match is the one of the form $p$ - $p$ or $p$ - $f$. Where $p$ stands for player and $f$ for ``fake'' player. From $t$ we can extract what we call a \textit{rest vector}\footnote{The rest vector just keeps track of which players rests which day} $r$, where player will rest a given day if he plays an invalid match. Keep in mind that our greedy algorithm provides us with our \textit{desired rest vector} $d$.
 
@@ -384,7 +384,7 @@ looks like this\footnote{The basic schedule is arbitrary. See \href{https://en.w
     \begin{equation*}
 	r = \{1, 2, 0\}
     \end{equation*}
-    While we want to be able to have an arbitrary \textit{rest vector} $d$. For example:
+    While we want to be able to have an arbitrary \textit{desired rest vector} $d$. For example:
     \begin{equation*}
 	d = \{2, 1, 0\}
     \end{equation*}
