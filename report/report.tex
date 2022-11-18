@@ -352,9 +352,9 @@ Then, our solution involves adding an extra match for our players. This match ca
 \subsection{Solution}
 The trick we discovered is that we can use this basic schedule to construct our desired schedule. The procedure is the following:
 
-Our valid schedule $v$ will contain an invalid match each day. This invalid match is the one of the form $p$ - $p$ or $p$ - $f$. Where $p$ stands for player and $f$ for ``fake'' player. From $v$ we can extract what we call a \textit{rest vector}\footnote{The rest vector just keeps track of which players rests which day} $r$, where player will rest a given day if he plays an invalid match. Keep in mind that our greedy algorithm provides us with our \textit{desired rest vector} $d$.
+Our template schedule $t$ will contain an invalid match each day. This invalid match is the one of the form $p$ - $p$ or $p$ - $f$. Where $p$ stands for player and $f$ for ``fake'' player. From $t$ we can extract what we call a \textit{rest vector}\footnote{The rest vector just keeps track of which players rests which day} $r$, where player will rest a given day if he plays an invalid match. Keep in mind that our greedy algorithm provides us with our \textit{desired rest vector} $d$.
 
-Then, from $v$ we can obtain a valid schedule that respects our desired rest vector $d$ by removing invalid matches and remapping the players in the following way:
+Then, from $t$ we can obtain a valid schedule that respects our desired rest vector $d$ by removing invalid matches and remapping the players in the following way:
 
 
 \begin{equation}
@@ -406,6 +406,8 @@ looks like this\footnote{The basic schedule is arbitrary. See \href{https://en.w
     \begin{center}
     $1 \leftarrow 2$, $2 \leftarrow 1$, $0 \leftarrow 0$
     \end{center}
+
+    After remapping, our schedule will respect the \textit{desired rest vector} $d$ while also following the constraints.
 
 \end{minipage}
 
