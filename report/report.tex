@@ -276,12 +276,19 @@ We must repeat this algorithm iteratively, having some stop conditions as a MAX\
 \clearpage
 
 
-\section{Parameter tuning}
+\section{Parameter tuning} 
+
+To obtain the mean error of each $\alpha$, we have obtained the error of the resulting GRASP's objective function with respect to the optimal solution for each of the instances. Then, for each $\alpha$ we have calculated the arithmetic mean error. 
+
+In Figure \ref{fig:error}, we show the tuning of $\alpha$ using two size of steps between calculated alphas. One fine-grained ($\alpha + 0.01$) and the other coarse-grained ($\alpha + 0.1$). It shows the mean error obtained w.r.t. the selected $\alpha$. 
+
+Using that data, we can say (taking in account the fine-grained tuned alpha) that $\alpha = 0.19$ is the best and lowest alpha we find to obtain the best mean error for the instances 3-31.
+
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{plots/error.pdf}
     \caption{Mean error w.r.t alpha}
-    \label{fig:objfunc}
+    \label{fig:error}
 \end{figure}
 
 \section{Results}
@@ -297,7 +304,17 @@ Figure \ref{fig:time} shows the time needed to reach the final solution for the 
     \label{fig:time}
 \end{figure}
 
+
+\clearpage
 \subsection{Objective function}
+
+Figure \ref{fig:objfunc} shows the objective function obtained for each of the implementations: ILP, Greedy, Local Search and GRASP. 
+
+Greedy finds the worst solutions between all the implementations. In most of the instances, the results are 50\% the optimal solution. Just in instances of 33 and 35, we obtain scores close to the optimal ones.
+
+Local Search algorithm improves the scores obtained with the implemented Greedy algorithm, although that scores are far away from optimal solutions. Only with instances of 33 and 35 are close to the optimal.
+
+GRASP with the tuned alpha ($\alpha = 0.19$) obtains exactly the optimal solution obtained for each of the instances.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{plots/solutions.pdf}
