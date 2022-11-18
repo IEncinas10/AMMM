@@ -20,7 +20,9 @@
 	]
 
 	\addplot[mark=pentagon, mark size=1pt, red] table [col sep=comma]{../results/tuning/error};	
-	\addlegendentry{Mean error w.r.t optimal solution};
+	    \addlegendentry{Mean error w.r.t optimal solution. Fine grain (Step 0.01)};
+	\addplot[mark=pentagon, mark size=1pt, black] table [col sep=comma]{../results/tuning/error_coarse};	
+	    \addlegendentry{Mean error w.r.t optimal solution. Coarse grain (Step 0.1)};
 
 	%\addplot[mark=pentagon, mark size=1pt, black] table [col sep=comma]{../exp1/clean};	
 	%\addlegendentry{Agreement time};
