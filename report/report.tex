@@ -253,7 +253,7 @@ In the GRASP we randomize the selection of the player in descending order by poi
     \begin{algorithmic}[1]
 	\State $q_{max} \leftarrow $ sortedPlayers.first().points[d]
 	\State $q_{min} \leftarrow$ sortedPlayers.last().points[d]
-	\State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.points[d] >= q_{max} - \alpha * (q_{max} - q_{min})\}$
+	\State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.points[d] >= q_{max} - \alpha \cdot (q_{max} - q_{min})\}$
     \end{algorithmic} 
 \end{algorithm}
 
