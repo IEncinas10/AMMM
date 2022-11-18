@@ -234,7 +234,24 @@ We can repeat this procedure iteratively until the local search provides no furt
 \clearpage
 \subsection{GRASP}
 
-In the GRASP we randomize the selection of the player in descending order by points, according to a RCL calculated by $\alpha$.
+In the GRASP we randomize the selection of the player in descending order by points, according to a RCL calculated by $\alpha$ as shown in Algorithm \ref{rcl}.
+
+
+\begin{algorithm}
+	\caption{RCL description} 
+  \label{rcl}
+	\begin{algorithmic}[1]
+
+    \State $q_{max} \leftarrow $ sortedPlayers.first().points[day]
+    \State $q_{min} \leftarrow$ sortedPlayers.last().points[day]
+    \State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.Points >= q_{max} - \alpha * (q_{max} - q_{min})\}$
+    \State select p $\in$ RCL at random
+
+	\end{algorithmic} 
+\end{algorithm}
+
+
+
 
 \begin{algorithm}
 	\caption{GRASP} 
@@ -244,9 +261,9 @@ In the GRASP we randomize the selection of the player in descending order by poi
 	    \For {day in 0..days}]b
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
 	      \State sortedPlayers $\leftarrow$ sort PlayersToRest(p) by p.points[day] (DESC) 
-	      \State $q_{max} \leftarrow $ sortedPlayers.first().points
-	      \State $q_{min} \leftarrow$ sortedPlayers.last().points
-              \State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.Points >= q_{max} - \alpha * (q_{max} - q_{min})\}$
+        \State $q_{max} \leftarrow $ sortedPlayers.first().points[day]
+        \State $q_{min} \leftarrow$ sortedPlayers.last().points[day]
+        \State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.Points >= q_{max} - \alpha * (q_{max} - q_{min})\}$
 	      \State select p $\in$ RCL at random
 	      \State rests[day]\ $\leftarrow$\ p
 	    \EndFor
