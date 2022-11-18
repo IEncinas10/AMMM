@@ -176,6 +176,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 \end{minipage}
 \begin{minipage}{0.49\linewidth}
 \begin{figure}[H]
+    \centering
     \includegraphics[width=\linewidth]{plots/time_per_instance.pdf}
     \caption{ILP runtime w.r.t the number of players}
     \label{figilp}
@@ -187,7 +188,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 
 \section{Meta-heuristics}
 
-As a solution must exist no matter which player rests in a given day, we will focus on assigning a rest day for every player $p$. This information is enough for calculating our objective function, performing local search and GRASP. After all this, we will construct the pairings for the whole tournament.
+As a solution must exist no matter which player rests in a given day, we will focus on assigning a rest day for every player $p$. This information is enough for calculating our objective function, performing local search and GRASP. After all this, we will determine the pairings for the whole tournament.
 
 \subsection{Constructive}
 
@@ -247,16 +248,13 @@ In the GRASP we randomize the selection of the player in descending order by poi
 
 
 \begin{algorithm}
-	\caption{RCL description} 
-  \label{rcl}
-	\begin{algorithmic}[1]
-
-    \State $q_{max} \leftarrow $ sortedPlayers.first().points[day]
-    \State $q_{min} \leftarrow$ sortedPlayers.last().points[day]
-    \State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.Points >= q_{max} - \alpha * (q_{max} - q_{min})\}$
-    \State select p $\in$ RCL at random
-
-	\end{algorithmic} 
+    \caption{constructRCL(day)} 
+    \label{rcl}
+    \begin{algorithmic}[1]
+	\State $q_{max} \leftarrow $ sortedPlayers.first().points[d]
+	\State $q_{min} \leftarrow$ sortedPlayers.last().points[d]
+	\State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.points[d] >= q_{max} - \alpha * (q_{max} - q_{min})\}$
+    \end{algorithmic} 
 \end{algorithm}
 
 
@@ -265,48 +263,41 @@ In the GRASP we randomize the selection of the player in descending order by poi
 \begin{algorithm}
 	\caption{GRASP} 
 	\begin{algorithmic}[1]
-	  \State Players $\leftarrow$ Set of Players
 	  \State rests $\leftarrow$ \{\}
-	    \For {day in 0..days}]b
-	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
-	      \State sortedPlayers $\leftarrow$ sort PlayersToRest(p) by q(p,day) (DESC) 
-        \State $q_{max} \leftarrow $ sortedPlayers.first().points[day]
-        \State $q_{min} \leftarrow$ sortedPlayers.last().points[day]
-        \State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.Points >= q_{max} - \alpha * (q_{max} - q_{min})\}$
-	      \State select p $\in$ RCL at random
+	    \For {day in 0..days}
+	      \State RCL $\leftarrow$ constructRCL(day)
+	      \State select p $\in$ RCL randomly
 	      \State rests[day]\ $\leftarrow$\ p
 	    \EndFor
 	\end{algorithmic} 
 \end{algorithm}
 
-We must repeat this algorithm iteratively, having some stop conditions as a MAX\_ITER and a MAX\_ITER\_NOTIMPROVED. In this way, we put a maximum of iterations and a maximum of iterations without improve the objective function.
-\clearpage
+Our stopping criteria combines the number of iterations since the last incumbent update and a fixed maximum number of iterations.
 
 
 \section{Parameter tuning} 
 
-For tuning $\alpha$, we have calculated the error of the resulting GRASP's objective function with respect to the optimal solution for each of the instances. Then, for each $\alpha$ we calculated the arithmetic mean error. 
+For tuning $\alpha$, we have compare GRASP's objective function with the optimal solution for each of the instances. Then, for each $\alpha$ we calculate the arithmetic mean error. 
 
-In Figure \ref{fig:error}, we show the tuning of $\alpha$ using two size of steps between calculated alphas. One fine-grained ($\alpha + 0.01$) and the other coarse-grained ($\alpha + 0.1$). It shows the mean error obtained w.r.t. the selected $\alpha$. 
-
-Using that data, we can say (taking in account the fine-grained tuned alpha) that $\alpha = 0.19$ is the best and lowest alpha we find to obtain the best mean error for the instances 3 to 31.
-
+Figure \ref{fig:error} shows the mean error of every $\alpha$ we have tested against instances \{0\dots31\}. Two separate lines are plotted for $\alpha_i = 0 + i \cdot 0.1$ and $\alpha_i' = 0 + i \cdot 0.01$. Results show that many values for alpha give good results. We decided to keep the smallest alpha that gives the minimizes the mean error, so $\alpha = 0.19$ is the chosen value after tuning.
 
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{plots/error.pdf}
+    \centering
+    \includegraphics[width=0.7\linewidth]{plots/error.pdf}
     \caption{Mean error w.r.t alpha}
     \label{fig:error}
 \end{figure}
 
-\section{Results}
-
 \clearpage
+
+\section{Results}
 
 \subsection{Time}
 
 Figure \ref{fig:time} shows the runtime needed for the different models and solvers. Section \ref{subsec:redundant} introduced the redundant and non-redundant ILP models. ILP rest corresponds to the ILP model that just computes the optimal rest day for each player, without obtaining a valid tournament schedule. 
 
 \begin{figure}[H]
+    \centering
     \includegraphics[width=\linewidth]{plots/times.pdf}
     \caption{Runtime for the different ILP models and (meta)heuristic based solvers}
     \label{fig:time}
@@ -324,17 +315,19 @@ Results indicate that our minimal CPLEX model is very fast, and we could combine
 
 Figure \ref{fig:objfunc} shows the value of the objective function obtained for each of the implementations: ILP, Greedy, Local Search and GRASP. 
 
-Greedy finds the worst solutions between all the implementations. In most of the instances, the results are 50\% the optimal solution. Just in instances of 33 and 35, we obtain scores close to the optimal ones.
-
-Local Search algorithm improves the scores obtained with the implemented Greedy algorithm, although that scores are far away from optimal solutions. Only with instances of 33 and 35 are close to the optimal.
-
-GRASP with the tuned alpha ($\alpha = 0.19$) obtains exactly the optimal solution obtained for each of the instances.
 
 \begin{figure}[H]
+    \centering
     \includegraphics[width=\linewidth]{plots/solutions.pdf}
     \caption{Objective function value per instance and solver}
     \label{fig:objfunc}
 \end{figure}
+
+Naturally, greedy offers the worst solution for every instance, while taking practically the same time as Greedy + Local Search. Then, we can conclude that the basic Greedy method shouldn't be used in any case.
+
+Local Search offers great improvement for some instances, but in the majority of the cases it offers a poor solution compared with the optimal one.
+
+GRASP commonly reachs the optimal solution. It obviously does not find it every time but if we're not too concerned with optimality is a great improvement over Local Search.
 
 
 \clearpage
