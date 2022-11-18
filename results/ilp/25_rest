@@ -1,0 +1,59 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Found incumbent of value 0,000000 after 0,00 sec. (0,04 ticks)
+Tried aggregator 2 times.
+Aggregator did 1 substitutions.
+Reduced MIP has 50 rows, 625 columns, and 1250 nonzeros.
+Reduced MIP has 625 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (1,35 ticks)
+Probing time = 0,01 sec. (1,45 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 50 rows, 625 columns, and 1250 nonzeros.
+Reduced MIP has 625 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,93 ticks)
+Probing time = 0,00 sec. (1,45 ticks)
+Clique table members: 50.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 12 threads.
+Root relaxation solution time = 0,00 sec. (0,43 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          103,0000     2500,0000              --- 
+*     0+    0                          155,0000     2500,0000              --- 
+*     0+    0                          199,0000     2500,0000              --- 
+*     0+    0                          233,0000     2500,0000           972,96%
+*     0+    0                          290,0000     2500,0000           762,07%
+*     0+    0                          324,0000     2500,0000           671,60%
+*     0+    0                          353,0000     2500,0000           608,22%
+*     0+    0                          387,0000     2500,0000           545,99%
+*     0     0      integral     0     1239,0000     1239,0000       27    0,00%
+Elapsed time = 0,02 sec. (6,63 ticks, tree = 0,00 MB, solutions = 9)
+
+Root node processing (before b&c):
+  Real time             =    0,02 sec. (6,69 ticks)
+Parallel b&c, 12 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,02 sec. (6,69 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 1239
+
+<<< post process
+
+
+<<< done
+

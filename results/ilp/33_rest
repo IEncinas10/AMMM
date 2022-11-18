@@ -1,0 +1,61 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Found incumbent of value 0,000000 after 0,00 sec. (0,06 ticks)
+Tried aggregator 2 times.
+Aggregator did 1 substitutions.
+Reduced MIP has 66 rows, 1089 columns, and 2178 nonzeros.
+Reduced MIP has 1089 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (2,09 ticks)
+Probing time = 0,00 sec. (2,45 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 66 rows, 1089 columns, and 2178 nonzeros.
+Reduced MIP has 1089 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (1,62 ticks)
+Probing time = 0,00 sec. (2,45 ticks)
+Clique table members: 66.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 12 threads.
+Root relaxation solution time = 0,00 sec. (1,28 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           20,0000     3300,0000              --- 
+*     0+    0                           29,0000     3300,0000              --- 
+*     0+    0                           94,0000     3300,0000              --- 
+*     0+    0                          100,0000     3300,0000              --- 
+*     0+    0                          101,0000     3300,0000              --- 
+*     0+    0                          105,0000     3300,0000              --- 
+*     0+    0                          118,0000     3300,0000              --- 
+*     0+    0                          123,0000     3300,0000              --- 
+*     0+    0                          165,0000     3300,0000              --- 
+*     0+    0                          170,0000     3300,0000              --- 
+*     0     0      integral     0     1583,0000     1583,0000       88    0,00%
+Elapsed time = 0,02 sec. (11,69 ticks, tree = 0,00 MB, solutions = 11)
+
+Root node processing (before b&c):
+  Real time             =    0,02 sec. (11,80 ticks)
+Parallel b&c, 12 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,02 sec. (11,80 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 1583
+
+<<< post process
+
+
+<<< done
+

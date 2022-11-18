@@ -1,0 +1,56 @@
+
+<<< setup
+
+
+<<< generate
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+Found incumbent of value 0,000000 after 0,00 sec. (0,01 ticks)
+Tried aggregator 2 times.
+Aggregator did 1 substitutions.
+Reduced MIP has 22 rows, 121 columns, and 242 nonzeros.
+Reduced MIP has 121 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,29 ticks)
+Probing time = 0,00 sec. (0,15 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 22 rows, 121 columns, and 242 nonzeros.
+Reduced MIP has 121 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0,00 sec. (0,17 ticks)
+Probing time = 0,00 sec. (0,15 ticks)
+Clique table members: 22.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 12 threads.
+Root relaxation solution time = 0,00 sec. (0,07 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           76,0000     1100,0000              --- 
+*     0+    0                          123,0000     1100,0000           794,31%
+*     0+    0                          152,0000     1100,0000           623,68%
+*     0+    0                          231,0000     1100,0000           376,19%
+*     0+    0                          247,0000     1100,0000           345,34%
+*     0     0      integral     0      567,0000      567,0000        3    0,00%
+Elapsed time = 0,01 sec. (1,02 ticks, tree = 0,00 MB, solutions = 6)
+
+Root node processing (before b&c):
+  Real time             =    0,01 sec. (1,03 ticks)
+Parallel b&c, 12 threads:
+  Real time             =    0,00 sec. (0,00 ticks)
+  Sync time (average)   =    0,00 sec.
+  Wait time (average)   =    0,00 sec.
+                          ------------
+Total (root+branch&cut) =    0,01 sec. (1,03 ticks)
+
+<<< solve
+
+
+OBJECTIVE: 567
+
+<<< post process
+
+
+<<< done
+
