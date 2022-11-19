@@ -278,7 +278,7 @@ Our stopping criteria combines the number of iterations since the last incumbent
 
 For tuning $\alpha$, we have compare GRASP's objective function with the optimal solution for each of the instances. Then, for each $\alpha$ we calculate the arithmetic mean error. 
 
-Figure \ref{fig:error} shows the mean error of every $\alpha$ we have tested against instances \{0\dots31\}. Two separate lines are plotted for $\alpha_i = 0 + i \cdot 0.1$ and $\alpha_i' = 0 + i \cdot 0.01$. Results show that many values for alpha give good results. We decided to keep the smallest alpha that gives the minimizes the mean error, so $\alpha = 0.19$ is the chosen value after tuning.
+Figure \ref{fig:error} shows the mean error of every $\alpha$ we have tested against instances \{0\dots31\}. Two separate lines are plotted for $\alpha_i = 0 + i \cdot 0.1$ and $\alpha_i' = 0 + i \cdot 0.01$. Results show that many values for alpha give good results. We decided to keep the smallest alpha that gives the minimum mean error, so $\alpha = 0.19$ is the chosen value after tuning.
 
 \begin{figure}[H]
     \centering
@@ -301,9 +301,15 @@ Figure \ref{fig:time} shows the runtime needed for the different models and solv
     \caption{Runtime for the different ILP models and (meta)heuristic based solvers}
     \label{fig:time}
 \end{figure}
+
+Greedy and Local Search need approximately the same time to reach the solution. They are several orders of magnitude faster than GRASP or the ILP models, but the quality of the solution is too low.
+
+GRASP sacrifices some of the speed in order to improve the quality of the solution, that is generally acceptable. It is also true that the runtime is highly dependant on the stopping criteria and could be tuned for specific requirements if needed.
+
 Our motivation for testing this simpler ILP model is that while solving the assignment we realized that the hardest part of it was actually getting a valid tournament schedule, not optimizing the objective function. Then, we started wondering whether the CPLEX time cost was spent optimizing the objective function or not. 
 
-Results indicate that our minimal CPLEX model is very fast, and we could combine its output with a tournament schedule maker (see Section \ref{sec:schedule}) to obtain the optimal solution several orders of magnitude faster than the complete CPLEX model while maintaining optimality, in constrast to heuristic-based solvers. For large instances the simple ILP model is even faster than our GRASP implementation\footnote{Of course if the stop criteria plays a great role in the GRASP runtime, and it could be greatly reduced if we're willing to tolerate worse solutions}. 
+Results indicate that our minimal CPLEX model is very fast, and we could combine its output with a tournament schedule maker (see Section \ref{sec:schedule}) to obtain the optimal solution several orders of magnitude faster than the complete CPLEX model while maintaining optimality, in constrast to heuristic-based solvers. For large instances the simple ILP model is even faster than our GRASP implementation\footnote{Of course if the stop criteria plays a great role in the GRASP runtime, and it could be greatly reduced if we're willing to tolerate worse solutions}.
+
 
 
 \clearpage

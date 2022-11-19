@@ -424,8 +424,8 @@
 
     \begin{minipage}{0.44\textwidth}
 	\begin{itemize}
-	    \item Hemos probao no se que no se cuantos
-	    \item Muchos alphas nos valen porque hay muchos 0 calvo de mierda
+	    \item Figure shows the arithmetic mean error with respect to the optimal solution for each of the instances.
+      \item We keep the smallest alpha that gives the minimum mean error.
 	\end{itemize}
     \end{minipage}
     \hfill
@@ -444,8 +444,10 @@
 \begin{frame}{\secname: \subsecname}
     \begin{minipage}{0.44\textwidth}
 	\begin{itemize}
-	    \item ILP rest blabla
-	    \item texto
+	    \item Greedy and Local Search need approximately same time to reach the solution. They're fastest but their quality of the solution is too low.
+	    \item GRASP sacrifices some runtime performance to improve the quality of the solution.
+      \item ILPs obtain the optimal solution at cost of being several orders of magnitude slower due to the complexity of creating valid pairings.
+      \item ILP rest obtains the optimal solution just computing the rest day for each player. It is not much slower than GRASP and for large instances it can be even faster.
 	\end{itemize}
     \end{minipage}
     \hfill
@@ -462,8 +464,9 @@
 \begin{frame}{\secname: \subsecname}
     \begin{minipage}{0.44\textwidth}
 	\begin{itemize}
-	    \item ILP rest blabla
-	    \item texto
+	    \item Greedy offers the worst solution for every instance
+	    \item Greedy + Local Search improves the quality of the solution taking practically the same time as Greedy.
+      \item GRASP commonly reachs the optimal solution, having a great improvement over Local  Search.
 	\end{itemize}
     \end{minipage}
     \hfill
