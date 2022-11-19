@@ -54,7 +54,10 @@
 \usepackage{todonotes}
 \usepackage[export]{adjustbox}
 %\usepackage[spanish,onelanguage,boxed, boxruled, algoruled]{algorithm2e}
-\usepackage[spanish,onelanguage,boxed, algoruled]{algorithm2e}
+%\usepackage[spanish,onelanguage,boxed, algoruled]{algorithm2e}
+%\usepackage{algcompatible}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Mac上使用如下命令声明隶书字体，windows也有相关方式，大家可自行修改
 %\providecommand{\lishu}{\CJKfamily{zhli}}
@@ -338,6 +341,142 @@
     \end{minipage}
 
 \end{frame}
+
+\section{Metaheuristics}
+\subsection{Greedy algorithm}
+\begin{frame}{\secname: \subsecname}
+\begin{tcolorbox}[colback=gray!30, colframe=Veronablue, arc=0pt, outer arc=0pt, title = \textbf{Greedy cost function}]
+    \begin{equation*}
+      q(c,day)= c.points\_per\_day[day]
+    \end{equation*}
+\end{tcolorbox}
+
+
+\begin{algorithm}[H]
+	\caption{Greedy algorithm} 
+	\begin{algorithmic}[1]
+	  \State Players $\leftarrow$ Set of Players
+	  \State rests $\leftarrow$ \{\}
+	    \For {day in 0..days}
+	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
+	    \State sortedPlayers $\leftarrow$ sort playersToRest(p) by q(p,day) (DESC) 
+	      \State select p $\in$ sortedPlayers[0]
+	      \State rests[day]\ $\leftarrow$\ p
+	    \EndFor
+	\end{algorithmic} 
+\end{algorithm}
+\end{frame}
+
+\subsection{Local Search}
+\begin{frame}{\secname: \subsecname}
+\begin{algorithm}[H]
+	\caption{Local Search} 
+	\begin{algorithmic}[1]
+    \For {i in 0..days}
+    \State best\_swap\_points $\leftarrow$ 0
+    \State best\_swap $\leftarrow$ i
+      \For {j in 0..days}
+        \State change = EvaluateRestSwap(i,j)
+        \If{change $>$ best\_swap\_points}
+          \State best\_swap\_points $\leftarrow$ change
+          \State best\_swap $\leftarrow$ j
+        \EndIf
+      \EndFor
+      \State rests[i] $\leftrightarrow$ rests[best\_swap]
+		\EndFor
+	\end{algorithmic} 
+\end{algorithm}
+
+
+
+\end{frame}
+
+\subsection{GRASP}
+\begin{frame}{\secname: \subsecname}
+\begin{algorithm}[H]
+    \caption{constructRCL(day)} 
+    \label{rcl}
+    \begin{algorithmic}[1]
+	\State $q_{max} \leftarrow $ sortedPlayers.first().points[d]
+	\State $q_{min} \leftarrow$ sortedPlayers.last().points[d]
+	\State $RCL_{max}$ $\leftarrow$ $\{p \in sortedPlayers\ |\ p.points[d] >= q_{max} - \alpha \cdot (q_{max} - q_{min})\}$
+    \end{algorithmic} 
+\end{algorithm}
+
+
+
+
+\begin{algorithm}[H]
+	\caption{GRASP} 
+	\begin{algorithmic}[1]
+	  \State rests $\leftarrow$ \{\}
+	    \For {day in 0..days}
+	      \State RCL $\leftarrow$ constructRCL(day)
+	      \State select p $\in$ RCL randomly
+	      \State rests[day]\ $\leftarrow$\ p
+	    \EndFor
+	\end{algorithmic} 
+\end{algorithm}
+\end{frame}
+
+\subsubsection{Parameter tuning}
+\begin{frame}{\subsecname: \subsubsecname}
+
+    \begin{minipage}{0.44\textwidth}
+	\begin{itemize}
+	    \item Hemos probao no se que no se cuantos
+	    \item Muchos alphas nos valen porque hay muchos 0 calvo de mierda
+	\end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.52\textwidth}
+	\centering
+	\begin{figure}[H]
+	    \centering
+	    \includegraphics[width=\linewidth]{../plots/error.pdf}
+	    \label{fig:error}
+	\end{figure}
+    \end{minipage}
+\end{frame}
+
+\section{Results}
+\subsection{Time}
+\begin{frame}{\secname: \subsecname}
+    \begin{minipage}{0.44\textwidth}
+	\begin{itemize}
+	    \item ILP rest blabla
+	    \item texto
+	\end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.52\textwidth}
+	\centering
+	\begin{figure}[H]
+	    \centering
+	    \includegraphics[width=\linewidth]{../plots/times.pdf}
+	\end{figure}
+    \end{minipage}
+\end{frame}
+
+\subsection{Quality of solutions}
+\begin{frame}{\secname: \subsecname}
+    \begin{minipage}{0.44\textwidth}
+	\begin{itemize}
+	    \item ILP rest blabla
+	    \item texto
+	\end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.52\textwidth}
+	\centering
+	\begin{figure}[H]
+	    \centering
+	    \includegraphics[width=\linewidth]{../plots/solutions.pdf}
+	\end{figure}
+    \end{minipage}
+\end{frame}
+
+
 
 %\subsection{Ruidos a filtrar}
 %\begin{frame}{\secname: \subsecname}

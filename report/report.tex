@@ -200,7 +200,6 @@ The greedy cost function is the points that a player $p$ assigns to resting on d
 \end{equation}
 Eq. \ref{eq:greedy-cost} is used as greedy cost function to take who rests.
 
-
 \begin{algorithm}
 	\caption{Greedy algorithm} 
 	\begin{algorithmic}[1]
@@ -275,7 +274,7 @@ In the GRASP we randomize the selection of the player in descending order by poi
 Our stopping criteria combines the number of iterations since the last incumbent update and a fixed maximum number of iterations.
 
 
-\section{Parameter tuning} 
+\subsubsection{Parameter tuning} 
 
 For tuning $\alpha$, we have compare GRASP's objective function with the optimal solution for each of the instances. Then, for each $\alpha$ we calculate the arithmetic mean error. 
 
