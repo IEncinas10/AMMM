@@ -360,7 +360,7 @@
 	    \For {day in 0..days}
 	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
 	    \State sortedPlayers $\leftarrow$ sort playersToRest(p) by q(p,day) (DESC) 
-	      \State select p $\in$ sortedPlayers[0]
+        \State select p $\in$ sortedPlayers.first()
 	      \State rests[day]\ $\leftarrow$\ p
 	    \EndFor
 	\end{algorithmic} 
@@ -411,6 +411,8 @@
 	\begin{algorithmic}[1]
 	  \State rests $\leftarrow$ \{\}
 	    \For {day in 0..days}
+        \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
+        \State sortedPlayers $\leftarrow$ sort playersToRest(p) by q(p,day) (DESC)
 	      \State RCL $\leftarrow$ constructRCL(day)
 	      \State select p $\in$ RCL randomly
 	      \State rests[day]\ $\leftarrow$\ p
