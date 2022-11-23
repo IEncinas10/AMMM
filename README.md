@@ -6,7 +6,7 @@ This document contains the necessary instructions to reproduce our AMMM project 
 ## Dependencies
 
 - Boost libraries 
-- Sort of recent C++ impl
+- Sort of recent C++ impl (>= C++17 [?])
 - [fmt](https://github.com/fmtlib/fmt)
 
 ### Install boost libraries 
@@ -17,9 +17,15 @@ sudo apt install libboost-all-dev
 ### Install fmt
 https://packages.debian.org/source/sid/fmtlib
 
+## Compilation
+
+Every program has its corresponding makefile in order to facilitate the building process. The compilation times are not great because of the usage of the libraries we use to facilitate the user interface / file input reading (C++ templates are slow to compile)
+
 ## Instance generation
 
-We have to compile **generator.cpp** linking with libfmt. Generally, -lfmt 
+
+We can generate instances with an arbitrary number of players. We can also generate the range of instances
+with sizes [3, n] if the option *--every_instance* is used.
 ```
 $ ./generator --help
 AMMM Course Project 2022
