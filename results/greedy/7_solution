@@ -1,10 +1,11 @@
 Alpha: 0
 Read 12 lines
-SOLUTION GREEDY: [3 1 5 0 6 4 2]
+Rest vector time (s): 7.672e-06
+Final score and solution [3 1 5 0 6 4 2]
 Points: 370
 Fake rest: [3 4 5 6 0 1 2]
 Rest:      [3 1 5 0 6 4 2]
-Time (s): 4.4702e-05
+Time (s): 5.2289e-05
 7 players
 [ 56,   0,   0,  43,   0,   1,   0]
 [  0,  20,   0,  80,   0,   0,   0]

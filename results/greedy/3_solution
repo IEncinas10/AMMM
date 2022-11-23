@@ -1,16 +1,17 @@
 Alpha: 0
 Read 8 lines
-SOLUTION GREEDY: [1 0 2]
+Rest vector time (s): 4.388e-06
+Final score and solution [1 2 0]
 Points: 194
 Fake rest: [1 2 0]
-Rest:      [1 0 2]
-Time (s): 3.4864e-05
+Rest:      [1 2 0]
+Time (s): 4.3719e-05
 3 players
 [  0, 100,   0]
 [ 94,   6,   0]
 [  0, 100,   0]
 [
-	[Day: 0, White: 2, Black: 0]
-	[Day: 1, White: 1, Black: 2]
-	[Day: 2, White: 0, Black: 1]
+	[Day: 0, White: 0, Black: 2]
+	[Day: 1, White: 1, Black: 0]
+	[Day: 2, White: 2, Black: 1]
 ]

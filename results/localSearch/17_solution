@@ -1,16 +1,11 @@
 Alpha: 0
 Read 22 lines
-SOLUTION GREEDY: [14 7 8 3 10 15 16 13 2 4 0 9 11 12 1 6 5]
-Points: 726
-Swapping 8 and 4. Change: 21. Prev: 0
-Swapping 15 and 6. Change: 30. Prev: 0
-Swapping 12 and 4. Change: 36. Prev: 0
-Swapping 7 and 6. Change: 6. Prev: 0
-Points after local search: 819
-Improvement by LS in 3 iterations: 93
+Rest vector time (s): 3.6289e-05
+Final score and solution [14 6 12 3 10 7 16 13 2 8 0 9 11 4 1 15 5]
+Points: 819
 Fake rest: [ 8  9 10 11 12 13 14 15 16  0  1  2  3  4  5  6  7]
 Rest:      [14  6 12  3 10  7 16 13  2  8  0  9 11  4  1 15  5]
-Time (s): 0.000100439
+Time (s): 0.000116595
 17 players
 [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  60,   0,   0,  40,   0,   0,   0]
 [ 15,   0,   0,   0,   8,   0,  61,   0,   0,   0,   0,   0,   0,  16,   0,   0,   0]

@@ -1,11 +1,11 @@
 Alpha: 0.19
 Read 12 lines
-Rest vector time (s): 3.5772e-05
+Rest vector time (s): 3.94e-05
 Final score and solution [3 0 5 1 6 4 2]
 Points: 387
 Fake rest: [3 4 5 6 0 1 2]
 Rest:      [3 0 5 1 6 4 2]
-Time (s): 7.9194e-05
+Time (s): 8.6175e-05
 7 players
 [ 56,   0,   0,  43,   0,   1,   0]
 [  0,  20,   0,  80,   0,   0,   0]
