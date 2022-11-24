@@ -116,12 +116,12 @@ Every set will be built from a boolean multidimensional array. \textit{matches}$
 For clarity's sake we'll explicitly state these constructions:
 
 \begin{align*}
-    M(x, y)   &= \{ \{x, y, r\} &|& \ \text{matches}[x][y][r] = 1 \lor \text{matches}[y][x][r] = 1   &\forall &r \in [1, Rounds]\}\\
-    F(r)      &= \{ p           &|& \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0  &\forall &o \in [1, n]\}\\
-    W(p)      &= \{ \{p, b, r\} &|& \ \text{matches}[p][b][r] = 1                                    &\forall &r \in [1, Rounds], b \in [1, n]\}\\
-    B(p)      &= \{ \{w, p, r\} &|& \ \text{matches}[w][p][r] = 1                                    &\forall &r \in [1, Rounds], w \in [1, n]\}\\
-    R(r)      &= \{ \{w, b, r\} &|& \ \text{matches}[w][b][r] = 1                                    &\forall &w, b \in [1, n]\}\\
-    G(p, r)   &= \{ \{o, p, r\} &|& \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1  &\forall &o \in [1, n]\}\\
+    M(x, y)   &= \{\{x, y, r\} &r \in [1, Rounds]              \ |& \ \text{matches}[x][y][r] = 1 \lor \text{matches}[y][x][r] = 1  &\}\\
+    F(r)      &= \{p           &o \in [1, n]                   \ |& \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0 &\}\\
+    W(p)      &= \{\{p, b, r\} &r \in [1, Rounds], b \in [1, n]\ |& \ \text{matches}[p][b][r] = 1                                   &\}\\
+    B(p)      &= \{\{w, p, r\} &r \in [1, Rounds], w \in [1, n]\ |& \ \text{matches}[w][p][r] = 1                                   &\}\\
+    R(r)      &= \{\{w, b, r\} &w, b \in [1, n]                \ |& \ \text{matches}[w][b][r] = 1                                   &\}\\
+    G(p, r)   &= \{\{o, p, r\} &o \in [1, n]                   \ |& \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1 &\}\\
 \end{align*}
 
 The objective function was already described by Eq. \ref{objfunc}
