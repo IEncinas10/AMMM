@@ -150,7 +150,7 @@ Eq. \ref{matchesperround} ensures that ``the number of games that are played sim
 
 \begin{equation}
     \label{fairness}
-    |W(p)| = \frac{n-1}{2} \quad \forall r \in [1, \ \text{Rounds}], \forall p \in P
+    |W(p)| = \frac{n-1}{2} \quad \forall p \in P
 \end{equation}
 
 Eq. \ref{fairness} ensures that ``a contestant should play black as many whites as white'', 
@@ -169,7 +169,7 @@ Eq. \ref{noselfplay} ensures that a player can't play with himself.
 
 \begin{equation}
     \label{blackfairness}
-    |B(p)| = \frac{n-1}{2} \quad \forall r \in [1, \ \text{Rounds}], \forall p \in P
+    |B(p)| = \frac{n-1}{2} \quad \forall p \in P
 \end{equation}
 
     While developing the model, we removed some redundant constraints such as the one described by Eq. \ref{noselfplay}. Initial testing suggested that the redundant ILP model could be faster in some cases, but further testing indicated otherwise. Results shown in Figure \ref{figilp}
