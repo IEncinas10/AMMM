@@ -198,7 +198,7 @@ The greedy cost function is the points that a player $p$ assigns to resting on d
   \label{eq:greedy-cost}
   q(c,day)= c.points\_per\_day[day]
 \end{equation}
-Eq. \ref{eq:greedy-cost} is used as greedy cost function to take who rests.
+Eq. \ref{eq:greedy-cost} is used as greedy cost function to decide which player rests.
 
 \begin{algorithm}
 	\caption{Greedy algorithm} 
@@ -243,7 +243,7 @@ We can repeat this procedure iteratively until the local search provides no furt
 \clearpage
 \subsection{GRASP}
 
-In the GRASP we randomize the selection of the player in descending order by points, according to a RCL calculated by $\alpha$ as shown in Algorithm \ref{rcl}.
+In the GRASP we randomize the selection of the player in descending order by points, according to a RCL obtained using $\alpha$ as shown in Algorithm \ref{rcl}.
 
 
 \begin{algorithm}
