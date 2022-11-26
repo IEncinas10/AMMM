@@ -205,12 +205,11 @@ Eq. \ref{eq:greedy-cost} is used as greedy cost function to decide which player 
 	\begin{algorithmic}[1]
 	  \State Players $\leftarrow$ Set of Players
 	  \State rests $\leftarrow$ \{\}
-	    \For {day in 0..days}
-	      \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
-        \State sortedPlayers $\leftarrow$ sort playersToRest(p) by q(p,day) (DESC) 
-        \State select p $\in$ sortedPlayers.first()
-	      \State rests[day]\ $\leftarrow$\ p
-	    \EndFor
+	  \For {day in 0..days}
+	    \State playersToRest $\leftarrow$ filter Players(p) $|$ p.hasNotRested
+            \State sortedPlayers $\leftarrow$ sort playersToRest(p) by q(p,day) (DESC) 
+	    \State rests[day]\ $\leftarrow$\ sortedPlayers.first() 
+	  \EndFor
 	\end{algorithmic} 
 \end{algorithm}
 
