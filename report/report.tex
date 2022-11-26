@@ -117,7 +117,7 @@ For clarity's sake we'll explicitly state these constructions:
 
 \begin{align*}
     M(x, y)   &= \{\{x, y, r\} &r \in [1, Rounds]              \ |& \ \text{matches}[x][y][r] = 1 \lor \text{matches}[y][x][r] = 1  &\}\\
-    F(r)      &= \{p           &o \in [1, n]                   \ |& \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0 &\}\\
+    F(r)      &= \{p           &p \in [1, n]                   \ |& \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0 & \forall o \in [1, n]\}\\
     W(p)      &= \{\{p, b, r\} &r \in [1, Rounds], b \in [1, n]\ |& \ \text{matches}[p][b][r] = 1                                   &\}\\
     B(p)      &= \{\{w, p, r\} &r \in [1, Rounds], w \in [1, n]\ |& \ \text{matches}[w][p][r] = 1                                   &\}\\
     R(r)      &= \{\{w, b, r\} &w, b \in [1, n]                \ |& \ \text{matches}[w][b][r] = 1                                   &\}\\
