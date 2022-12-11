@@ -277,7 +277,7 @@ Our stopping criteria combines the number of iterations since the last incumbent
 
 \subsubsection{Parameter tuning} 
 
-For tuning $\alpha$, we have compare GRASP's objective function with the optimal solution for each of the instances. Then, for each $\alpha$ we calculate the arithmetic mean error. 
+For tuning $\alpha$, we have compared GRASP's objective function with the optimal solution for each of the instances. Then, for each $\alpha$ we calculate the arithmetic mean error. 
 
 Figure \ref{fig:error} shows the mean error of every $\alpha$ we have tested against instances \{0\dots31\}. Two separate lines are plotted for $\alpha_i = 0 + i \cdot 0.1$ and $\alpha_i' = 0 + i \cdot 0.01$. Results show that many values for alpha give good results. We decided to keep the smallest alpha that gives the minimum mean error, so $\alpha = 0.19$ is the chosen value after tuning.
 
