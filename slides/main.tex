@@ -72,6 +72,7 @@
 \usefonttheme{professionalfonts}
 \def\mathfamilydefault{\rmdefault}
 \usepackage{amsmath}
+%\setlength{\mathindent}{0pt}
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{multicol}
@@ -198,15 +199,15 @@
 \section{Integer Linear Programming Model}
 \subsection{Variables}
 \begin{frame}{\secname: \subsecname}
-    Every set will be constructed from a boolean multidimensional array. \textit{matches}$[w][b][r]$ will be 1 whenever player $w$ plays player $b$ in round $r$, and 0 otherwise.
+    Every set will be constructed from a boolean multidimensional array. \textit{m}$[w][b][r]$ will be 1 whenever player $w$ plays player $b$ in round $r$, and 0 otherwise.
     \begin{tcolorbox}[colback=gray!30, colframe=Veronablue, arc=0pt, outer arc=0pt, title = \textbf{Set constructions}]
 	\begin{align*}
-	    M(x, y)   &= \{\{x, y, r\}, \ r \in [1, Rounds]              \ | \ \text{matches}[x][y][r] = 1 \lor \text{matches}[y][x][r] = 1  \}\\
-	    F(r)      &= \{p          , \ p \in [1, n]                   \ | \ \text{matches}[p][o][r] = 0 \land \text{matches}[o][p][r] = 0  \quad \forall o \in [1, n]\}\\
-	    W(p)      &= \{\{p, b, r\}, \ r \in [1, Rounds], b \in [1, n]\ | \ \text{matches}[p][b][r] = 1                                   \}\\
-	    B(p)      &= \{\{w, p, r\}, \ r \in [1, Rounds], w \in [1, n]\ | \ \text{matches}[w][p][r] = 1                                   \}\\
-	    R(r)      &= \{\{w, b, r\}, \ w, b \in [1, n]                \ | \ \text{matches}[w][b][r] = 1                                   \}\\
-	    G(p, r)   &= \{\{o, p, r\}, \ o \in [1, n]                   \ | \ \text{matches}[p][o][r] = 1  \lor \text{matches}[o][p][r] = 1 \}\\
+	    M(x, y)   &= \{\{x, y, r\}, &\ r \in [1, Rounds]              \ &| \ \text{m}[x][y][r] = 1 \lor \text{m}[y][x][r] = 1                         &\}\\
+	    F(r)      &= \{p          , &\ p \in [1, n]                   \ &| \ \text{m}[p][o][r] = 0 \land \text{m}[o][p][r] = 0  \quad \forall o \in [1, n]&\}\\
+	    W(p)      &= \{\{p, b, r\}, &\ r \in [1, Rounds], b \in [1, n]\ &| \ \text{m}[p][b][r] = 1                                                    &\}\\
+	    B(p)      &= \{\{w, p, r\}, &\ r \in [1, Rounds], w \in [1, n]\ &| \ \text{m}[w][p][r] = 1                                                    &\}\\
+	    R(r)      &= \{\{w, b, r\}, &\ w, b \in [1, n]                \ &| \ \text{m}[w][b][r] = 1                                                    &\}\\
+	    G(p, r)   &= \{\{o, p, r\}, &\ o \in [1, n]                   \ &| \ \text{m}[p][o][r] = 1  \lor \text{m}[o][p][r] = 1                        &\}\\
 	\end{align*}
     \end{tcolorbox}
 \end{frame}
